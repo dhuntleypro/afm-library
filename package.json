@@ -3,7 +3,7 @@
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "author": "Darrien Huntley",
   "scripts": {
     "start": "expo start",
@@ -14,7 +14,6 @@
     "build": "rollup -c",
     "clean": "sudo rmdir node_modules && rm package-lock.json && npm install styled-components && npm i && rm -r dist && npm version patch && rollup -c && npm publish",
     "production": "rollup -c && git stash && npm version patch && git stash pop && npm publish"
-
   },
   "jest": {
     "preset": "jest-expo"
