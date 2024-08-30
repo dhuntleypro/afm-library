@@ -1,18 +1,17 @@
 {
-  "extends": "expo/tsconfig.base",
   "compilerOptions": {
+    "declaration": true,
+    "declarationDir": "dist",
+    "emitDeclarationOnly": true,
+    "outDir": "dist",
+    "module": "ESNext",
+    "target": "ESNext",
     "strict": true,
-    "jsx": "react-jsx", // Use the new JSX transform
-    "paths": {
-      "@/*": [
-        "./*"
-      ]
-    }
+    "jsx": "react-jsx",  // Matches the JSX configuration in your library
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "skipLibCheck": true
   },
-  "include": [
-    "**/*.ts",
-    "**/*.tsx",
-    ".expo/types/**/*.ts",
-    "expo-env.d.ts"
-  ]
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "exclude": ["node_modules", "dist", "src/app/**/*"]
 }
