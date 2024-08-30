@@ -4,8 +4,7 @@
  */
 
 import { Text as DefaultText, View as DefaultView } from 'react-native';
-
-// import Colors from '@/src/constants/Colors';
+import React from 'react';
 import { useColorScheme } from '../hooks/useColorScheme';
 import { COLORS } from '../utils/theme';
 

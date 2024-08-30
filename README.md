@@ -1,7 +1,8 @@
 # afm-library
 Apps For Mankind Library
 
-
+# Start simuler
+npm run ios 
 
 # Error Checker 
 npx tsc --noEmit
@@ -13,6 +14,12 @@ git commit -m ""
 git push
 chnage version
 npm publish
+
+
+# Adding to a new project
+1. add .npmrc file to new project ( install will not work without it )
+2. npm install @dhuntleypro/afm-library
+3. 
 
 
 
@@ -29,12 +36,18 @@ npm publish
         1. app
         2. theme
         3. compoennts 
-6. 
-2. npm install --save-dev @babel/cli @babel/core @babel/preset-env
-3. Update package file & Babel file
-4. npm run build
-5. npm login --scope=@NAMESPACE --auth-type=legacy --registry=https://npm.pkg.github.com
-6. Enter Git hub info with token key in notes or github
+6. Confirm running - npm run ios 
+7. Creating Git Package
+    1. npm install --save-dev rollup @rollup/plugin-commonjs @rollup/plugin-node-resolve @rollup/plugin-babel @rollup/plugin-json
+    npm install --save-dev @rollup/plugin-typescript
+
+    2. Update package file
+    3. npm run build
+    4. npm login --scope=@NAMESPACE --auth-type=legacy --registry=https://npm.pkg.github.com
+        1. Enter Git hub info with token key in notes or github
+
+
+npm install --save-dev @babel/cli @babel/core @babel/preset-env
 7. create .npmrc file
 8. npm publish
 9. If fail - update billing information in github and increate limit to $30

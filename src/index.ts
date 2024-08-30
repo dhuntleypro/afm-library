@@ -8,3 +8,8 @@ export { stripeConverter } from './hooks/stripeConverter';
 export { useClientOnlyValue } from './hooks/useClientOnlyValue';
 export { useColorScheme } from './hooks/useColorScheme';
 
+// Example export
+// export { default as formatPhoneNumber } from './hooks/formatPhoneNumber';
+// export { foo } from './utils';
+
+// Ensure everything you need is properly exported
