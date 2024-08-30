@@ -6,10 +6,14 @@
     "module": "ESNext",
     "target": "ESNext",
     "strict": true,
-    "jsx": "react-jsx",  // Matches the JSX configuration in your library
+    "jsx": "react-jsx",
     "moduleResolution": "node",
     "esModuleInterop": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "baseUrl": "./src",  // Base directory for module resolution
+    "paths": {
+      "@/*": ["*"]  // Maps `@/` to all subdirectories inside `src`
+    }
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"],
   "exclude": ["node_modules", "dist", "src/app/**/*"]

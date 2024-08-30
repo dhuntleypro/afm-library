@@ -4,7 +4,7 @@ import { getCollections, postCollection, updateCollection, deleteCollection } fr
 import { useAuth } from "./AuthContext";
 import { Alert } from "react-native";
 import { router } from "expo-router";
-// import MyAlert from "@/components/library/interfaces/MyAlert";
+// import MyAlert from "@/components/interfaces/MyAlert";
 
 interface CollectionContextProps {
   collections: CollectionModelProps[];

@@ -6,6 +6,10 @@ Apps For Mankind Library
 
 npm run ios 
 
+or 
+
+npm start -- --clear
+
 
 
 # Error Checker 
