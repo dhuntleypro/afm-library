@@ -3,7 +3,7 @@ Apps For Mankind Library
 
 
 
-# Clean 
+# Error Checker 
 npx tsc --noEmit
 
 
