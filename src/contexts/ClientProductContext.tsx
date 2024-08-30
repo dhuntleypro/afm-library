@@ -1,11 +1,12 @@
 import React, { createContext, useContext, useState, ReactNode, useEffect } from "react";
 import { ProductModelProps } from "../models/ProductModelProps";
-import { getProducts, postProduct, deleteProduct } from "../api/productsApi";
+// import { getProducts, postProduct, deleteProduct } from "../api/productsApi";
 import { useAuth } from "./AuthContext";
 import { Alert } from "react-native";
 import { router } from "expo-router";
 // import MyAlert from "../components/interfaces/MyAlert";
 import { CONSTANTS } from "../utils/constants";
+import { deleteProduct, getProducts, postProduct } from "@/api/productsApi";
 
 interface ProductContextProps {
   products: ProductModelProps[];

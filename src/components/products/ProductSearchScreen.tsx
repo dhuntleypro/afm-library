@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { SafeAreaView, View, TextInput, TouchableOpacity, Text, FlatList, StyleSheet, Dimensions } from 'react-native';
 import { Feather, Ionicons } from '@expo/vector-icons';
-import { getProducts } from '../../../api/productsApi';
+// import { getProducts } from '../../../api/productsApi';
 import { useAuth } from '@/contexts/AuthContext';
 import { COLORS, SIZES } from '@/utils/theme';
 import { CONSTANTS } from '@/utils/constants';
@@ -11,7 +11,7 @@ import { useClientProduct } from '@/contexts/ClientProductContext';
 
 const { width } = Dimensions.get('window');
 
-const ProductSearchScreen = () => {
+ const ProductSearchScreen = () => {
   const { authState } = useAuth();
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState<ProductModelProps[]>([]);

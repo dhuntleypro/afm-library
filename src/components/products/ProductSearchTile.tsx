@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View , Image, TouchableOpacity, Pressable} from 'react-native'
 import React, { FC } from 'react'
-import { ProductModelProps } from '../../../models/ProductModelProps';
+import { ProductModelProps } from '../../models/ProductModelProps';
 import convertToCurrency from '@/hooks/convertToCurrency';;
 // import { CONSTANTS } from '@/app/utils/constants';
 // import { COLORS, SHADOWS, SIZES } from '@/app/utils/theme';

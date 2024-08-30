@@ -5,8 +5,9 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Link, router, Stack } from 'expo-router';
 import BannerVOne from '@/components/banner/BannerVOne';
 import { useAuth } from '@/contexts/AuthContext';
-import CustomButton from '@/components/buttons/WhiteButton';
-import MyButton from '@/components/buttons/WhiteButton';
+import MyButton from '@/components/buttons/MyButton';
+// import CustomButton from '@/components/buttons/WhiteButton';
+// import MyButton from '@/components/buttons/WhiteButton';
 
 const SettingsPage = () => {
   const insets = useSafeAreaInsets();

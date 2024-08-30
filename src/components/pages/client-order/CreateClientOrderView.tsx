@@ -3,9 +3,10 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Alert,
 import { Ionicons } from '@expo/vector-icons';
 import { useClientOrder } from '@/contexts/OrderContext';
 import { COLORS, SIZES } from '@/utils/theme';
-import { OrderModelProps, SAMPLE_ORDER_ITEMS } from '@/models/OrderModelProps';
+import { OrderModelProps } from '@/models/OrderModelProps';
 import { generateUUID } from '@/hooks/generateUUID';
 import { useAuth } from '@/contexts/AuthContext';
+import { SAMPLE_ORDER_ITEMS } from '@/model-sample-data/sample-order';
 interface FormInputProps {
     label: string;
     value: any;

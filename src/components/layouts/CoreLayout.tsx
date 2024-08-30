@@ -4,7 +4,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { Stack } from "expo-router";
 import { useMankindProduct } from "@/contexts/MankindProductContext";
 
-const CoreLayout = () => {
+export const CoreLayout = () => {
   const { authState } = useAuth();
 
   if (authState.authenticated) {

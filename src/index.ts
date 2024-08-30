@@ -1,31 +1,27 @@
 
-// providers
-export { ClientProductProvider } from './contexts/ClientProductContext';
-export { AuthProvider } from './contexts/AuthContext';
-export { CartProvider } from './contexts/CartContext';
-export { OrderProvider } from './contexts/OrderContext';
-export { MankindProductProvider } from './contexts/MankindProductContext';
-export { CollectionProvider } from './contexts/CollectionContext';
-export { ClientStoreProvider } from './contexts/ClientStoreContext';
-
-// use
-export { useClientProduct } from './contexts/ClientProductContext';
-
-
 // API Exports
-export { authApi } from './api/authorization';
+// export * from './api/authorization';
+// export * from './api/collectionsApi';
+// export * from './api/couponApi';
+// export * from './api/inboxApi';
+// export * from './api/mankindProductApi';
+// export * from './api/mankindStoreApi';
+// export * from './api/ordersApi';
+// export * from './api/paymentApi';
+// export * from './api/productsApi';
+// export { default as storesApi } from './api/storeApi';
 
+// export { getProducts, getProduct, postProduct, updateProduct, deleteProduct } from '@/api/productsApi'; // Adjust the path as needed
 
 // Context 
-export { ClientProductContext } from './contexts/ClientProductContext';
-export { CartContext } from './contexts/CartContext';
-export { AppUserContext } from './contexts/AppUserContext';
-export { AuthContext } from './contexts/AuthContext';
-export { ClientStoreContext } from './contexts/ClientStoreContext';
-export { CollectionContext } from './contexts/CollectionContext';
-export { MankindProductContext } from './contexts/MankindProductContext';
-export { OrderContext } from './contexts/OrderContext';
-export { ThemeContext } from './contexts/ThemeContext';
+export * from './contexts/ClientProductContext';
+export * from './contexts/CartContext';
+export * from './contexts/AppUserContext';
+export * from './contexts/AuthContext';
+export * from './contexts/ClientStoreContext';
+export * from './contexts/CollectionContext';
+export * from './contexts/OrderContext';
+export * from './contexts/ThemeContext';
 
 
 // Enum Exports
@@ -53,11 +49,32 @@ export type { ProductModelProps } from './models/ProductModelProps';
 export type { StoreModelProps } from './models/StoreModelProps';
 export type { UserProps } from './models/UserProps';
 
+
+// Model-Samples
+export * from './model-sample-data/sample-order';
+export * from './model-sample-data/sample-product';
+
+
+
+
+
 // // Utility Exports
+export * from './utils/api';
+export * from './utils/Routes';
+export * from './utils/constants';
+export * from './utils/storage';
+export * from './utils/theme';
+
+
+
+
 // export { api } from './utils/api';
-export { CONSTANTS } from './utils/constants';
-export { ROUTES } from './utils/Routes';
-export {COLORS, SIZES , SHADOWS } from './utils/theme'
+// export { CONSTANTS } from './utils/constants';
+// export { ROUTES } from './utils/Routes';
+// export {COLORS, SIZES , SHADOWS } from './utils/theme'
+
+
+
 // export { storage } from './utils/storage';
 // export { theme } from './utils/theme';
 
@@ -85,12 +102,13 @@ export { default as PromoBannerCard } from './components/banner/PromoBannerCard'
 
 // Button Components
 export { default as MyPressable } from './components/buttons/MyPressable';
-export { default as WhiteButton } from './components/buttons/WhiteButton';
+export { default as MyButton } from './components/buttons/MyButton';
 
 // Card Components
 export { default as ProductCardV2 } from './components/card/ProductCardV2';
 export { default as ProductCardView } from './components/card/ProductCardView';
 export { default as TalentCard } from './components/card/TalentCard';
+export { default as OrderCrudCard } from './components/card/OrderCrudCard';
 
 // Delete Components
 export { default as DeleteSectionView } from './components/delete/DeleteSectionView';
@@ -113,15 +131,20 @@ export { default as MyAlert } from './components/interfaces/MyAlert';
 
 
 // Layout Components
-export { default as AuthLayout } from './components/layouts/AuthLayout';
-export { default as CoreLayout } from './components/layouts/CoreLayout';
-export { default as RootLayout } from './components/layouts/RootLayout';
-export { default as TabLayout } from './components/layouts/TabLayout';
+export { AuthLayout } from './components/layouts/AuthLayout';
+export { CoreLayout } from './components/layouts/CoreLayout';
+export { RootLayout } from './components/layouts/RootLayout';
+export { TabLayout } from './components/layouts/TabLayout';
+
 
 // Link Components
 export { default as SettingsItemLink } from './components/link/SettingsItemLink';
 
+
+
+
 // Pages - Cart Components
+
 export { default as CartPageVOne } from './components/pages/cart/CartPageVOne';
 export { default as PaymentPayScreen } from './components/pages/cart/PaymentPayScreen';
 
@@ -177,6 +200,11 @@ export { default as WelcomePageTwo } from './components/pages/welcome/WelcomePag
 // export { default as SplashScreenView } from './components/pages/welcome/SplashScreenView';
 
 // // Pages - Search Components
+// export { default as ProductSearchScreen } from './components/other/products/ProductSearchScreen';
+// export { default as ProductSearchScreen } from './components/other/products/ProductSearchScreen';
+// export { default as ProductSearchScreen } from './components/other/products/ProductSearchScreen';
+
+
 // export { default as SearchBar } from './components/pages/search/SearchBar';
 // export { default as SearchBarVOne } from './components/pages/search/SearchBarVOne';
 // export { default as SearchBarVOneButton } from './components/pages/search/SearchBarVOneButton';
@@ -188,4 +216,6 @@ export { default as WelcomePageTwo } from './components/pages/welcome/WelcomePag
 
 // Pages - Textfield Components
 // export { default as TextFieldVOne } from './components/pages/textfield/TextFieldVOne';
+
+
 

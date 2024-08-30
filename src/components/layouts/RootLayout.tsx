@@ -30,7 +30,7 @@ import CoreLayout from './CoreLayout';
 };
 
 
-export default function RootLayout() {
+export function RootLayout() {
   // const { authState } = useAuth(); // DO NOT ADD HERE
 
   const colorScheme = useColorScheme();

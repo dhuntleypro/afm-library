@@ -4,8 +4,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { Stack } from "expo-router";
 import { useMankindProduct } from "@/contexts/MankindProductContext";
 
-const AuthLayout = () => {
-  const { authState } = useAuth();
+export const AuthLayout = () => {
   return (
       <Stack
         screenOptions={{
