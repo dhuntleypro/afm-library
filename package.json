@@ -1,9 +1,9 @@
 {
   "name": "@dhuntleypro/afm-library",
-  "main": "dist/index.cjs.js", 
-  "module": "dist/index.esm.js", 
-  "types": "dist/index.d.ts", 
-  "version": "0.1.5",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "version": "0.1.6",
   "author": "Darrien Huntley",
   "scripts": {
     "start": "expo start",
