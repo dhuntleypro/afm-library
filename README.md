@@ -1,8 +1,12 @@
 # afm-library
 Apps For Mankind Library
 
-# Start simuler
+# Start simulater for testing
+- the app folder is for testing and not included in the buildso you can create compoents hear and open the simulater 
+
 npm run ios 
+
+
 
 # Error Checker 
 npx tsc --noEmit
@@ -14,6 +18,7 @@ git commit -m ""
 git push
 chnage version
 npm publish
+
 
 
 # Adding to a new project

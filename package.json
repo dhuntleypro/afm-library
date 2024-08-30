@@ -11,7 +11,10 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "test": "jest --watchAll",
-    "build": "rollup -c"
+    "build": "rollup -c",
+    "clean": "sudo rmdir node_modules && rm package-lock.json && npm install styled-components && npm i && rm -r dist && npm version patch && rollup -c && npm publish",
+    "production": "rollup -c && git stash && npm version patch && git stash pop && npm publish"
+
   },
   "jest": {
     "preset": "jest-expo"
