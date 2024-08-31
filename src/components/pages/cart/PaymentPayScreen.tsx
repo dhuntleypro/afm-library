@@ -123,7 +123,7 @@ export const PaymentPayScreen: FC<PaymentPayScreenProps> = (props) => {
           disabled={!ready}
           style={styles.payButton}
           borderRadius={4}
-          type={PlatformPay.ButtonType.Buy}
+          type={PlatformPay.ButtonType.Pay}
         />
       </StripeProvider>
 

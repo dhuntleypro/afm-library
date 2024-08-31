@@ -109,6 +109,8 @@ export { default as ProductCardV2 } from './components/card/ProductCardV2';
 export { default as ProductCardView } from './components/card/ProductCardView';
 export { default as TalentCard } from './components/card/TalentCard';
 export { default as OrderCrudCard } from './components/card/OrderCrudCard';
+export { default as ProductListItem } from './components/card/OrderCrudCard';
+export { default as ProductCrudCard } from './components/card/ProductCrudCard';
 
 // Delete Components
 export { default as DeleteSectionView } from './components/delete/DeleteSectionView';
@@ -200,22 +202,19 @@ export { default as WelcomePageTwo } from './components/pages/welcome/WelcomePag
 // export { default as SplashScreenView } from './components/pages/welcome/SplashScreenView';
 
 // // Pages - Search Components
-// export { default as ProductSearchScreen } from './components/other/products/ProductSearchScreen';
-// export { default as ProductSearchScreen } from './components/other/products/ProductSearchScreen';
-// export { default as ProductSearchScreen } from './components/other/products/ProductSearchScreen';
+export { default as ProductSearchScreen } from './components/products/ProductSearchScreen';
 
 
-// export { default as SearchBar } from './components/pages/search/SearchBar';
-// export { default as SearchBarVOne } from './components/pages/search/SearchBarVOne';
-// export { default as SearchBarVOneButton } from './components/pages/search/SearchBarVOneButton';
-// export { default as SearchBarVOneButtonFliter } from './components/pages/search/SearchBarVOneButtonFliter';
-// export { default as SearchBarVOneWList } from './components/pages/search/SearchBarVOneWList';
+export { default as SearchBar } from './components/search/SearchBar';
+export { default as SearchBarVOne } from './components/search/SearchBarVOne';
+export { default as SearchBarVOneButton } from './components/search/SearchBarVOneButton';
+export { default as SearchBarVOneWList } from './components/search/SearchBarVOneWList';
 
 // // Pages - TestViews Components
 // export { default as AccountPage } from './components/pages/TestViews/AccountPage';
 
 // Pages - Textfield Components
-// export { default as TextFieldVOne } from './components/pages/textfield/TextFieldVOne';
+export { default as TextFieldVOne } from './components/textfield/TextFieldVOne';
 
 
 
