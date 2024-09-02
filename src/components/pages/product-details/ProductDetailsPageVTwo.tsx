@@ -19,7 +19,7 @@ const { width } = Dimensions.get("window");
 
 // const ProductDetailsPageVTwo: React.FC = () => {
 
-export const ProductDetailsPageVTwo: FC<ProductModelProps> = () => {
+export const ProductDetailsPageVTwo = () => {
   const { addToCart } = useContext(CartContext);
   const { selectedProduct } = useClientProduct();
 

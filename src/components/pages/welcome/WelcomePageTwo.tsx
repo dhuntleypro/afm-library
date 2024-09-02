@@ -12,7 +12,6 @@ import {
   Alert,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { getStore } from "@/api/storeApi";
 import LoginComponentOne from "../login/LoginComponentOne";
 import { CONSTANTS } from "@/utils/constants";
 import {

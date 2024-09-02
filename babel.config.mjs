@@ -1,3 +1,20 @@
+// export default {
+//   presets: [
+//     '@babel/preset-env',      // Transpiles modern JavaScript
+//     '@babel/preset-react',    // Transpiles JSX
+//     '@babel/preset-typescript', // Transpiles TypeScript
+//   ],
+//   plugins: [
+//     '@babel/plugin-transform-runtime',  // Helps with polyfilling and reusing Babel helpers
+//     ['@babel/plugin-proposal-class-properties', { loose: true }], // Handles class properties
+//     ['@babel/plugin-transform-private-methods', { loose: true }], // Handles private methods
+//     ['@babel/plugin-transform-private-property-in-object', { loose: true }], // Handles private properties in objects
+//   ],
+//   ignore: [/node_modules\/(?!expo-modules-core|@react-navigation)/], // Ignore most node_modules except for specific ones
+// };
+
+
+
 export default {
     presets: [
       '@babel/preset-env',

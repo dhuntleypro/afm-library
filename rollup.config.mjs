@@ -25,8 +25,15 @@ export default [
       resolve({
         extensions: ['.js', '.jsx', '.ts', '.tsx'],
       }),
-      commonjs(),
+      commonjs({
+        namedExports: {
+          'node_modules/react/react.js': ['Component', 'Children', 'createElement', 'PropTypes'],
+          'node_modules/react-dom/index.js': ['render']
+      },
+      include: ['node_modules/rxjs/**', 'node_modules/angular2-jwt/angular2-jwt.js']
+      }),
       json(),
+      
       typescript({
         tsconfig: './tsconfig.json',
         declaration: true,
@@ -50,7 +57,7 @@ export default [
   // Separate config to bundle the .d.ts files
   {
     input: 'dist/index.d.ts',
-    output: [{ file: 'dist/index.d.ts', format: 'es' }],
+    output: [{ file: 'dist/index.d.ts', format: 'esm' }],
     plugins: [dts()],
   },
 ];

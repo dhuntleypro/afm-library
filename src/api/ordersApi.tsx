@@ -27,7 +27,7 @@ import { CONSTANTS } from '../utils/constants';
 
 
 
-  export const getOrders = async (storeID: string, email: string) => {
+  export const getOrdersApi = async (storeID: string, email: string) => {
     return await ordersApi.get(`/orders`, {
       params: { 
         store_id: storeID, // CONSTANTS.store_id,// storeID,
@@ -45,7 +45,7 @@ import { CONSTANTS } from '../utils/constants';
   };
   
 
-export const getOrder = async (id: any) => {
+export const getOrderApi = async (id: any) => {
   return await ordersApi.get(`/order?id=${id}`);
 };
 
@@ -73,7 +73,7 @@ export const getOrder = async (id: any) => {
 
 
 
-export const postOrder = async (order: OrderModelProps, storeID: string, email: string, token: string) => {
+export const postOrderApi = async (order: OrderModelProps, storeID: string, email: string, token: string) => {
   console.log(`email:::::::: ${email}`)
   
   return await ordersApi.post(`/order`, order, {
@@ -92,11 +92,11 @@ export const postOrder = async (order: OrderModelProps, storeID: string, email: 
 
 
 
-export const updateOrder = async (order: OrderModelProps) => {
+export const updateOrderApi = async (order: OrderModelProps) => {
   return await ordersApi.patch(`/order?id=${order.id}`, order);
 };
 
-export const deleteOrder = async ({ id }: { id: any }) => {
+export const deleteOrderApi = async ({ id }: { id: any }) => {
   console.log(id);
   return await ordersApi.delete(`/order?id=${id}`, id);
 };

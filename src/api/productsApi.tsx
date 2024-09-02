@@ -14,7 +14,7 @@ const productsApi = axios.create({
 });
 
 // API Methods
-export const getProducts = async (storeID: string, email: string) => {
+export const getProductsApi = async (storeID: string, email: string) => {
   return await productsApi.get(`/products`, {
     params: { 
       store_id: storeID,
@@ -27,13 +27,13 @@ export const getProducts = async (storeID: string, email: string) => {
   });
 };
 
-export const getProduct = async (id: any) => {
+export const getProductApi = async (id: any) => {
   return await productsApi.get(`/product`, {
     params: { id },
   });
 };
 
-export const postProduct = async (product: ProductModelProps, storeID: string, email: string, token: string) => {
+export const postProductApi = async (product: ProductModelProps, storeID: string, email: string, token: string) => {
   return await productsApi.post(`/product`, product, {
     params: { 
       store_id: storeID,
@@ -46,16 +46,16 @@ export const postProduct = async (product: ProductModelProps, storeID: string, e
   });
 };
 
-export const updateProduct = async (product: ProductModelProps) => {
+export const updateProductApi = async (product: ProductModelProps) => {
   return await productsApi.patch(`/product?id=${product.id}`, product);
 };
 
-export const deleteProduct = async (id: any) => {
+export const deleteProductApi = async (id: any) => {
   return await productsApi.delete(`/product`, {
     params: { id },
   });
 };
 
 // If you need to export the Axios instance itself
-export default {productsApi, getProduct ,  postProduct , updateProduct , deleteProduct};
+export default {productsApi, getProductApi ,  postProductApi , updateProductApi , deleteProductApi};
 

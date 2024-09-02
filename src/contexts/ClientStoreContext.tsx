@@ -2,7 +2,7 @@
 import React, { createContext, useContext, useState, ReactNode, useEffect } from "react";
 import { useAuth } from "./AuthContext";
 import { StoreModelProps } from "../models/StoreModelProps";
-import { getStore } from "../api/storeApi";
+import { getClientStoreApi } from "../api/storeApi";
 import { CONSTANTS } from "../utils/constants";
 
 interface ClientStoreContextProps {
@@ -65,7 +65,7 @@ export const ClientStoreProvider = ({ children }: { children: ReactNode }) => {
     setError(null);
     try {
       const store_owner_id = CONSTANTS.store_id //  authState?.user?.store_owner_id || '';
-      const response = await getStore(store_owner_id);
+      const response = await getClientStoreApi(store_owner_id);
      // const fetchedStore = response?.data ; // Assuming the API returns a single store object
       setStore(response);
     } catch (error: any) {

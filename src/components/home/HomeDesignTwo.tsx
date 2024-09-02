@@ -21,7 +21,7 @@ import { ROUTES } from "@/utils/Routes";
 
 const { width } = Dimensions.get("window");
 
-const HomeDesignTwo: React.FC = () => {
+export const HomeDesignTwo = () => {
   const { store } = useClientStore();
 
   return (

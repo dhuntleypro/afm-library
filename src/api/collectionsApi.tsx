@@ -20,7 +20,7 @@ import { BASE_URL } from '../utils/api';
 
 
 
-  export const getCollections = async (storeID: string, email: string) => {
+  export const getCollectionsApi = async (storeID: string, email: string) => {
     return await collectionsApi.get(`/collections`, {
       params: {
         store_id: storeID,
@@ -45,7 +45,7 @@ import { BASE_URL } from '../utils/api';
   
 
 
-export const getCollection = async (id: any) => {
+export const getCollectionApi = async (id: any) => {
   return await collectionsApi.get(`/collection?id=${id}`);
 };
 
@@ -58,7 +58,7 @@ export const getCollection = async (id: any) => {
 // };
 
 
-export const postCollection = async (collection: CollectionModelProps, storeID: string, email: string, token: string) => {
+export const postCollectionApi = async (collection: CollectionModelProps, storeID: string, email: string, token: string) => {
   console.log(`email:::::::: ${email}`)
   
   return await collectionsApi.post(`/collection`, collection, {
@@ -77,7 +77,7 @@ export const postCollection = async (collection: CollectionModelProps, storeID: 
 
 
 
-export const postClientCollection = async (collection: CollectionModelProps) => {
+export const postClientCollectionApi = async (collection: CollectionModelProps) => {
   return await collectionsApi.post(`/collection`, collection, {
     params: {
       store_id: collection.store_id,
@@ -90,11 +90,11 @@ export const postClientCollection = async (collection: CollectionModelProps) => 
 
 
 
-export const updateCollection = async (collection: CollectionModelProps) => {
+export const updateCollectionApi = async (collection: CollectionModelProps) => {
   return await collectionsApi.patch(`/collection?id=${collection.id}`, collection);
 };
 
-export const deleteCollection = async ({ id }: { id: any }) => {
+export const deleteCollectionApi = async ({ id }: { id: any }) => {
   console.log(id);
   return await collectionsApi.delete(`/collection?id=${id}`, id);
 };

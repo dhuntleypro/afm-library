@@ -74,7 +74,7 @@ import { CONSTANTS } from '../utils/constants';
 // };
 
 
-export const getInboxs = async () => {
+export const getInboxsApi = async () => {
   return await inboxsApi.get(`/inboxs`);
 };
 
@@ -83,7 +83,7 @@ export const getInboxs = async () => {
 
 
 
-export const getInboxsAttributes = async () => {
+export const getInboxsAttributesApi = async () => {
     const response = await inboxsApi.get('/inboxs');
       const attributeNames = Object.keys(response.data[0]);
   
@@ -91,19 +91,19 @@ export const getInboxsAttributes = async () => {
   };
   
 
-export const getInbox = async (id: any) => {
+export const getInboxApi = async (id: any) => {
   return await inboxsApi.get(`/inbox?id=${id}`);
 };
 
-export const postInbox = async (inbox: InboxModelProps) => {
+export const postInboxApi = async (inbox: InboxModelProps) => {
   return await inboxsApi.post(`/inbox`, inbox);
 };
 
-export const updateInbox = async (inbox: InboxModelProps) => {
+export const updateInboxApi = async (inbox: InboxModelProps) => {
   return await inboxsApi.patch(`/inbox?id=${inbox.id}`, inbox);
 };
 
-export const deleteInbox = async ({ id }: { id: any }) => {
+export const deleteInboxApi = async ({ id }: { id: any }) => {
   console.log(id);
   return await inboxsApi.delete(`/inbox?id=${id}`, id);
 };

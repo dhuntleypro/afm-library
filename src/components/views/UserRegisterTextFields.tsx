@@ -15,12 +15,7 @@ import { UserProps } from "@/models/UserProps";
 import { generateUUID } from "@/hooks/generateUUID";
 import { router } from "expo-router";
 import { COLORS } from "@/utils/theme";
-import { CONSTANTS } from "@/utils/constants";
-import useFetchObject from "@/hooks/useFetchObject";
-import { StoreModelProps } from "@/models/StoreModelProps";
-import { getStore } from "@/api/storeApi";
-import UserLoginTextFields from "@/components/views/UserLoginTextFields";
-// import UserRegisterTextFields from "@/components/views/UserRegisterTextFields";
+
 
 const { width } = Dimensions.get("window");
 const UserRegisterTextFields = () => {

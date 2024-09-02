@@ -27,7 +27,7 @@ const mankindStoresApi = axios.create({
   },
 });
 
-export const getStoreAttributes = async () => {
+export const getMankindStoreAttributesApi = async () => {
   const response = await mankindStoresApi.get('/stores');
 
   // Get the name of attributes in the API response
@@ -57,7 +57,7 @@ export const getStoreAttributes = async () => {
 // -----------------
 // GET SINGLE ITEM
 // -----------------
-export const getStore = async (id: any) => {
+export const getMankindStoreApi = async (id: any) => {
   console.log('Fetching Mankind store...');
   const response = await mankindStoresApi.get(`/store?id=${id}`);
   
@@ -99,7 +99,7 @@ export const getStore = async (id: any) => {
 // -------------
 // GET ITEMS
 // -------------
-export const getStores = async () => {
+export const getMankindStoresApi = async () => {
     const response = await mankindStoresApi.get('');
     return response.data as StoreModelProps[]; 
   };
@@ -107,21 +107,21 @@ export const getStores = async () => {
 // -------------
 // POST
 // -------------
-export const postStore = async (store: StoreModelProps) => {
+export const postMankindStoreApi = async (store: StoreModelProps) => {
   return await mankindStoresApi.post('/store', store);
 };
 
 // -------------
 // PATCH
 // -------------
-export const updateStore = async (store: any) => {
+export const updateMankindStoreApi = async (store: any) => {
   return await mankindStoresApi.patch(`/store?id=${store.id}`, store);
 };
 
 // -------------
 // DELETE
 // -------------
-export const deleteStore = async ({ id }: { id: any }) => {
+export const deleteMankindStoreApi = async ({ id }: { id: any }) => {
   console.log(id);
   return await mankindStoresApi.delete(`/store?id=${id}`, id);
   // return await storesApi.delete(`/store/${id}`);

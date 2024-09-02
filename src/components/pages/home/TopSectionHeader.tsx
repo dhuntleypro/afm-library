@@ -1,18 +1,6 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
-import { COLORS, SIZES } from '@/utils/theme'
-import { SafeAreaView } from 'react-native-safe-area-context'
-// import useFetchObject from '@/hooks/useFetchObject'
-// import { StoreProps } from '@/app/models/StoreProps'
-// import { getStore } from '../../api/storeApi'
-// import { Constants } from '@stripe/stripe-react-native'
-import { CONSTANTS } from '@/utils/constants'
-import useFetchObject from '@/hooks/useFetchObject'
-// import { StoreProps } from '@/models/StoreProps'
-import { getStore } from '@/api/storeApi'
-import { StoreModelProps } from '@/models/StoreModelProps'
 import { useClientStore } from '@/contexts/ClientStoreContext'
-// import { StoreProps } from '@/app/models/StoreProps'
+import { COLORS, SIZES } from '@/utils/theme'
+import { StyleSheet, Text, View } from 'react-native'
 
 const TopSectionHeaderV1 = () => {
   const { store } = useClientStore()

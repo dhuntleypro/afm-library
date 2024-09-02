@@ -27,7 +27,7 @@ import { CONSTANTS } from '../utils/constants';
 
 
 
-  export const getMankindProducts = async (storeID: string, email: string) => {
+  export const getMankindProductsApi = async (storeID: string, email: string) => {
     return await mankindProductsApi.get(`/products`, {
       params: { 
         store_id: storeID, // CONSTANTS.store_id,// storeID,
@@ -39,21 +39,21 @@ import { CONSTANTS } from '../utils/constants';
   };
   
 
-export const getProduct = async (id: any) => {
+export const getMankindProductApi = async (id: any) => {
   return await mankindProductsApi.get(`/product?id=${id}`);
 };
 
 
 
-export const postProduct = async (product: ProductModelProps) => {
+export const postMankindProductApi = async (product: ProductModelProps) => {
   return await mankindProductsApi.post(`/product`, product);
 };
 
-export const updateProduct = async (product: ProductModelProps) => {
+export const updateMankindProductApi = async (product: ProductModelProps) => {
   return await mankindProductsApi.patch(`/product?id=${product.id}`, product);
 };
 
-export const deleteProduct = async ({ id }: { id: any }) => {
+export const deleteMankindProductApi = async ({ id }: { id: any }) => {
   console.log(id);
   return await mankindProductsApi.delete(`/product?id=${id}`, id);
 };

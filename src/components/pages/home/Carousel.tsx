@@ -1,15 +1,8 @@
 import React, { FC, FunctionComponent, useRef } from 'react';
 import { Animated, Dimensions, FlatList, Image, StyleSheet, View } from 'react-native';
-// import useFetchObject from '@/hooks/useFetchObject';
-// import { StoreProps } from '@/app/models/StoreProps';
-// import { getStore } from '../../api/storeApi';
 import { CONSTANTS } from '@/utils/constants';
-import useFetchObject from '@/hooks/useFetchObject';
-// import { StoreProps } from '@/models/StoreProps';
-import { getStore } from '@/api/storeApi';
-import { StoreModelProps } from '@/models/StoreModelProps';
+
 import { useClientStore } from '@/contexts/ClientStoreContext';
-// import { StoreProps } from '@/app/models/StoreProps';
 
 // const images: string[] = [
 //   'https://appsformankind-assets.s3.amazonaws.com/Collections/Furniture/Furniture_1.jpg',

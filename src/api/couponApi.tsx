@@ -73,7 +73,7 @@ import { CONSTANTS } from '../utils/constants';
 // };
 
 
-export const getCoupons = async () => {
+export const getCouponsApi = async () => {
   return await couponsApi.get(`/coupons`);
 };
 
@@ -82,7 +82,7 @@ export const getCoupons = async () => {
 
 
 
-export const getCouponsAttributes = async () => {
+export const getCouponsAttributesApi = async () => {
     const response = await couponsApi.get('/coupons');
       const attributeNames = Object.keys(response.data[0]);
   
@@ -90,19 +90,19 @@ export const getCouponsAttributes = async () => {
   };
   
 
-export const getCoupon = async (id: any) => {
+export const getCouponApi = async (id: any) => {
   return await couponsApi.get(`/coupon?id=${id}`);
 };
 
-export const postCoupon = async (coupon: CouponModelProps) => {
+export const postCouponApi = async (coupon: CouponModelProps) => {
   return await couponsApi.post(`/coupon`, coupon);
 };
 
-export const updateCoupon = async (coupon: CouponModelProps) => {
+export const updateCouponApi = async (coupon: CouponModelProps) => {
   return await couponsApi.patch(`/coupon?id=${coupon.id}`, coupon);
 };
 
-export const deleteCoupon = async ({ id }: { id: any }) => {
+export const deleteCouponApi = async ({ id }: { id: any }) => {
   console.log(id);
   return await couponsApi.delete(`/coupon?id=${id}`, id);
 };

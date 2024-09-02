@@ -6,13 +6,13 @@ import { COLORS } from '@/utils/theme';
 import { Stack } from 'expo-router';
 
 const { width, height } = Dimensions.get('window');
-
+const orderImage = { uri: "https://appsformankind-assets.s3.amazonaws.com/Store/Apps_For_Mankind/orderImage.png" };
 const NoOrdersView = () => {
   return (
     <View style={styles.container}>
         {/* <Stack.Screen options={{headerShown: false}}/> */}
-      <Image
-        source={require('../../../../src/assets/images/orderImage.png')}
+      <Image 
+        source={orderImage}
         
         style={styles.image}
       />

@@ -48,12 +48,12 @@ export const authApi = axios.create({
   
 
   
-export const getUsers = async () => {
+export const getUsersApi = async () => {
   return await authApi.get(`/users`);
 };
   
 
-export const getClientUsers = async (storeID: string, email: string) => {
+export const getClientUsersApi = async (storeID: string, email: string) => {
   try {      
     const response = await authApi.get(`/users`, {
       params: {
@@ -73,11 +73,11 @@ export const getClientUsers = async (storeID: string, email: string) => {
 
 
 
-export const updateUser = async (user: UserProps) => {
+export const updateUserApi = async (user: UserProps) => {
 return await authApi.patch(`/user?id=${user.id}`, user);
 };
 
-export const deleteUser = async ({ id }: { id: any }) => {
+export const deleteUserApi = async ({ id }: { id: any }) => {
 console.log(id);
 return await authApi.delete(`/user?id=${id}`, id);
 };

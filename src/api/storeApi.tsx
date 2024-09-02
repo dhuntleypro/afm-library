@@ -18,7 +18,7 @@ const storesApi = axios.create({
 // -------------
 // GET STORE ATTRIBUTES
 // -------------
-export const getStoreAttributes = async (): Promise<string[]> => {
+export const getClientStoreAttributes = async (): Promise<string[]> => {
   try {
     const response = await storesApi.get('/stores');
     const attributeNames = Object.keys(response.data[0]);
@@ -36,7 +36,7 @@ export const getStoreAttributes = async (): Promise<string[]> => {
 
 
 
-export const getStore = async (id: string) => {
+export const getClientStoreApi = async (id: string) => {
   try {
     const response = await storesApi.get(`/store`, {
       params: { id },
@@ -54,7 +54,7 @@ export const getStore = async (id: string) => {
 // -------------
 // GET ALL STORES
 // -------------
-export const getStores = async (): Promise<StoreModelProps[]> => {
+export const getClientStoresApi = async (): Promise<StoreModelProps[]> => {
   try {
     const response = await storesApi.get('/stores');
     return response.data as StoreModelProps[];
@@ -70,7 +70,7 @@ export const getStores = async (): Promise<StoreModelProps[]> => {
 // -------------
 // CREATE STORE (POST)
 // -------------
-export const postStore = async (store: StoreModelProps): Promise<StoreModelProps> => {
+export const postClientStoreApi = async (store: StoreModelProps): Promise<StoreModelProps> => {
   try {
     const response = await storesApi.post('/store', store);
     return response.data as StoreModelProps;
@@ -84,7 +84,7 @@ export const postStore = async (store: StoreModelProps): Promise<StoreModelProps
 // UPDATE STORE (PATCH)
 // -------------
 // Update store information (PATCH request)
-export const updateStore = async (store: StoreModelProps, updateKey: string , updateValue: string): Promise<StoreModelProps> => {
+export const updateClientStoreApi = async (store: StoreModelProps, updateKey: string , updateValue: string): Promise<StoreModelProps> => {
   try {
     const response = await storesApi.patch(`/store`, {
       id: store.id, // Ensure the ID is passed in the body
@@ -102,7 +102,7 @@ export const updateStore = async (store: StoreModelProps, updateKey: string , up
 // -------------
 // DELETE STORE
 // -------------
-export const deleteStore = async (id: string): Promise<void> => {
+export const deleteClientStoreApi = async (id: string): Promise<void> => {
   try {
     await storesApi.delete(`/store`, {
       params: { id },
