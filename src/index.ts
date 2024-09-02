@@ -11,42 +11,17 @@
 // // export * from './api/productsApi';
 // // export { default as storesApi } from './api/storeApi';
 
-// // export * from '@/api/productsApi'; // Adjust the path as needed
-// // export * from '@/api/mankindProductApi'; // Adjust the path as needed
-// // export * from '@/api/mankindStoreApi'; // Adjust the path as needed
-// // export * from '@/api/storeApi'; // Adjust the path as needed
-// // export * from '@/api/ordersApi'; // Adjust the path as needed
-// // export * from '@/api/collectionsApi'; // Adjust the path as needed
+// // export { getProducts, getProduct, postProduct, updateProduct, deleteProduct } from '@/api/productsApi'; // Adjust the path as needed
 
-// export { getClientStoreApi , postClientStoreApi , deleteClientStoreApi, updateClientStoreApi } from "@/api/storeApi"
-// export { getMankindStoreApi , postMankindStoreApi , deleteMankindStoreApi } from "@/api/mankindStoreApi"
-// export { getMankindProductsApi, getMankindProductApi , postMankindProductApi , deleteMankindProductApi , updateMankindProductApi} from "@/api/mankindProductApi"
-// export { getProductsApi, getProductApi, postProductApi, deleteProductApi , updateProductApi} from "@/api/productsApi"
-// export { getOrdersApi, getOrderApi, postOrderApi, deleteOrderApi, updateOrderApi } from "@/api/ordersApi"
-// export { getCollectionsApi, postCollectionApi, updateCollectionApi, deleteCollectionApi} from "@/api/collectionsApi"
-
-
-// // Context getMankindProductsApi
-
+// // Context 
 // export * from './contexts/ClientProductContext';
-// export * from './contexts/ClientStoreContext';
-// export * from './contexts/MankindStoreContext';
 // export * from './contexts/CartContext';
 // export * from './contexts/AppUserContext';
 // export * from './contexts/AuthContext';
+// export * from './contexts/ClientStoreContext';
 // export * from './contexts/CollectionContext';
 // export * from './contexts/OrderContext';
 // export * from './contexts/ThemeContext';
-
-
-
-// export { HomeDesignOne } from './components/home/HomeDesignOne';
-// export {HomeDesignTwo} from './components/home/HomeDesignTwo';
-
-export * from './components/home/HomeDesignOne';
-export * from './components/home/HomeDesignTwo';
-export * from './components/home/HomeDesignThree';
-
 
 
 // // Enum Exports
@@ -55,24 +30,24 @@ export * from './components/home/HomeDesignThree';
 
 
 // // Hook 
-export { convertToCurrency } from './hooks/convertToCurrency';
+// export { convertToCurrency } from './hooks/convertToCurrency';
 export { formatPhoneNumber } from './hooks/formatPhoneNumber';
-export { ExternalLink } from './hooks/ExternalLink';
-export { generateUUID } from './hooks/generateUUID';
-export { stripeConverter } from './hooks/stripeConverter';
-export { useClientOnlyValue } from './hooks/useClientOnlyValue';
-export { useColorScheme } from './hooks/useColorScheme';
+// export { ExternalLink } from './hooks/ExternalLink';
+// export { generateUUID } from './hooks/generateUUID';
+// export { stripeConverter } from './hooks/stripeConverter';
+// export { useClientOnlyValue } from './hooks/useClientOnlyValue';
+// export { useColorScheme } from './hooks/useColorScheme';
 
 
 
 // // Model Exports (types)
-export type { CollectionModelProps } from './models/CollectionModelProps';
-export type { CouponModelProps } from './models/CouponModelProps';
-export type { InboxModelProps } from './models/InboxModelProps';
-export type { OrderModelProps } from './models/OrderModelProps';
-export type { ProductModelProps } from './models/ProductModelProps';
-export type { StoreModelProps } from './models/StoreModelProps';
-export type { UserProps } from './models/UserProps';
+// export type { CollectionModelProps } from './models/CollectionModelProps';
+// export type { CouponModelProps } from './models/CouponModelProps';
+// export type { InboxModelProps } from './models/InboxModelProps';
+// export type { OrderModelProps } from './models/OrderModelProps';
+// export type { ProductModelProps } from './models/ProductModelProps';
+// export type { StoreModelProps } from './models/StoreModelProps';
+// export type { UserProps } from './models/UserProps';
 
 
 // // Model-Samples
@@ -147,12 +122,9 @@ export type { UserProps } from './models/UserProps';
 // export { default as ExtractSetting } from './components/extract/ExtractSetting';
 
 // // Home Components
-// // export { default as HomeDesignOne } from './components/home/HomeDesignOne';
-// // export { default as HomeDesignTwo } from './components/home/HomeDesignTwo';
+// export { default as HomeDesignOne } from './components/home/HomeDesignOne';
+// export { default as HomeDesignTwo } from './components/home/HomeDesignTwo';
 // export { default as TopHomeSeaction } from './components/home/TopHomeSeaction';
-
-
-
 
 // // Interfaces
 // // export  FormImport from './components/interfaces/FormImport';
