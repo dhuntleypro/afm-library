@@ -1,116 +1,81 @@
-import axios from 'axios';
 import { StoreModelProps } from '../models/StoreModelProps';
-import { BASE_URL } from '../utils/api';
+import { TOKEN_KEY } from '../contexts/AuthContext';
+import { createFetchClient } from '../utils/createFetchClient';
+import { BASE_URL } from '@/utils/api';
 
-// Configure Axios Instance
-const storesApi = axios.create({
-  baseURL: BASE_URL,
-  headers: {
-    Authorization: 'token', // Replace with actual token logic if needed
-    'Content-Type': 'application/json',
-  },
-  params: {
+// Setup
+const storesApi = createFetchClient(
+  BASE_URL,
+  {
     tableName: 'prof-website-store-table',
-    showFilteredItems: true,
+    showFilteredItems: 'true',
   },
-});
-
-// -------------
-// GET STORE ATTRIBUTES
-// -------------
-export const getClientStoreAttributes = async (): Promise<string[]> => {
-  try {
-    const response = await storesApi.get('/stores');
-    const attributeNames = Object.keys(response.data[0]);
-    return attributeNames;
-  } catch (error) {
-    console.error('Error fetching store attributes:', error);
-    throw error;
+  {
+    'Content-Type': 'application/json',
   }
-};
-
-// -----------------
-// GET SINGLE STORE
-// -----------------
+);
 
 
-
-
-export const getClientStoreApi = async (id: string) => {
+// GET ALL 
+export async function getStoresApi(storeID: string, email: string) {
   try {
-    const response = await storesApi.get(`/store`, {
-      params: { id },
+    const response = await storesApi.get('/stores', {
+      params: {
+        store_id: storeID,
+        email: email,
+      },
+      headers: {
+        Authorization: TOKEN_KEY,
+        'Content-Type': 'application/json',
+      },
     });
-    const store = response.data;
-    console.log('Store Fetched !!');
-
-    return store ? store : null;
-  } catch (error) {
-    console.error('Error fetching store:', error);
-    throw error;
-  }
-};
-
-// -------------
-// GET ALL STORES
-// -------------
-export const getClientStoresApi = async (): Promise<StoreModelProps[]> => {
-  try {
-    const response = await storesApi.get('/stores');
-    return response.data as StoreModelProps[];
+    return response.data;
   } catch (error) {
     console.error('Error fetching stores:', error);
     throw error;
   }
-};
+}
 
 
-
-
-// -------------
-// CREATE STORE (POST)
-// -------------
-export const postClientStoreApi = async (store: StoreModelProps): Promise<StoreModelProps> => {
+// GET SINGLE ITEM
+export async function getStoreApi(id: any) {
   try {
-    const response = await storesApi.post('/store', store);
-    return response.data as StoreModelProps;
-  } catch (error) {
-    console.error('Error creating store:', error);
-    throw error;
-  }
-};
-
-// -------------
-// UPDATE STORE (PATCH)
-// -------------
-// Update store information (PATCH request)
-export const updateClientStoreApi = async (store: StoreModelProps, updateKey: string , updateValue: string): Promise<StoreModelProps> => {
-  try {
-    const response = await storesApi.patch(`/store`, {
-      id: store.id, // Ensure the ID is passed in the body
-      tableName: 'prof-website-store-table', // Add the required table name
-      updateKey: updateKey, // 'store_name', // This is an example; adjust based on your needs
-      updateValue: updateValue, // store.store_name, // Example; modify as needed for your updates
-    });
-    return response.data as StoreModelProps;
-  } catch (error) {
-    console.error('Error updating store:', error);
-    throw error;
-  }
-};
-
-// -------------
-// DELETE STORE
-// -------------
-export const deleteClientStoreApi = async (id: string): Promise<void> => {
-  try {
-    await storesApi.delete(`/store`, {
+    const response = await storesApi.get(`/store`, {
       params: { id },
     });
+    return response.data;
   } catch (error) {
-    console.error('Error deleting store:', error);
+    console.error('Error fetching store:', error);
     throw error;
   }
+}
+
+
+// POST - Create / easy update
+export const postStoreApi = async (store: StoreModelProps, storeID: string, email: string, token: string) => {
+  return await storesApi.post(`/store`, store, {
+    params: { 
+      store_id: storeID,
+      email: email,
+    },
+    headers: { 
+      Authorization: token,
+      'Content-Type': 'application/json',
+    },
+  });
 };
 
-export default storesApi;
+
+// UPDATE
+export const updateStoreApi = async (store: StoreModelProps) => {
+  return await storesApi.put(`/store?id=${store.id}`, store);
+};
+
+// DELETE
+export const deleteStoreApi = async (id: any) => {
+  return await storesApi.delete(`/store`, {
+    params: { id },
+  });
+};
+
+

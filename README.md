@@ -69,3 +69,8 @@ npm install --save-dev @babel/cli @babel/core @babel/preset-env
     2. npm i @dhuntleypro/afm-expo-components
 
 
+
+
+# Remove watcher error --
+watchman watch-del '/Users/huntley/Desktop/Production/Projects/test-area'
+watchman watch-project '/Users/huntley/Desktop/Production/Projects/test-area'

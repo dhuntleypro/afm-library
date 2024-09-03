@@ -18,7 +18,7 @@ const SettingsPage = () => {
     if (onLogout) {
       try {
         await onLogout();
-        router.replace('/welcome'); // Navigate to the welcome screen after logout
+        router.replace('/welcome' as never); // Navigate to the welcome screen after logout
       } catch (error) {
         console.error('Logout failed:', error);
       }
@@ -110,7 +110,7 @@ const SettingsPage = () => {
 
 <View style={styles.section}>
           <Text style={styles.sectionTitle}>Application</Text>
-          <Link href={'/privacy-policy'} asChild>
+          <Link href={'/privacy-policy' as never} asChild>
           <TouchableOpacity style={styles.option}>
             <Ionicons name="alert-circle-outline" size={20} color="black" />
             <Text style={styles.optionText}>Privacy Policy</Text>

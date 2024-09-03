@@ -48,7 +48,7 @@ const LoginComponentTwo = () => {
       } else {
         console.log("Login successful");
         try {
-          router.replace("/home");
+          router.replace("/home" as never);
         } catch (navError) {
           console.error("Navigation error:", navError);
         }

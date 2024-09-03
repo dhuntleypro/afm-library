@@ -35,7 +35,7 @@ export const MyAlert: React.FC<AlertComponentProps> = ({
         },
         {
           text: updateText,
-          onPress: onUpdatePress || (() => router.push('/store')),
+          onPress: onUpdatePress || (() => router.push('/store' as never)),
         },
       ],
       { cancelable }
