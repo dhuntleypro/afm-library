@@ -1,3 +1,28 @@
+export default {
+  presets: [
+    '@babel/preset-env',
+    '@babel/preset-react',
+    '@babel/preset-typescript',
+  ],
+  plugins: [
+    '@babel/plugin-transform-runtime',
+    [
+      'module-resolver',
+      {
+        root: ['./src'], // Define the root directory
+        alias: {
+          '@dhuntleypro/afm-library': './src', // Alias '@your-library-name' to the './src' directory
+        },
+      },
+    ],
+  ],
+  ignore: [/node_modules\/(?!expo-modules-core|@react-navigation)/],
+};
+
+
+
+
+
 // export default {
 //   presets: [
 //     '@babel/preset-env',      // Transpiles modern JavaScript
@@ -15,15 +40,15 @@
 
 
 
-export default {
-    presets: [
-      '@babel/preset-env',
-      '@babel/preset-react',
-      '@babel/preset-typescript',
-    ],
-    plugins: [
-      '@babel/plugin-transform-runtime',
-    ],
-    ignore: [/node_modules\/(?!expo-modules-core|@react-navigation)/],
-  };
+// export default {
+//     presets: [
+//       '@babel/preset-env',
+//       '@babel/preset-react',
+//       '@babel/preset-typescript',
+//     ],
+//     plugins: [
+//       '@babel/plugin-transform-runtime',
+//     ],
+//     ignore: [/node_modules\/(?!expo-modules-core|@react-navigation)/],
+//   };
   

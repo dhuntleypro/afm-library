@@ -1,5 +1,9 @@
 # afm-library
 Apps For Mankind Library
+- dev branch is the main branch and cahanges will only refect here
+
+
+
 
 # Start simulater for testing
 - the app folder is for testing and not included in the buildso you can create compoents hear and open the simulater 

@@ -21,7 +21,7 @@ import { ROUTES } from "@/utils/Routes";
 
 const { width } = Dimensions.get("window");
 
-export const HomeDesignTwo = () => {
+const HomeDesignTwo = () => {
   const { store } = useClientStore();
 
   return (
@@ -37,24 +37,29 @@ export const HomeDesignTwo = () => {
       <SectionHeader />
       <ProductRow client={true} />
       <View style={styles.card}>
-  <Image
-    source={{ uri: store?.images.welcome_image }} // Replace with your actual image URL
-    style={styles.profileImage}
-  />
-  <Text style={styles.name}>JACOB JAMES</Text>
-  <Text style={styles.title}>Founder of {store?.store_name ?? ""} Co.</Text>
-  <TouchableOpacity style={styles.button} onPress={() => router.push(ROUTES.products as never)}>
-    <Text style={styles.buttonText}>EXPLORE PRODUCTS</Text>
-  </TouchableOpacity>
-  <Text style={{padding: 10, fontSize: 40, paddingBottom: 30}}> 🌿</Text>
-  <Text style={styles.description}>
-    Leading the way in natural wellness with a focus on the incredible benefits of sea moss...
-  </Text>
-  {/* <Text style={styles.healthTip}>
-    🌿 Health Tip: Sea Moss is packed with 92 essential minerals that can support overall wellness, improve skin health, and boost your immune system. Add it to your smoothies or meals for a natural health boost!
-  </Text> */}
-</View>
-
+        <Image
+          source={{ uri: store?.images.welcome_image ?? AWS_HOLDER_IMAGE }} // Use a fallback image if store image is null
+          style={styles.profileImage}
+        />
+        <Text style={styles.name}>JACOB JAMES</Text>
+        <Text style={styles.title}>
+          Founder of {store?.store_name ?? ""} Co.
+        </Text>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => router.push(ROUTES.products as never)}
+        >
+          <Text style={styles.buttonText}>EXPLORE PRODUCTS</Text>
+        </TouchableOpacity>
+        <Text style={{ padding: 10, fontSize: 40, paddingBottom: 30 }}> 🌿</Text>
+        <Text style={styles.description}>
+          Leading the way in natural wellness with a focus on the incredible
+          benefits of sea moss...
+        </Text>
+        {/* <Text style={styles.healthTip}>
+          🌿 Health Tip: Sea Moss is packed with 92 essential minerals that can support overall wellness, improve skin health, and boost your immune system. Add it to your smoothies or meals for a natural health boost!
+        </Text> */}
+      </View>
 
       <Carousel />
 
@@ -64,7 +69,6 @@ export const HomeDesignTwo = () => {
 };
 
 export default HomeDesignTwo;
-
 
 // card
 const styles = StyleSheet.create({

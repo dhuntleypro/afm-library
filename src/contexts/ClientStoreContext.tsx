@@ -1,102 +1,158 @@
+import { getClientStoreApi } from '@/api/storeApi';
+import { StoreModelProps } from '@/models/StoreModelProps';
+import { CONSTANTS } from '@/utils/constants';
+import React, { createContext, useContext, useState, ReactNode } from 'react';
 
-import React, { createContext, useContext, useState, ReactNode, useEffect } from "react";
-import { useAuth } from "./AuthContext";
-import { StoreModelProps } from "../models/StoreModelProps";
-import { getClientStoreApi } from "../api/storeApi";
-import { CONSTANTS } from "../utils/constants";
-
+// Interface defining the structure of the context's value
 interface ClientStoreContextProps {
   store: StoreModelProps | null;
+  getClientStore: () => void
   addStore: (store: StoreModelProps) => void;
-  removeStore: (storeId: string) => void;
-  getClientStore: () => void;
+  removeStore: () => void;
   selectedStore: StoreModelProps | null;
   selectStore: (store: StoreModelProps) => void;
-  isLoading: boolean;
-  error: string | null;
 }
 
-export const ClientStoreContext = createContext<ClientStoreContextProps | undefined>(undefined);
+const ClientStoreContext = createContext<ClientStoreContextProps | undefined>(undefined);
 
-export const useClientStore = () => {
-  const context = useContext(ClientStoreContext);
-  if (!context) {
-    throw new Error("useClientStore must be used within a ClientStoreProvider");
-  }
-  return context;
-};
-
-export const ClientStoreProvider = ({ children }: { children: ReactNode }) => {
-  const { authState } = useAuth();
+const ClientStoreProvider = ({ children }: { children: ReactNode }) => {
   const [store, setStore] = useState<StoreModelProps | null>(null);
   const [selectedStore, setSelectedStore] = useState<StoreModelProps | null>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
 
-  // useEffect(() => {
-  //   if (authState?.token) {
-  //     getClientStore(); // Initial load of the store
-  //     console.log("Auth:::::::")
-  //     console.log(authState?.token)
-  //   }
-  // }, [authState?.token]);
+  const addStore = (newStore: StoreModelProps) => setStore(newStore);
 
+  const removeStore = () => setStore(null);
 
-  useEffect(() => {
-    // if (authState?.token) {
-    console.log("Getting store ...")
-    getClientStore(); // Initial load of products
-    // }
-  }, []);
+  const selectStore = (store: StoreModelProps) => setSelectedStore(store);
 
-
-  const addStore = (newStore: StoreModelProps) => {
-    setStore(newStore);
-  };
-
-  const removeStore = () => {
-    setStore(null);
-  };
-
+  
   const getClientStore = async () => {
-    // if (!authState) return;
-
-    setIsLoading(true);
-    setError(null);
+    // setIsLoading(true);
+    // setError(null);
     try {
-      const store_owner_id = CONSTANTS.store_id //  authState?.user?.store_owner_id || '';
+      const store_owner_id = CONSTANTS.store_id; // Adjust this based on your logic
       const response = await getClientStoreApi(store_owner_id);
-     // const fetchedStore = response?.data ; // Assuming the API returns a single store object
       setStore(response);
     } catch (error: any) {
       console.error("Failed to fetch client store:", error.response?.data?.message || error.message);
-      setError(error.response?.data?.message || "Failed to fetch store. Please try again later.");
+      // setError(error.response?.data?.message || "Failed to fetch store. Please try again later.");
     } finally {
-      setIsLoading(false);
+      // setIsLoading(false);
     }
   };
 
-  const selectStore = (store: StoreModelProps) => {
-    setSelectedStore(store);
-  };
+
 
   return (
-    <ClientStoreContext.Provider 
-      value={{ 
-        store, 
-        addStore, 
-        removeStore, 
-        getClientStore, 
-        selectedStore, 
-        selectStore, 
-        isLoading, 
-        error 
-      }}
-    >
+    <ClientStoreContext.Provider value={{ store, addStore, removeStore, selectedStore, selectStore , getClientStore }}>
       {children}
     </ClientStoreContext.Provider>
   );
 };
+
+const useClientStore = () => {
+  const context = useContext(ClientStoreContext);
+  if (!context) {
+    throw new Error('useClientStore must be used within a ClientStoreProvider');
+  }
+  return context;
+};
+
+export { ClientStoreProvider, useClientStore };
+
+
+
+
+// import { getClientStoreApi } from '@/api/storeApi';
+// import { StoreModelProps } from '@/models/StoreModelProps';
+// import { CONSTANTS } from '@/utils/constants';
+// import React, { createContext, useContext, useState, ReactNode } from 'react';
+
+// // Interface defining the structure of the context's value
+// interface ClientStoreContextProps {
+//   store: StoreModelProps | null;
+//   getClientStore: () => void;
+//   addStore: (store: StoreModelProps) => void;
+//   removeStore: () => void;
+//   selectedStore: StoreModelProps | null;
+//   selectStore: (store: StoreModelProps) => void;
+//   isLoading: boolean;
+//   error: string | null;
+// }
+
+// const ClientStoreContext = createContext<ClientStoreContextProps | undefined>(undefined);
+
+// const ClientStoreProvider = ({ children }: { children: ReactNode }) => {
+//   const [store, setStore] = useState<StoreModelProps | null>(null);
+//   const [selectedStore, setSelectedStore] = useState<StoreModelProps | null>(null);
+//   const [isLoading, setIsLoading] = useState<boolean>(false);
+//   const [error, setError] = useState<string | null>(null);
+
+//   const addStore = (newStore: StoreModelProps) => setStore(newStore);
+
+//   const removeStore = () => setStore(null);
+
+//   const selectStore = (store: StoreModelProps) => setSelectedStore(store);
+
+//   const getClientStore = async () => {
+//     setIsLoading(true);
+//     setError(null);
+//     try {
+//       const store_owner_id = CONSTANTS.store_id; // Adjust this based on your logic
+//       const response = await getClientStoreApi(store_owner_id);
+//       setStore(response);
+//     } catch (error: any) {
+//       console.error("Failed to fetch client store:", error.response?.data?.message || error.message);
+//       setError(error.response?.data?.message || "Failed to fetch store. Please try again later.");
+//     } finally {
+//       setIsLoading(false);
+//     }
+//   };
+
+//   return (
+//     <ClientStoreContext.Provider 
+//       value={{ 
+//         store, 
+//         addStore, 
+//         removeStore, 
+//         getClientStore, 
+//         selectedStore, 
+//         selectStore, 
+//         isLoading, 
+//         error 
+//       }}
+//     >
+//       {children}
+//     </ClientStoreContext.Provider>
+//   );
+// };
+
+// const useClientStore = () => {
+//   const context = useContext(ClientStoreContext);
+//   if (!context) {
+//     throw new Error('useClientStore must be used within a ClientStoreProvider');
+//   }
+//   return context;
+// };
+
+// export { ClientStoreProvider, useClientStore };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -108,17 +164,15 @@ export const ClientStoreProvider = ({ children }: { children: ReactNode }) => {
 
 
 // import React, { createContext, useContext, useState, ReactNode, useEffect } from "react";
-// // import { StoreProps } from "@/models/StoreModelProps";
-// // import { getStores } from "../api/storesApi";
-// import { CONSTANTS } from "@/utils/constants";
-// import { useAuth } from "./AuthContext";
 // import { StoreModelProps } from "../models/StoreModelProps";
-// import { getStore } from "../api/storeApi";
+// import { getClientStoreApi } from "../api/storeApi"; // Replace with your actual API function
+// import { CONSTANTS } from "../utils/constants"; // Replace with your actual constants
 
-// interface StoreContextProps {
-//   stores: StoreModelProps[];
+// // Interface defining the structure of the context's value
+// interface ClientStoreContextProps {
+//   store: StoreModelProps | null;
 //   addStore: (store: StoreModelProps) => void;
-//   removeStore: (storeId: string) => void;
+//   removeStore: () => void;
 //   getClientStore: () => void;
 //   selectedStore: StoreModelProps | null;
 //   selectStore: (store: StoreModelProps) => void;
@@ -126,67 +180,61 @@ export const ClientStoreProvider = ({ children }: { children: ReactNode }) => {
 //   error: string | null;
 // }
 
-// const StoreContext = createContext<StoreContextProps | undefined>(undefined);
+// // Create the context with an undefined initial value
+// const ClientStoreContext = createContext<ClientStoreContextProps | undefined>(undefined);
 
-// export const useClientStore = () => {
-//   const context = useContext(StoreContext);
+// // Custom hook for easy context access
+// export const useClientStore = (): ClientStoreContextProps => {
+//   const context = useContext(ClientStoreContext);
 //   if (!context) {
-//     throw new Error("useClientStore must be used within an StoreProvider");
+//     throw new Error("useClientStore must be used within a ClientStoreProvider");
 //   }
 //   return context;
 // };
 
-// export const StoreProvider = ({ children }: { children: ReactNode }) => {
-//   const { authState } = useAuth(); // Access authState from the AuthContext
-//   const [stores, setStores] = useState<StoreModelProps[]>([]);
+// // Provider component
+// export const ClientStoreProvider = ({ children }: { children: ReactNode }) => {
+//   const [store, setStore] = useState<StoreModelProps | null>(null);
 //   const [selectedStore, setSelectedStore] = useState<StoreModelProps | null>(null);
 //   const [isLoading, setIsLoading] = useState<boolean>(false);
 //   const [error, setError] = useState<string | null>(null);
 
+//   // Fetch the store when the component mounts
 //   useEffect(() => {
-//     if (authState?.token) {
-//       getClientStore(); // Initial load of stores
-//     }
-//   }, [authState?.token]);
+//     getClientStore();
+//   }, []);
 
-//   const addStore = (store: StoreModelProps) => {
-//     setStores((prevStores) => [...prevStores, store]);
+//   const addStore = (newStore: StoreModelProps) => {
+//     setStore(newStore);
 //   };
 
-//   const removeStore = (storeId: string) => {
-//     setStores((prevStores) => prevStores.filter(store => store.id !== storeId));
+//   const removeStore = () => {
+//     setStore(null);
 //   };
 
 //   const getClientStore = async () => {
-//     if (!authState) return;
-  
 //     setIsLoading(true);
 //     setError(null);
 //     try {
-//       const store_owner_id = authState?.user?.store_owner_id || '';
-  
-//       console.log(`store_owner_id : ${store_owner_id}`);
-//       const response = await getStore(store_owner_id);
-  
-//       // Ensure the response and data are valid before setting state
-//       const fetchedStores = response?.data || []; 
-//       setStores(Array.isArray(fetchedStores) ? fetchedStores : [fetchedStores]);
+//       const store_owner_id = CONSTANTS.store_id; // Adjust this based on your logic
+//       const response = await getClientStoreApi(store_owner_id);
+//       setStore(response);
 //     } catch (error: any) {
-//       console.error("Failed to fetch stores:", error.response?.data?.message || error.message);
-//       setError(error.response?.data?.message || "Failed to fetch stores. Please try again later.");
+//       console.error("Failed to fetch client store:", error.response?.data?.message || error.message);
+//       setError(error.response?.data?.message || "Failed to fetch store. Please try again later.");
 //     } finally {
 //       setIsLoading(false);
 //     }
 //   };
-  
+
 //   const selectStore = (store: StoreModelProps) => {
 //     setSelectedStore(store);
 //   };
 
 //   return (
-//     <StoreContext.Provider 
+//     <ClientStoreContext.Provider 
 //       value={{ 
-//         stores, 
+//         store, 
 //         addStore, 
 //         removeStore, 
 //         getClientStore, 
@@ -197,6 +245,107 @@ export const ClientStoreProvider = ({ children }: { children: ReactNode }) => {
 //       }}
 //     >
 //       {children}
-//     </StoreContext.Provider>
+//     </ClientStoreContext.Provider>
 //   );
 // };
+
+// export default ClientStoreProvider;
+
+
+
+
+
+
+
+
+
+
+// import React, { createContext, useContext, useState, ReactNode, useEffect } from "react";
+// import { StoreModelProps } from "../models/StoreModelProps"; // Ensure the model is correct
+// import { getClientStoreApi } from "../api/storeApi"; // Replace with your actual API function
+// import { CONSTANTS } from "../utils/constants"; // Replace with your actual constants
+
+// // Interface defining the structure of the context's value
+// interface ClientStoreContextProps {
+//   store: StoreModelProps | null;
+//   addStore: (store: StoreModelProps) => void;
+//   removeStore: () => void;
+//   getClientStore: (store_owner_id: string) => void;
+//   selectedStore: StoreModelProps | null;
+//   selectStore: (store: StoreModelProps) => void;
+//   isLoading: boolean;
+//   error: string | null;
+// }
+
+// // Create the context with an undefined initial value
+// const ClientStoreContext = createContext<ClientStoreContextProps | undefined>(undefined);
+
+// // Custom hook for easy context access
+// export const useClientStore = (): ClientStoreContextProps => {
+//   const context = useContext(ClientStoreContext);
+//   if (!context) {
+//     throw new Error("useClientStore must be used within a ClientStoreProvider");
+//   }
+//   return context;
+// };
+
+// // Provider component
+// export const ClientStoreProvider = ({ children }: { children: ReactNode }) => {
+//   const [store, setStore] = useState<StoreModelProps | null>(null);
+//   const [selectedStore, setSelectedStore] = useState<StoreModelProps | null>(null);
+//   const [isLoading, setIsLoading] = useState<boolean>(false);
+//   const [error, setError] = useState<string | null>(null);
+
+//   // Fetch the store when the component mounts, only if authenticated
+//   // useEffect(() => {
+//   //   if (clientStore?.token) { 
+//   //     getClientStore();
+//   //   }
+//   // }, [clientStore?.token]);
+
+//   const addStore = (newStore: StoreModelProps) => {
+//     setStore(newStore);
+//   };
+
+//   const removeStore = () => {
+//     setStore(null);
+//   };
+
+//   const getClientStore = async (store_owner_id: string) => {
+//     setIsLoading(true);
+//     setError(null);
+//     try {
+//       const response = await getClientStoreApi(store_owner_id); // clientStore?.user?.store_owner_id
+//       setStore(response);
+//     } catch (error: any) {
+//       console.error("Failed to fetch client store:", error.response?.data?.message || error.message);
+//       setError(error.response?.data?.message || "Failed to fetch store. Please try again later.");
+//     } finally {
+//       setIsLoading(false);
+//     }
+//   };
+
+//   const selectStore = (store: StoreModelProps) => {
+//     setSelectedStore(store);
+//   };
+
+//   return (
+//     <ClientStoreContext.Provider 
+//       value={{ 
+//         store, 
+//         addStore, 
+//         removeStore, 
+//         getClientStore, 
+//         selectedStore, 
+//         selectStore, 
+//         isLoading, 
+//         error 
+//       }}
+//     >
+//       {children}
+//     </ClientStoreContext.Provider>
+//   );
+// };
+
+// export default ClientStoreProvider;
+

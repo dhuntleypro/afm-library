@@ -15,7 +15,7 @@ const BannerVOne = () => {
           <Text style={styles.bannerSubtitle}>
           Manage your preferences, update account settings, and explore options to tailor your experience to your needs, even things like dark mode.
           </Text>
-          <TouchableOpacity style={{ flexDirection: 'row',}} onPress={() => router.push('/appearance')}>
+          <TouchableOpacity style={{ flexDirection: 'row',}} onPress={() => router.push('/appearance' as never)}>
           <Text style={styles.editPreferences}>Dark Mode</Text>
           <Ionicons name="arrow-forward" size={15} color="white" style={styles.arrow} />
           </TouchableOpacity>
