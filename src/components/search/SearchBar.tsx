@@ -20,7 +20,7 @@ const SearchBar = () => {
         </TouchableOpacity>
 
         <View style={styles.searchWrapper}>
-            <Link href={"/search"} asChild>
+            <Link href={"/search" as never} asChild>
                 <TouchableOpacity style={styles.searchInput}>
                     <Text style={styles.searchInputText}>What are you looking for</Text>
                 </TouchableOpacity>
@@ -28,7 +28,7 @@ const SearchBar = () => {
         </View>
 
         <View>
-        <Link href={"/search"} asChild>
+        <Link href={"/search" as never} asChild>
             <TouchableOpacity style={styles.searchBtn}>
 
             {/* <Ionicons name='camera-outline' size={SIZES.xLarge} color={COLORS.offwhite} /> */}

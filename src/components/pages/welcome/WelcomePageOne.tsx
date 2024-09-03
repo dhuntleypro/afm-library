@@ -5,6 +5,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useClientStore } from '@/contexts/ClientStoreContext';
 
 export default function WelcomePageOne() {
+  const logo = { uri: "https://appsformankind-assets.s3.amazonaws.com/Store/Apps_For_Mankind/logo.png" };
 
   const {store} = useClientStore()
   return (
@@ -14,7 +15,7 @@ export default function WelcomePageOne() {
     >
       <View style={styles.logoContainer}>
         <Image
-          source={require('../../../../src/assets/images/logo.png')} // Replace with your logo path
+          source={logo} // Replace with your logo path
           style={styles.logo}
           resizeMode="cover"
         />

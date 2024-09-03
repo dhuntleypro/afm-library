@@ -12,7 +12,6 @@ import {
   Alert,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { getStore } from "@/api/storeApi";
 import LoginComponentOne from "../login/LoginComponentOne";
 import { CONSTANTS } from "@/utils/constants";
 import {
@@ -60,7 +59,7 @@ export default function WelcomePageTwo() {
               style={styles.buttonPrimary}
               onPress={() => {
                 console.log(authState?.authenticated);
-                router.push("/login");
+                router.push("/login" as never);
               }}
             >
               <Ionicons name="log-in-outline" size={20} color="black" />
@@ -70,7 +69,7 @@ export default function WelcomePageTwo() {
 
             <TouchableOpacity
               style={styles.buttonSecondary}
-              onPress={() => router.push("/register")}
+              onPress={() => router.push("/register" as never)}
             >
               <Ionicons name="person-add-outline" size={20} color="white" />
               <Text style={styles.buttonSecondaryText}>New User? Sign Up</Text>

@@ -10,10 +10,6 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons"; // Import Ionicons from Expo
 import { COLORS } from "@/utils/theme";
-import { getStore } from "@/api/storeApi";
-import { CONSTANTS } from "@/utils/constants";
-import { StoreModelProps } from "@/models/StoreModelProps";
-import useFetchObject from "@/hooks/useFetchObject";
 import { useAuth } from "@/contexts/AuthContext";
 import { router } from "expo-router";
 
@@ -44,7 +40,7 @@ const UserLoginTextFields = () => {
       } else {
         console.log("Login successful");
         try {
-          router.replace("/home");
+          router.replace("/home" as never);
         } catch (navError) {
           console.error("Navigation error:", navError);
         }

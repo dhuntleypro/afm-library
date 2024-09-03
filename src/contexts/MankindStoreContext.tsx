@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, ReactNode, useEffect } from "react";
 import { useAuth } from "./AuthContext";
 import { StoreModelProps } from "../models/StoreModelProps";
-import { getStore } from "../api/storeApi";
+import { getMankindStoreApi } from "@/api/mankindStoreApi";
 
 interface MankindStoreContextProps {
   store: StoreModelProps | null;
@@ -52,7 +52,7 @@ export const MankindStoreProvider = ({ children }: { children: ReactNode }) => {
     setError(null);
     try {
       const store_owner_id = authState?.user?.store_owner_id || '';
-      const response = await getStore(store_owner_id);
+      const response = await getMankindStoreApi(store_owner_id);
      // const fetchedStore = response?.data ; // Assuming the API returns a single store object
       setStore(response);
     } catch (error: any) {

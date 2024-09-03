@@ -6,9 +6,11 @@ import { Pressable } from 'react-native';
 // import Colors from '@/src/constants/Colors';
 // import { useColorScheme } from '@/src/components/useColorScheme';
 // import { useClientOnlyValue } from '@/src/components/useClientOnlyValue';
-import { COLORS } from '@/src/utils/theme';
-import { useColorScheme } from '@/src/hooks/useColorScheme';
-import { useClientOnlyValue } from '@/src/hooks/useClientOnlyValue';
+// import { COLORS } from '@/utils/theme';
+// import { useColorScheme } from '@/hooks/useColorScheme';
+import { useColorScheme } from '../../hooks/useColorScheme';
+import { COLORS } from '../../utils/theme';
+import { useClientOnlyValue } from '../../hooks/useClientOnlyValue';
 
 // You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
 function TabBarIcon(props: {

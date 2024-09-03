@@ -194,7 +194,7 @@ const TopHomeSeaction: React.FC = () => {
       >
        
           <View style={{ paddingTop: 20 }}>
-          <TouchableOpacity  style={styles.shopNowButton} onPress={() => router.push("/products")}>
+          <TouchableOpacity  style={styles.shopNowButton} onPress={() => router.push("/products" as never)}>
           <Text style={styles.shopNowButtonText}>Shop</Text>
             </TouchableOpacity>
           </View>

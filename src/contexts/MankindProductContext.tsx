@@ -1,7 +1,8 @@
 import React, { createContext, useContext, useState, ReactNode, useEffect } from "react";
 import { ProductModelProps } from "../models/ProductModelProps";
-import { getMankindProducts as gmP } from "../api/mankindProductApi";
+// import { getMankindProducts as gmP } from "../api/mankindProductApi";
 import { CONSTANTS } from "../utils/constants";
+import { getMankindProductsApi } from "@/api/mankindProductApi";
 
 interface ProductContextProps {
   products: ProductModelProps[];
@@ -47,7 +48,7 @@ export const MankindProductProvider = ({ children }: { children: ReactNode }) =>
     setError(null);
     try {
       const email = ""; // Replace with logic to get the current user's email
-      const response = await gmP(CONSTANTS.mankind_store_id, email);
+      const response = await getMankindProductsApi(CONSTANTS.mankind_store_id, email);
       const fetchedProducts = response.data; // Extract the data from the Axios response
       setProducts(fetchedProducts);
     } catch (error) {

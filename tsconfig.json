@@ -1,20 +1,42 @@
 {
+  "extends": "./tsconfig.base.json",
   "compilerOptions": {
-    "declaration": true,
-    "declarationDir": "dist",
     "outDir": "dist",
     "module": "ESNext",
-    "target": "ESNext",
-    "strict": true,
-    "jsx": "react-jsx",
-    "moduleResolution": "node",
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "baseUrl": "./src",  // Base directory for module resolution
-    "paths": {
-      "@/*": ["*"]  // Maps `@/` to all subdirectories inside `src`
-    }
-  },
-  "include": ["src/**/*.ts", "src/**/*.tsx"],
-  "exclude": ["node_modules", "dist", "src/app/**/*"]
+    "target": "ESNext"
+  }
 }
+
+
+
+// {
+//   "compilerOptions": {
+//     "declaration": true,  // This enables type declaration files generation
+//     "declarationDir": "./dist/types", // This specifies where the declarations will be output
+//     "outDir": "dist",
+//     "module": "ESNext",
+//     "target": "ESNext",
+//     "strict": true,
+//     "jsx": "react-jsx",
+//     "moduleResolution": "node",
+//     "esModuleInterop": true,
+//     "skipLibCheck": true,
+//     "baseUrl": "./src",
+//     "paths": {
+//       "@/*": [ "*" ],
+//       "@dhuntleypro/afm-library/*": ["*"]
+//     }
+//   },
+//   "include": [
+//     "src/**/*.ts",
+//     "src/**/*.tsx",
+//     ".expo/types/**/*.ts",
+//     "expo-env.d.ts"
+//   ],
+//   "exclude": [
+//     "node_modules",
+//     "dist",
+//     "src/app/**/*"
+//   ],
+//   "extends": "expo/tsconfig.base"
+// }

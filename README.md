@@ -1,5 +1,9 @@
 # afm-library
 Apps For Mankind Library
+- dev branch is the main branch and cahanges will only refect here
+
+
+
 
 # Start simulater for testing
 - the app folder is for testing and not included in the buildso you can create compoents hear and open the simulater 
@@ -65,3 +69,8 @@ npm install --save-dev @babel/cli @babel/core @babel/preset-env
     2. npm i @dhuntleypro/afm-expo-components
 
 
+
+
+# Remove watcher error --
+watchman watch-del '/Users/huntley/Desktop/Production/Projects/test-area'
+watchman watch-project '/Users/huntley/Desktop/Production/Projects/test-area'

@@ -14,6 +14,7 @@ import { Link } from 'expo-router';
 // import convertToCurrency from '@/hooks/convertToCurrency';
 import { ProductModelProps } from '@/models/ProductModelProps';
 import convertToCurrency from '@/hooks/convertToCurrency';
+import { useClientProduct } from '@/contexts/ClientProductContext';
 // import { ProductModelProps } from '../../models/ProductModelProps';
 // import convertToCurrency from '@/hooks/convertToCurrency';;
 // import { CartContext } from '../../contexts/CartContext';
@@ -21,14 +22,18 @@ import convertToCurrency from '@/hooks/convertToCurrency';
  export const ProductCardV2: FC<ProductModelProps> = (item) => {
   // const navigation = useNavigation();
   const { addToCart} = useContext(CartContext)
+  const { products, selectedProduct, selectProduct, isLoading, error } = useClientProduct();
 
-  // const holderImage: string =  '../assets/images/adaptive-icon.png' ;
+  const handleProductSelect = (product: ProductModelProps) => {
+    selectProduct(product);
+  };
+
 
   return ( 
     <View>
       {/* @ts-ignore */}
-      <Link href={"settings/"}>
-    <TouchableOpacity onPress={() => {}}>
+      <Link href={`/products/${selectedProduct?.id}`} asChild>
+      <TouchableOpacity onPress={() => handleProductSelect(item)}>
     {/* <TouchableOpacity onPress={() => navigation.navigate("ProductDetails", { item } as never)}> */}
 
     {/* <TouchableOpacity onPressIn={() => navigation.navigate("ProductDetails" as never)} >  */}

@@ -1,39 +1,58 @@
-import axios from 'axios';
 import { ProductModelProps } from '../models/ProductModelProps';
 import { TOKEN_KEY } from '../contexts/AuthContext';
-import { BASE_URL } from '../utils/api';
-import { CONSTANTS } from '../utils/constants';
+import { createFetchClient } from '../utils/createFetchClient';
+import { BASE_URL } from '@/utils/api';
 
-const productsApi = axios.create({
-  baseURL: BASE_URL,
-  params: {
-    store_id: CONSTANTS.store_id,
-    tableName: 'prof-website-product-table', 
-    showFilteredItems: true
+// Setup the axios instance for product API
+const productsApi = createFetchClient(
+  BASE_URL,
+  {
+    tableName: 'prof-website-product-table',
+    showFilteredItems: 'true',
   },
-});
+  {
+    'Content-Type': 'application/json',
+  }
+);
 
-// API Methods
-export const getProducts = async (storeID: string, email: string) => {
-  return await productsApi.get(`/products`, {
-    params: { 
-      store_id: storeID,
-      email: email,
-    },
-    headers: { 
-      Authorization: TOKEN_KEY,
-      'Content-Type': 'application/json',
-    },
-  });
-};
 
-export const getProduct = async (id: any) => {
-  return await productsApi.get(`/product`, {
-    params: { id },
-  });
-};
+// GET ALL 
+export async function getProductsApi(storeID: string, email: string) {
+  try {
+    const response = await productsApi.get('/products', {
+      params: {
+        store_id: storeID,
+        email: email,
+      },
+      headers: {
+        Authorization: TOKEN_KEY,
+        'Content-Type': 'application/json',
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching products:', error);
+    throw error;
+  }
+}
 
-export const postProduct = async (product: ProductModelProps, storeID: string, email: string, token: string) => {
+
+// GET SINGLE ITEM
+export async function getProductApi(id: any) {
+  try {
+    const response = await productsApi.get(`/product`, {
+      params: { id },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching product:', error);
+    throw error;
+  }
+}
+
+
+// POST - Create / easy update
+export const postProductApi = async (product: ProductModelProps, storeID: string, email: string, token: string) => {
   return await productsApi.post(`/product`, product, {
     params: { 
       store_id: storeID,
@@ -46,16 +65,16 @@ export const postProduct = async (product: ProductModelProps, storeID: string, e
   });
 };
 
-export const updateProduct = async (product: ProductModelProps) => {
-  return await productsApi.patch(`/product?id=${product.id}`, product);
+
+// UPDATE
+export const updateProductApi = async (product: ProductModelProps) => {
+  return await productsApi.put(`/product?id=${product.id}`, product);
 };
 
-export const deleteProduct = async (id: any) => {
+// DELETE
+export const deleteProductApi = async (id: any) => {
   return await productsApi.delete(`/product`, {
     params: { id },
   });
 };
-
-// If you need to export the Axios instance itself
-export default {productsApi, getProduct ,  postProduct , updateProduct , deleteProduct};
 

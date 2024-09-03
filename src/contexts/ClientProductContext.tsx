@@ -6,7 +6,7 @@ import { Alert } from "react-native";
 import { router } from "expo-router";
 // import MyAlert from "../components/interfaces/MyAlert";
 import { CONSTANTS } from "../utils/constants";
-import { deleteProduct, getProducts, postProduct } from "@/api/productsApi";
+import { deleteProductApi, getProductsApi, postProductApi } from "@/api/productsApi";
 
 interface ProductContextProps {
   products: ProductModelProps[];
@@ -53,7 +53,7 @@ export const ClientProductProvider = ({ children }: { children: ReactNode }) => 
 
     setIsLoading(true);
     try {
-      await postProduct(product, storeID, email, token );
+      await postProductApi(product, storeID, email, token );
       setProducts((prevProducts) => [...prevProducts, product]);
       console.log("product added", product );
 
@@ -79,7 +79,7 @@ export const ClientProductProvider = ({ children }: { children: ReactNode }) => 
   const removeClientProduct = async (productId: string) => {
     setIsLoading(true);
     try {
-      await deleteProduct({ id: productId });
+      await deleteProductApi({ id: productId });
       setProducts((prevProducts) => prevProducts.filter(product => product.id !== productId));
     } catch (error: any) {
       console.error("Failed to remove product:", error.response?.data?.message || error.message);
@@ -111,7 +111,7 @@ export const ClientProductProvider = ({ children }: { children: ReactNode }) => 
       const email = '';
       const store_owner_id = CONSTANTS.store_id // authState.user.store_owner_id || '';
 
-      const response = await getProducts(store_owner_id, email);
+      const response = await getProductsApi(store_owner_id, email);
       const fetchedProducts = response.data;
       setProducts(fetchedProducts);
       console.log("Products Fetched !!")

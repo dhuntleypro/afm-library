@@ -172,7 +172,7 @@ const OnboardingScreen: React.FC = () => {
           {currentSlideIndex === 2 ? (
             <TouchableOpacity
               style={styles.btn}
-              onPress={() => router.replace('/login')}
+              onPress={() => router.replace('/login' as never)}
             >
               <Text style={styles.btnText}>GET STARTED</Text>
             </TouchableOpacity>

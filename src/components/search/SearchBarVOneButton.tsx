@@ -28,7 +28,7 @@ const SearchBarVOneButton: FC<SearchBarVOneButtonProps> = ({ path }) => {
       </TouchableOpacity>
 
       <View style={styles.filterSection}>
-        <TouchableOpacity onPress={() => { router.push("/search"); }}>
+        <TouchableOpacity onPress={() => { router.push("/search" as never); }}>
           <Feather name="search" size={24} style={styles.searchIcon} />
         </TouchableOpacity>
       </View>

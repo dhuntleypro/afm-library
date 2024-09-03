@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, ReactNode, useEffect } from "react";
 import { OrderModelProps } from "../models/OrderModelProps";
-import { getOrders, postOrder, updateOrder, deleteOrder } from "../api/ordersApi";
+import { getOrdersApi, postOrderApi, updateOrderApi, deleteOrderApi } from "../api/ordersApi";
 import { useAuth } from "./AuthContext";
 import { Alert } from "react-native";
 import { router } from "expo-router";
@@ -50,7 +50,7 @@ export const OrderProvider = ({ children }: { children: ReactNode }) => {
 
     setIsLoading(true);
     try {
-      await postOrder(order, storeID, email, token );
+      await postOrderApi(order, storeID, email, token );
       setOrders((prevOrders) => [...prevOrders, order]);
       console.log("order added", order );
 
@@ -76,7 +76,7 @@ export const OrderProvider = ({ children }: { children: ReactNode }) => {
   const removeOrder = async (orderId: string) => {
     setIsLoading(true);
     try {
-      await deleteOrder({ id: orderId });
+      await deleteOrderApi({ id: orderId });
       setOrders((prevOrders) => prevOrders.filter(order => order.id !== orderId));
     } catch (error: any) {
       console.error("Failed to remove order:", error.response?.data?.message || error.message);
@@ -108,7 +108,7 @@ export const OrderProvider = ({ children }: { children: ReactNode }) => {
       const email = authState.user.email || '';
       const store_owner_id = authState.user.store_owner_id || '';
 
-      const response = await getOrders(store_owner_id, email);
+      const response = await getOrdersApi(store_owner_id, email);
       const fetchedOrders = response.data;
       setOrders(fetchedOrders);
     } catch (error: any) {

@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import { TouchableOpacity, Text, View , ScrollView } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
+// import { SafeAreaView } from 'react-native-safe-area-context'
 import { StyleSheet } from "react-native";
 // import { COLORS, SIZES } from "../utils/theme";
 
@@ -14,13 +14,13 @@ import { COLORS, SIZES } from '@/utils/theme';
 import { TopSectionHeaderV1 } from '@/components/pages/home/TopSectionHeader';
 import Carousel from '@/components/pages/home/Carousel';
 import SectionHeader from '@/components/pages/home/Headings';
-import { useClientStore } from '@/contexts/ClientStoreContext';
-import SearchBar from '../search/SearchBar';
+// import { useClientStore } from '@/contexts/ClientStoreContext';
+// import SearchBar from '../search/SearchBar';
 import SearchBarVOne from '../search/SearchBarVOne';
 
 
-const HomeDesignOne: FC = () => {
-    const { store } = useClientStore()
+export const HomeDesignOne: FC = () => {
+    // const { store } = useClientStore()
 
     return (
  
