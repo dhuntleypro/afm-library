@@ -30,7 +30,7 @@ import convertToCurrency from '@/hooks/convertToCurrency'
 //   carts: []
 // }
 
-const CartPageVOne = () => {
+export const CartPageVOne = () => {
   
   const { carts, totalSum, totalShipping, totalTax, grandTotal, quantity, deleteItemFromCart, clearData, decreaseFromCart} = useContext(CartContext)
   

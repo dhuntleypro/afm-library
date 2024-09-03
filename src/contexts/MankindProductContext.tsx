@@ -49,7 +49,7 @@ export const MankindProductProvider = ({ children }: { children: ReactNode }) =>
     try {
       const email = ""; // Replace with logic to get the current user's email
       const response = await getMankindProductsApi(CONSTANTS.mankind_store_id, email);
-      const fetchedProducts = response.data; // Extract the data from the Axios response
+      const fetchedProducts = response.data; // Extract the data from the  response
       setProducts(fetchedProducts);
     } catch (error) {
       console.error("Failed to fetch mankind products:", error);

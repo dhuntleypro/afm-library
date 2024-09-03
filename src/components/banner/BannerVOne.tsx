@@ -7,7 +7,7 @@ import { COLORS } from '@/utils/theme';
 
 {/* Banner Section */}
 
-const BannerVOne = () => {
+export const BannerVOne = () => {
   return (
     <View style={styles.container}>
         <View style={styles.bannerSection}>

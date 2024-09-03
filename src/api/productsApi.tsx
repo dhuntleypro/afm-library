@@ -3,7 +3,7 @@ import { TOKEN_KEY } from '../contexts/AuthContext';
 import { createFetchClient } from '../utils/createFetchClient';
 import { BASE_URL } from '@/utils/api';
 
-// Setup the axios instance for product API
+// Setup the  instance for product API
 const productsApi = createFetchClient(
   BASE_URL,
   {

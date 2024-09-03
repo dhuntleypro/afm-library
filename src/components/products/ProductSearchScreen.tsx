@@ -11,7 +11,7 @@ import { useClientProduct } from '@/contexts/ClientProductContext';
 
 const { width } = Dimensions.get('window');
 
- const ProductSearchScreen = () => {
+ export const ProductSearchScreen = () => {
   const { authState } = useAuth();
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState<ProductModelProps[]>([]);

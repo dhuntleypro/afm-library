@@ -1,13 +1,13 @@
 import { StyleSheet, Text, View , Image, TouchableOpacity, Pressable} from 'react-native'
 import React, { FC } from 'react'
 import { ProductModelProps } from '../../models/ProductModelProps';
-import convertToCurrency from '@/hooks/convertToCurrency';;
-// import { CONSTANTS } from '@/app/utils/constants';
-// import { COLORS, SHADOWS, SIZES } from '@/app/utils/theme';
+import convertToCurrency from '../../hooks/convertToCurrency';;
+import { CONSTANTS } from '../../utils/constants';
+import { COLORS, SHADOWS, SIZES } from '../../utils/theme';
 import { Link, router } from 'expo-router';
-import { CONSTANTS } from '@/utils/constants';
-import { COLORS, SHADOWS, SIZES } from '@/utils/theme';
-
+// import { CONSTANTS } from '@/utils/constants'; 
+// import { COLORS, SHADOWS, SIZES } from '@/utils/theme';
+// 
 
 const ProductListItem: FC<ProductModelProps> = (item) => {
     // const navigation = useNavigation();

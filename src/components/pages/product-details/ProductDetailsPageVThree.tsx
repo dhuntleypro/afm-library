@@ -9,7 +9,7 @@ import convertToCurrency from '@/hooks/convertToCurrency';
 import { MotiView } from 'moti';
 import GlitterButton from '@/components/buttons/GlitterButtom';
 
-const ProductDetailsPageVThree: FC<ProductModelProps> = (props) => {
+export const ProductDetailsPageVThree: FC<ProductModelProps> = (props) => {
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const { addToCart } = useContext(CartContext);

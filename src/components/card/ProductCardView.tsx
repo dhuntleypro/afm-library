@@ -13,7 +13,7 @@ import { useClientProduct } from '@/contexts/ClientProductContext';
 
 const { width } = Dimensions.get('window');
 
-const ProductCardView: FC<{ product: ProductModelProps }> = ({ product }) => {
+export const ProductCardView: FC<{ product: ProductModelProps }> = ({ product }) => {
   const navigation = useNavigation();
   const { addToCart } = useContext(CartContext);
   const { selectProduct } = useClientProduct();

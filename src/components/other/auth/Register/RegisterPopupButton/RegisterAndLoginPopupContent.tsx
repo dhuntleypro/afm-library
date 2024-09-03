@@ -7,7 +7,7 @@
 // import { EvenContainerContent, EvenContainerImageContainer, EvenContainerLeftImage, EvenContainerWithShadow } from '../../Login/LoginPopupElements';
 
 // import { getStore } from '@/api/storeApi';
-// import axios from 'axios';
+
 // import { UserProps, convertToCapitalizeText } from '@dhuntleypro/darriens-react-component-library';
 // import { STORE_ID } from '@/utilities/constants';
 // import Button from '../../../general/Button';

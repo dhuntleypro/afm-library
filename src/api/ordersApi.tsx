@@ -3,7 +3,7 @@ import { TOKEN_KEY } from '../contexts/AuthContext';
 import { createFetchClient } from '../utils/createFetchClient';
 import { BASE_URL } from '@/utils/api';
 
-// Setup the axios instance for order API
+// Setup the  instance for order API
 const ordersApi = createFetchClient(
   BASE_URL,
   {
@@ -87,7 +87,6 @@ export const deleteOrderApi = async (id: any) => {
 
 
 
-// import axios, { AxiosError } from 'axios';
 // // import { BASE_URL } from '../utils/api';
 // // import { CONSTANTS } from '../utils/constants';
 // import { OrderModelProps } from '../models/OrderModelProps';

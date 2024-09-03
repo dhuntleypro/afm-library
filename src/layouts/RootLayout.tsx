@@ -1,16 +1,8 @@
 import React, { useEffect } from 'react';
-import { Slot, useRouter, Stack } from 'expo-router';
-import { AuthProvider, useAuth } from '@/contexts/AuthContext';
+import { AuthProvider, useAuth } from '../contexts/AuthContext';
 import { ThemeProvider, DefaultTheme, DarkTheme } from '@react-navigation/native';
 import { useColorScheme } from 'react-native';
-import { CartProvider } from "@/contexts/CartContext";
-import { CollectionProvider } from "@/contexts/CollectionContext";
-// import { ClientStoreProvider } from "@/contexts/ClientStoreContext";
-// import { ClientProductProvider } from "@/contexts/ClientProductContext";
-import { OrderProvider } from "@/contexts/OrderContext";
-// import { ClientProductProvider } from '@/contexts/ClientProductContext';
 import CoreLayout from './CoreLayout';
-// import { ClientStoreProvider } from '@/providers/ClientStoreProvider';
 
  const AppProviders = ({ children }: { children: React.ReactNode }) => {
   return (
