@@ -4,7 +4,7 @@ import {  MyButtonProps } from '../interfaces/MyButtonProps';
 
 
 
-const MyButton: React.FC<MyButtonProps> = ({ onPress, title, buttonStyle, textStyle }) => {
+export const MyButton: React.FC<MyButtonProps> = ({ onPress, title, buttonStyle, textStyle }) => {
   return (
     <TouchableOpacity style={[styles.button, buttonStyle]} onPress={onPress}>
       <Text style={[styles.text, textStyle]}>{title}</Text>

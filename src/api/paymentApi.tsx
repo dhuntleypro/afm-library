@@ -63,7 +63,6 @@ export default paymentApi;
 
 
 
-// // import axios, { AxiosError } from 'axios';
 // // import { BASE_URL } from '../utils/api';
 // import { ProductModelProps } from '../models/ProductModelProps';
 // import { CONSTANTS } from '../utils/constants';

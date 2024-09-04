@@ -4,9 +4,13 @@
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
 <<<<<<< HEAD
+<<<<<<< HEAD
   "version": "0.1.78",
 =======
   "version": "0.1.189",
+>>>>>>> dev
+=======
+  "version": "0.1.278",
 >>>>>>> dev
   "author": "Darrien Huntley",
   "scripts": {

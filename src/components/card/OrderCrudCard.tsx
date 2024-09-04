@@ -8,7 +8,7 @@ import { CONSTANTS } from '@/utils/constants';
 import { OrderModelProps } from '@/models/OrderModelProps';
 // import { OrderModelProps } from '@/app/models/OrderModelProps';
 
-export const OrderCrudCard: FC<OrderModelProps> = (item) => {
+const OrderCrudCard: FC<OrderModelProps> = (item) => {
     const navigation = useNavigation();
     
     return (

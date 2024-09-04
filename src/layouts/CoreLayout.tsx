@@ -1,8 +1,8 @@
 import { StyleSheet } from "react-native";
 import React, { useEffect } from "react";
-import { useAuth } from "@/contexts/AuthContext";
+import { useAuth } from "../contexts/AuthContext";
 import { Stack } from "expo-router";
-import { useMankindProduct } from "@/contexts/MankindProductContext";
+// import { useMankindProduct } from "@/contexts/MankindProductContext";
 
 export const CoreLayout = () => {
   const { authState } = useAuth();

@@ -31,9 +31,10 @@ export const MankindProductProvider = ({ children }: { children: ReactNode }) =>
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    getMankindProducts(); // Initial load of products
-  }, []);
+  // useEffect(() => {
+  //   console.log("getMankindProducts()....")
+  //   getMankindProducts(); // Initial load of products
+  // }, []);
 
   const addProduct = (product: ProductModelProps) => {
     setProducts((prevProducts) => [...prevProducts, product]);
@@ -49,7 +50,7 @@ export const MankindProductProvider = ({ children }: { children: ReactNode }) =>
     try {
       const email = ""; // Replace with logic to get the current user's email
       const response = await getMankindProductsApi(CONSTANTS.mankind_store_id, email);
-      const fetchedProducts = response.data; // Extract the data from the Axios response
+      const fetchedProducts = response.data; // Extract the data from the  response
       setProducts(fetchedProducts);
     } catch (error) {
       console.error("Failed to fetch mankind products:", error);

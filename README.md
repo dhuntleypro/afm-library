@@ -1,7 +1,7 @@
 # afm-library
 Apps For Mankind Library
 - dev branch is the main branch and cahanges will only refect here
-
+- library can not use axios
 
 
 

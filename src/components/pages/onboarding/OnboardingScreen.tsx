@@ -217,7 +217,7 @@ const OnboardingScreen: React.FC = () => {
             <View/>
           )
         }
-        keyExtractor={(item) => item.id.toString()}
+        keyExtractor={(item) => item.id}
         onMomentumScrollEnd={updateCurrentSlideIndex}
       />
       <Footer />

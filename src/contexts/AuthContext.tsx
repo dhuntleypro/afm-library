@@ -5,7 +5,7 @@ import uuid from 'react-native-uuid';
 import { BASE_URL } from "../utils/api";
 import { CONSTANTS } from "../utils/constants";
 import { UserProps } from "../models/UserProps";
-import createFetchClient from "@/utils/createFetchClient";
+import {createFetchClient} from "@/utils/createFetchClient";
 
 interface AuthState {
   user: UserProps | null;
@@ -94,7 +94,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   }, []);
 
   const onRegister = useCallback(async (userData: UserProps): Promise<any> => {
-    userData.id = uuid.v4().toString();
+    userData.id = uuid.v4();
 
     try {
       const result = await authApi.post(
