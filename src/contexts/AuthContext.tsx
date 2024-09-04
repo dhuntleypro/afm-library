@@ -5,7 +5,7 @@ import uuid from 'react-native-uuid';
 import { BASE_URL } from "../utils/api";
 import { CONSTANTS } from "../utils/constants";
 import { UserProps } from "../models/UserProps";
-import createFetchClient from "@/utils/createFetchClient";
+import {createFetchClient} from "@/utils/createFetchClient";
 
 interface AuthState {
   user: UserProps | null;

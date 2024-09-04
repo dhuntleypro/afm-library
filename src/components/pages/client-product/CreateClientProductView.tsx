@@ -17,7 +17,7 @@ const CreateClientProductView = () => {
   const [quantity, setQuantity] = useState('');
   const [sku, setSku] = useState('');
 
-  const { addClientProduct } = useClientProduct();
+  const { addProduct } = useClientProduct();
   const { authState } = useAuth();
 
   const handleSubmit = () => {
@@ -76,7 +76,7 @@ const CreateClientProductView = () => {
       year_made: 0
     };
 
-    addClientProduct(newProduct);
+    addProduct(newProduct);
     
     // Alert.alert('Product Created', `Product titled "${title}" has been created!`);
   };

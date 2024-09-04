@@ -1,6 +1,5 @@
 
 // Axios alternitive
-
 export function createFetchClient(
   baseURL: string,
   defaultParams: Record<string, string | number>,
@@ -10,7 +9,15 @@ export function createFetchClient(
     endpoint: string,
     options: RequestInit & { params?: Record<string, string | number> } = {}
   ): Promise<T> => {
-    const url = new URL(endpoint, baseURL);
+    // Ensure `/prod` is part of the base URL if not already present
+    const baseHasProd = baseURL.includes('/prod');
+    const normalizedBaseURL = baseHasProd ? baseURL : `${baseURL}/prod`;
+
+    // Ensure the endpoint always starts with a leading slash
+    const normalizedEndpoint = endpoint.startsWith('/') ? endpoint : `/${endpoint}`;
+
+    // Create the full URL using the normalizedBaseURL and normalized endpoint
+    const url = new URL(`${normalizedBaseURL}${normalizedEndpoint}`);
 
     // Add default parameters to the URL
     const params = new URLSearchParams(defaultParams as any);
@@ -26,6 +33,11 @@ export function createFetchClient(
       ...defaultHeaders,
       ...options.headers,
     });
+
+    // Log the URL, headers, and parameters for debugging
+    console.log('Request URL:', url.toString());
+    console.log('Request Params:', params.toString());
+    console.log('Request Headers:', Object.fromEntries(headers.entries()));
 
     // Perform the fetch request
     const response = await fetch(url.toString(), {
@@ -57,6 +69,9 @@ export function createFetchClient(
   };
 }
 
-  
-  export default createFetchClient;
-  
+
+
+
+
+
+

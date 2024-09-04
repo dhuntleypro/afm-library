@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, ReactNode, useEffect } from "react";
 import { CollectionModelProps } from "../models/CollectionModelProps";
-import { getCollectionsApi, postCollectionApi, updateCollectionApi, deleteCollectionApi } from "../api/collectionsApi";
+import { getClientCollectionsApi, postClientCollectionApi, updateClientCollectionApi, deleteClientCollectionApi } from "../api/collectionsApi";
 import { useAuth } from "./AuthContext";
 import { Alert } from "react-native";
 import { router } from "expo-router";
@@ -46,7 +46,7 @@ export const CollectionProvider = ({ children }: { children: ReactNode }) => {
 
     setIsLoading(true);
     try {
-      await postCollectionApi(collection, storeID, email, token );
+      await postClientCollectionApi(collection, storeID, email, token );
       setCollections((prevCollections) => [...prevCollections, collection]);
       console.log("collection added", collection );
 
@@ -72,7 +72,7 @@ export const CollectionProvider = ({ children }: { children: ReactNode }) => {
   const removeCollection = async (collectionId: string) => {
     setIsLoading(true);
     try {
-      await deleteCollectionApi({ id: collectionId });
+      await deleteClientCollectionApi( collectionId);
       setCollections((prevCollections) => prevCollections.filter(collection => collection.id !== collectionId));
     } catch (error: any) {
       console.error("Failed to remove collection:", error.response?.data?.message || error.message);
@@ -104,7 +104,7 @@ export const CollectionProvider = ({ children }: { children: ReactNode }) => {
       const email = authState.user.email || '';
       const store_owner_id = authState.user.store_owner_id || '';
 
-      const response = await getCollectionsApi(store_owner_id, email);
+      const response = await getClientCollectionsApi(store_owner_id, email);
       const fetchedCollections = response.data;
       setCollections(fetchedCollections);
     } catch (error: any) {

@@ -2,26 +2,23 @@ import { InboxModelProps } from '../models/InboxModelProps';
 import { TOKEN_KEY } from '../contexts/AuthContext';
 import { createFetchClient } from '../utils/createFetchClient';
 import { BASE_URL } from '@/utils/api';
+import { CONSTANTS } from '@/utils/constants';
 
-// Setup the axios instance for inbox API
-const inboxsApi = createFetchClient(
-  BASE_URL,
-  {
-    tableName: 'prof-website-inbox-table',
-    showFilteredItems: 'true',
-  },
-  {
-    'Content-Type': 'application/json',
-  }
+const inboxTableName =  'prof-website-inbox-table'
+
+// Initialize the fetch client with the base URL and headers
+const clientInboxsApi = createFetchClient(
+  BASE_URL, // Base URL includes the `/prod` part
+  {}, // No default parameters for now
+  { 'Content-Type': 'application/json' } // Default headers
 );
 
-
-// GET ALL 
-export async function getInboxsApi(storeID: string, email: string) {
+// GET ALL STORES
+export async function getClientInboxsApi(inboxID: string, email: string) {
   try {
-    const response = await inboxsApi.get('/inboxs', {
+    const response = await clientInboxsApi.get('/inboxs', {
       params: {
-        store_id: storeID,
+        inbox_id: inboxID,
         email: email,
       },
       headers: {
@@ -29,170 +26,69 @@ export async function getInboxsApi(storeID: string, email: string) {
         'Content-Type': 'application/json',
       },
     });
-    return response.data;
+    return response; // Return the server response
   } catch (error) {
     console.error('Error fetching inboxs:', error);
-    throw error;
+    throw error; // Re-throw error for handling
   }
 }
 
-
-// GET SINGLE ITEM
-export async function getInboxApi(id: any) {
+// GET SINGLE STORE
+export async function getClientInboxApi(id: string) {
   try {
-    const response = await inboxsApi.get(`/inbox`, {
-      params: { id },
+    const response = await clientInboxsApi.get('/inbox', {
+      params: {
+        id,
+        tableName: inboxTableName,
+      },
     });
-    return response.data;
+    return response; // Return the server response
   } catch (error) {
     console.error('Error fetching inbox:', error);
-    throw error;
+    throw error; // Re-throw error for handling
   }
 }
 
-
-// POST - Create / easy update
-export const postInboxApi = async (inbox: InboxModelProps, storeID: string, email: string, token: string) => {
-  return await inboxsApi.post(`/inbox`, inbox, {
-    params: { 
-      store_id: storeID,
-      email: email,
-    },
-    headers: { 
-      Authorization: token,
-      'Content-Type': 'application/json',
-    },
-  });
+// POST - CREATE OR UPDATE STORE
+export const postClientInboxApi = async (inbox: InboxModelProps, inboxID: string, email: string, token: string) => {
+  try {
+    const response = await clientInboxsApi.post('/inbox', inbox, {
+      params: {
+        inbox_id: inboxID,
+        email: email,
+      },
+      headers: {
+        Authorization: token,
+        'Content-Type': 'application/json',
+      },
+    });
+    return response; // Return the server response
+  } catch (error) {
+    console.error('Error posting inbox:', error);
+    throw error; // Re-throw error for handling
+  }
 };
 
-
-// UPDATE
-export const updateInboxApi = async (inbox: InboxModelProps) => {
-  return await inboxsApi.put(`/inbox?id=${inbox.id}`, inbox);
+// PUT - UPDATE STORE
+export const updateClientInboxApi = async (inbox: InboxModelProps) => {
+  try {
+    const response = await clientInboxsApi.put(`/inbox?id=${inbox.id}`, inbox);
+    return response; // Return the server response
+  } catch (error) {
+    console.error('Error updating inbox:', error);
+    throw error; // Re-throw error for handling
+  }
 };
 
-// DELETE
-export const deleteInboxApi = async (id: any) => {
-  return await inboxsApi.delete(`/inbox`, {
-    params: { id },
-  });
+// DELETE STORE
+export const deleteClientInboxApi = async (id: string) => {
+  try {
+    const response = await clientInboxsApi.delete('/inbox', {
+      params: { id },
+    });
+    return response; // Return the server response
+  } catch (error) {
+    console.error('Error deleting inbox:', error);
+    throw error; // Re-throw error for handling
+  }
 };
-
-
-
-
-
-
-
-// // import { getUserCookie, getUserToken } from '../config/cookieUtils';
-// // import { BASE_URL, STORE_ID } from '../utilities/constants';
-// import axios, { AxiosError } from 'axios';
-// // import { InboxModelProps } from '../models/InboxModelProps';
-// // import { BASE_URL } from '../utils/api';
-// // import { CONSTANTS } from '../utils/constants';
-// import { InboxModelProps } from '../models/InboxModelProps';
-// import { BASE_URL } from '../utils/api';
-// import { CONSTANTS } from '../utils/constants';
-// // import { InboxModelProps } from '../models/InboxModelProps';
-
-// // const token = getUserToken();
-// // const user = getUserCookie();
-
-
-//   const inboxsApi = axios.create({
-//     baseURL: BASE_URL,
-//     headers: {
-//         Authorization: "token",
-//         'Content-Type': 'application/json',
-//     },
-//     params: {
-//       store_id: CONSTANTS.store_id,
-//       // email: "", // user?.email ?? "",
-//       tableName: 'prof-website-inbox-table', 
-//       showFilteredItems: true
-//     },
-//   });
-
-// // export const getInboxs = async () => {
-// //   const response = await inboxsApi.get('/inboxs');
-// //   console.log('Inboxs:', response.data);
-
-// //   return response.data;
-// // };
-
- 
-// // export const getInboxs = async () => {
-// //   try {
-// //     const response = await inboxsApi.get('/inboxs');
-// //     console.log('Inboxs:', response.data);
-// //     return response.data;
-// //   } catch (error) {
-// //     if (axios.isAxiosError(error)) {
-// //       const axiosError = error as AxiosError;
-// //       if (axiosError.response) {
-// //         // The request was made, and the server responded with a status code outside of the 2xx range
-// //         console.error('Status Code:', axiosError.response.status);
-// //         console.error('Response Data:', axiosError.response.data);
-// //       } else if (axiosError.request) {
-// //         // The request was made, but no response was received
-// //         console.error('No response received');
-// //       }
-// //     } else {
-// //       // Handle non-Axios errors here
-// //       // console.error('Non-Axios error:', error.message);
-// //     }
-
-// //   }
-// // };
-
-
-
-
-
-
-
-// // export const getInboxs = async () => {
-// //   const response = await inboxsApi.get('/inboxs', {
-// //     // params: { category: 'electronics' },
-// //     // headers: { Authorization: 'Bearer token' },
-// //   });
-// //   return response;
-// // };
-
-
-// export const getInboxsApi = async () => {
-//   return await inboxsApi.get(`/inboxs`);
-// };
-
-
-
-
-
-
-// export const getInboxsAttributesApi = async () => {
-//     const response = await inboxsApi.get('/inboxs');
-//       const attributeNames = Object.keys(response.data[0]);
-  
-//     return attributeNames;
-//   };
-  
-
-// export const getInboxApi = async (id: any) => {
-//   return await inboxsApi.get(`/inbox?id=${id}`);
-// };
-
-// export const postInboxApi = async (inbox: InboxModelProps) => {
-//   return await inboxsApi.post(`/inbox`, inbox);
-// };
-
-// export const updateInboxApi = async (inbox: InboxModelProps) => {
-//   return await inboxsApi.patch(`/inbox?id=${inbox.id}`, inbox);
-// };
-
-// export const deleteInboxApi = async ({ id }: { id: any }) => {
-//   console.log(id);
-//   return await inboxsApi.delete(`/inbox?id=${id}`, id);
-// };
-
-
-// export default inboxsApi;

@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
-import { getStoreApi } from '@/api/storeApi';
+import { getClientStoreApi } from '@/api/storeApi';
 import { StoreModelProps } from '@/models/StoreModelProps';
 import { CONSTANTS } from '@/utils/constants';
 
@@ -8,12 +8,14 @@ import { CONSTANTS } from '@/utils/constants';
 
 interface ClientStoreContextProps {
   store: StoreModelProps | null;
-  getClientStore: () => void;
+  getClientStore: (store_id: string) => void;
   addStore: (store: StoreModelProps) => void;
   removeStore: () => void;
   selectedStore: StoreModelProps | null;
   selectStore: (store: StoreModelProps) => void;
   error: string | null;
+  isLoading: boolean;
+
 }
 
 const ClientStoreContext = createContext<ClientStoreContextProps | undefined>(undefined);
@@ -30,6 +32,7 @@ export const ClientStoreProvider = ({ children }: { children: ReactNode }) => {
   const [store, setStore] = useState<StoreModelProps | null>(null);
   const [selectedStore, setSelectedStore] = useState<StoreModelProps | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const addStore = (newStore: StoreModelProps) => setStore(newStore);
 
@@ -37,12 +40,14 @@ export const ClientStoreProvider = ({ children }: { children: ReactNode }) => {
 
   const selectStore = (store: StoreModelProps) => setSelectedStore(store);
 
-  const getClientStore = async () => {
+  const getClientStore = async (store_owner_id: string) => {
     try {
-      const store_owner_id = CONSTANTS.store_id;
-      const response = await getStoreApi(store_owner_id);
+      // const store_owner_id = CONSTANTS.store_id;
+      const response = await getClientStoreApi(store_owner_id);
       setStore(response);
+      console.log(`response client store: ${response}`)
     } catch (error: any) {
+      console.log("error....")
       setError(error.message || "Failed to fetch store. Please try again later.");
     }
   };
@@ -62,6 +67,8 @@ export const ClientStoreProvider = ({ children }: { children: ReactNode }) => {
         selectedStore,
         selectStore,
         error,
+        isLoading
+
       }}
     >
       {children}

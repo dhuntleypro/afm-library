@@ -1,144 +1,94 @@
-import React, { createContext, useContext, useState, ReactNode, useEffect } from "react";
-import { ProductModelProps } from "../models/ProductModelProps";
-// import { getProducts, postProduct, deleteProduct } from "../api/productsApi";
-import { useAuth } from "./AuthContext";
-import { Alert } from "react-native";
-import { router } from "expo-router";
-// import MyAlert from "../components/interfaces/MyAlert";
-import { CONSTANTS } from "../utils/constants";
-import { deleteProductApi, getProductsApi, postProductApi } from "@/api/productsApi";
+import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
+import { getClientProductApi, getClientProductsApi } from '@/api/productApi';
+import { ProductModelProps } from '@/models/ProductModelProps';
+import { CONSTANTS } from '@/utils/constants';
 
-interface ProductContextProps {
-  products: ProductModelProps[];
-  addClientProduct: (product: ProductModelProps) => Promise<void>;
-  removeClientProduct: (productId: string) => Promise<void>;
-  updateClientProduct: (product: ProductModelProps) => Promise<void>;
-  getClientProducts: () => void;
+// Define the context interface for client products
+interface ClientProductContextProps {
+  product: ProductModelProps | null;
+  products: ProductModelProps[]; // To store multiple products
+  getClientProducts: (store_id: string) => void; // Fetch multiple products
+  getClientProduct: (store_id: string) => void; // Fetch a single product
+  addProduct: (product: ProductModelProps) => void;
+  removeProduct: () => void;
   selectedProduct: ProductModelProps | null;
   selectProduct: (product: ProductModelProps) => void;
-  isLoading: boolean;
   error: string | null;
+  isLoading: boolean;
 }
 
-export const ClientProductContext = createContext<ProductContextProps | undefined>(undefined);
+const ClientProductContext = createContext<ClientProductContextProps | undefined>(undefined);
 
-export const useClientProduct = () => {
+// Hook for accessing client product context
+export const useClientProduct = (): ClientProductContextProps => {
   const context = useContext(ClientProductContext);
   if (!context) {
-    throw new Error("useClientProduct must be used within an ClientProductProvider");
+    throw new Error('useClientProduct must be used within a ClientProductProvider');
   }
   return context;
-}
+};
 
 export const ClientProductProvider = ({ children }: { children: ReactNode }) => {
-  const { authState } = useAuth();
-  const [products, setProducts] = useState<ProductModelProps[]>([]);
+  const [product, setProduct] = useState<ProductModelProps | null>(null);
+  const [products, setProducts] = useState<ProductModelProps[]>([]); // Store multiple products
   const [selectedProduct, setSelectedProduct] = useState<ProductModelProps | null>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  // useEffect(() => {
-  //   // if (authState?.token) {
-  //   console.log("Getting client store products...")
-  //     getClientProducts(); // Initial load of products
-  //   // }
-  // }, []);
+  // Add a product to the state
+  const addProduct = (newProduct: ProductModelProps) => setProduct(newProduct);
 
-  const addClientProduct = async (product: ProductModelProps) => {
-    if (!authState?.user) return;
+  // Remove the currently stored product
+  const removeProduct = () => setProduct(null);
 
-    const storeID = authState.user.store_owner_id || '';
-    const email = authState.user.email || '';
-    const token = authState?.token || ""
+  // Select a product to set as the current active one
+  const selectProduct = (product: ProductModelProps) => setSelectedProduct(product);
 
+  // Fetch a single product using the provided product_owner_id
+  const getClientProduct = async (product_owner_id: string) => {
     setIsLoading(true);
+    setError(null); // Reset error state
     try {
-      await postProductApi(product, storeID, email, token );
-      setProducts((prevProducts) => [...prevProducts, product]);
-      console.log("product added", product );
-
-      // change fix
-      router.push('/')
-
+      const response = await getClientProductApi(product_owner_id);
+      setProduct(response.data);
+      console.log(`Fetched client product: ${response.data}`);
     } catch (error: any) {
-      console.error("Failed to add product:", error.response?.data );
-      
-
-      // <MyAlert
-      // title="Product not Created"
-      // message="You are missing information. Please update your store."
-      // onCancelPress={() => console.log("Cancel Pressed")}
-      // onUpdatePress={() => router.push('/store')}
-      // />   
-      setError(error.response?.data || "Failed to add product. Please try again later.");
+      console.error("Error fetching product:", error.message);
+      setError(error.message || "Failed to fetch product. Please try again later.");
     } finally {
       setIsLoading(false);
     }
   };
 
-  const removeClientProduct = async (productId: string) => {
+  // Fetch multiple products using the store_id
+  const getClientProducts = async (store_id: string) => {
     setIsLoading(true);
+    setError(null); // Reset error state
     try {
-      await deleteProductApi({ id: productId });
-      setProducts((prevProducts) => prevProducts.filter(product => product.id !== productId));
+      const response = await getClientProductsApi(store_id , true );
+      setProducts(response.data);
+      console.log(`Fetched client products: ${response.data}`);
     } catch (error: any) {
-      console.error("Failed to remove product:", error.response?.data?.message || error.message);
-      setError(error.response?.data?.message || "Failed to remove product. Please try again later.");
+      console.error("Error fetching products:", error.message);
+      setError(error.message || "Failed to fetch products. Please try again later.");
     } finally {
       setIsLoading(false);
     }
-  };
-
-  const updateClientProduct = async (product: ProductModelProps) => {
-    setIsLoading(true);
-    try {
-      await updateClientProduct(product);
-      setProducts((prevProducts) => prevProducts.map(o => o.id === product.id ? product : o));
-    } catch (error: any) {
-      console.error("Failed to update product:", error.response?.data?.message || error.message);
-      setError(error.response?.data?.message || "Failed to update product. Please try again later.");
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const getClientProducts = async () => {
-    // if (!authState?.user) return;
-
-    setIsLoading(true);
-    setError(null);
-    try {
-      const email = '';
-      const store_owner_id = CONSTANTS.store_id // authState.user.store_owner_id || '';
-
-      const response = await getProductsApi(store_owner_id, email);
-      const fetchedProducts = response.data;
-      setProducts(fetchedProducts);
-      console.log("Products Fetched !!")
-    } catch (error: any) {
-      console.error("Failed to fetch products 3:", error.response?.data?.message );
-      setError(error.response?.data?.message || "Failed to fetch products. Please try again later.");
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const selectProduct = (product: ProductModelProps) => {
-    setSelectedProduct(product);
   };
 
   return (
-    <ClientProductContext.Provider 
-      value={{ 
-        products, 
-        addClientProduct, 
-        removeClientProduct, 
-        updateClientProduct, 
-        getClientProducts, 
-        selectedProduct, 
-        selectProduct, 
-        isLoading, 
-        error 
+    <ClientProductContext.Provider
+      value={{
+        product,
+        products, // Pass the products array
+        getClientProduct,
+        getClientProducts, // Provide getClientProducts to the context
+        addProduct,
+        removeProduct,
+        selectedProduct,
+        selectProduct,
+        error,
+        isLoading,
       }}
     >
       {children}

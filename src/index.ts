@@ -66,7 +66,7 @@ export  * from './api/mankindProductApi'
 export  * from './api/mankindStoreApi'
 export  * from './api/ordersApi'
 export  * from './api/paymentApi'
-export  * from './api/productsApi'
+export  * from './api/productApi'
 export  * from './api/storeApi'
 
 
