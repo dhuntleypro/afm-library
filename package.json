@@ -3,7 +3,7 @@
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
-  "version": "0.1.265",
+  "version": "0.1.266",
   "author": "Darrien Huntley",
   "scripts": {
     "start": "expo start",
