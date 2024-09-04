@@ -94,7 +94,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   }, []);
 
   const onRegister = useCallback(async (userData: UserProps): Promise<any> => {
-    userData.id = uuid.v4().toString();
+    userData.id = uuid.v4();
 
     try {
       const result = await authApi.post(

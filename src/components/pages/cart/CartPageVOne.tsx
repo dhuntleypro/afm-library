@@ -67,7 +67,7 @@ const CartPageVOne = () => {
         <FlatList
         data={carts}
         showsVerticalScrollIndicator={false}
-        keyExtractor={(_, index) => index.toString()}
+        keyExtractor={(_, index) => index}
         ListHeaderComponent={
           <></>
         }

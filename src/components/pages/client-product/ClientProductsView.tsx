@@ -86,7 +86,7 @@ const ClientProductsView = () => {
       </View> */}
 
       <FlatList
-        keyExtractor={(item: ProductModelProps) => item.id.toString()}
+        keyExtractor={(item: ProductModelProps) => item.id}
         // data={searchTerm === '' ? products : searchResults.length === 0 ? products : searchResults}
         data={products}
         // renderItem={({ item }) => <ClientProductCard product={item} onPress={() => console.log('Product selected', item)} />}

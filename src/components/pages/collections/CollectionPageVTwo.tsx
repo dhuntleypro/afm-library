@@ -77,7 +77,7 @@ const CollectionPageVTwo = () => {
         <FlatList
           data={filteredProducts}
           numColumns={2}
-          keyExtractor={(item) => item.id.toString()}
+          keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
             <View style={styles.productCard}>
               <TouchableOpacity onPress={() => router.push(`/products/${item.id}` as never)}>

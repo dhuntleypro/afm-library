@@ -37,7 +37,7 @@ const NewRivals = () => {
         <Text style={styles.title}>{store?.store_type ?? ""}</Text>
       </View>
         <FlatList
-          keyExtractor={(item: ProductModelProps) => item.id.toString()}
+          keyExtractor={(item: ProductModelProps) => item.id}
           data={products}
           renderItem={({ item }) => <SearchTile {...item} />}
           contentContainerStyle={{ marginHorizontal: 12 }}

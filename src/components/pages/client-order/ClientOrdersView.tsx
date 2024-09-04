@@ -86,7 +86,7 @@ const ClientOrdersView = () => {
       </View> */}
 
       <FlatList
-        keyExtractor={(item: OrderModelProps) => item.id.toString()}
+        keyExtractor={(item: OrderModelProps) => item.id}
         // data={searchTerm === '' ? orders : searchResults.length === 0 ? orders : searchResults}
         data={orders}
         // renderItem={({ item }) => <ClientOrderCard order={item} onPress={() => console.log('Order selected', item)} />}

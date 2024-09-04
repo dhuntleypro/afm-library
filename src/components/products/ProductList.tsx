@@ -48,7 +48,7 @@ import { useClientProduct } from "@/contexts/ClientProductContext";
           <View style={styles.container}>
             <Text>Product List</Text>
             <FlatList
-              keyExtractor={(item: ProductModelProps) => item.id.toString()} // Ensure id is a string or number
+              keyExtractor={(item: ProductModelProps) => item.id} // Ensure id is a string or number
               data={products}
               renderItem={({ item }) => (
                 <ProductCardView product={item}  />)}
@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
 //         <SafeAreaView>
 //         <View style={styles.container}>
 //         {/* <FlatList
-//           keyExtractor={(item: ProductModelProps) => item.id.toString()} // Assuming id is a string or number
+//           keyExtractor={(item: ProductModelProps) => item.id} // Assuming id is a string or number
 //           data={data}
 //           renderItem={({ item }) => <ProductCardView {...item}  />}
 //           horizontal

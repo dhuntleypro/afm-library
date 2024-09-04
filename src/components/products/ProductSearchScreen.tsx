@@ -62,7 +62,7 @@ const ProductSearchScreen = () => {
 
       {/* Search result */}
       <FlatList
-        keyExtractor={(item: ProductModelProps) => item.id.toString()}
+        keyExtractor={(item: ProductModelProps) => item.id}
         data={searchTerm === '' ? products : (searchResults.length === 0 ? products : searchResults)}
         renderItem={({ item }) => (
           <View style={styles.gridLayout}>
@@ -206,7 +206,7 @@ export const styles = StyleSheet.create({
 //       {/* Search result */}
 //       {searchTerm === '' ? (
 //         <FlatList
-//           keyExtractor={(item: ProductModelProps) => item.id.toString()}
+//           keyExtractor={(item: ProductModelProps) => item.id}
 //           data={products}
 //           // renderItem={({ item }) => <ProductListItem {...item} />}
 //           renderItem={({ item }) => (
@@ -220,7 +220,7 @@ export const styles = StyleSheet.create({
 //         />
 //       ) : (
 //         <FlatList
-//           keyExtractor={(item: ProductModelProps) => item.id.toString()}
+//           keyExtractor={(item: ProductModelProps) => item.id}
 //           data={searchResults.length === 0 ? products : searchResults}
 //           // renderItem={({ item }) => <ProductListItem {...item} />}
 //           renderItem={({ item }) => (

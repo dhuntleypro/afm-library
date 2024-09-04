@@ -41,7 +41,7 @@ const ProductRow: React.FC<ClientStateProps> = (props) => {
       ) : (
         <>
           <FlatList
-            keyExtractor={(item: ProductModelProps) => item.id.toString()}
+            keyExtractor={(item: ProductModelProps) => item.id}
             data={products}
             renderItem={({ item }) => (
               <TouchableOpacity onPress={() => handleProductSelect(item)}>

@@ -61,21 +61,93 @@ export const ClientProductProvider = ({ children }: { children: ReactNode }) => 
   };
 
   // Fetch multiple products using the store_id
-  const getClientProducts = async (store_id: string) => {
+  // const getClientProducts = async (store_id: string) => {
+  //   setIsLoading(true);
+  //   setError(null); // Reset error state
+  //   try {
+  //     const response = await getClientProductsApi(store_id , true );
+       
+  //     // Ensure the response is always an array
+  //    const arrayOfProducts = Array.isArray(response.data) ? response.data : [response.data];
+    
+  //     setProducts(arrayOfProducts);
+  //     console.log(`Fetched client products: ${arrayOfProducts}`);
+  //   } catch (error: any) {
+  //     console.error("Error fetching products:", error.message);
+  //     setError(error.message || "Failed to fetch products. Please try again later.");
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
+  // const getClientProducts = async (store_id: string) => {
+  //   setIsLoading(true);
+  //   setError(null); // Reset error state
+  //   try {
+  //     const response = await getClientProductsApi(store_id, true);
+      
+  //     // Log the full response to check its structure
+  //     console.log("Full API response:", response);
+  
+  //     // Ensure the response contains data
+  //     if (!response || !response.data) {
+  //       throw new Error('No data returned from the API');
+  //     }
+  
+  //     // Ensure the response is always an array
+  //     const arrayOfProducts = Array.isArray(response.data) ? response.data : [response.data];
+      
+  //     setProducts(arrayOfProducts);
+  //     console.log(`Fetched client products: ${arrayOfProducts}`);
+  //   } catch (error: any) {
+  //     console.error("Error fetching products:", error.message);
+  //     setError(error.message || "Failed to fetch products. Please try again later.");
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
+
+
+  
+  
+  const getClientProducts = async (store_id: string): Promise<void> => {
     setIsLoading(true);
     setError(null); // Reset error state
+  
     try {
-      const response = await getClientProductsApi(store_id , true );
-      setProducts(response.data);
-      console.log(`Fetched client products: ${response.data}`);
-    } catch (error: any) {
-      console.error("Error fetching products:", error.message);
-      setError(error.message || "Failed to fetch products. Please try again later.");
+      // The response is now expected to be an array of ProductModelProps
+      const response: ProductModelProps[] = await getClientProductsApi(store_id, true);
+  
+      // Log the full response to check its structure
+      console.log("Full API response:", response);
+  
+      // Ensure the response contains data
+      if (!response || response.length === 0) {
+        throw new Error('No data returned from the API');
+      }
+  
+      // Ensure the response is always an array
+      const arrayOfProducts: ProductModelProps[] = Array.isArray(response) ? response : [response];
+  
+      // Ensure every product has an `id` before setting them in the state
+      const validProducts: ProductModelProps[] = arrayOfProducts.filter((product: ProductModelProps) => product && product.id);
+  
+      // Set the valid products to state
+      setProducts(validProducts);
+      console.log(`Fetched client products: ${validProducts}`);
+    } catch (error: unknown) {
+      // Check if the error has a message and handle it accordingly
+      if (error instanceof Error) {
+        console.error("Error fetching products:", error.message);
+        setError(error.message || "Failed to fetch products. Please try again later.");
+      } else {
+        console.error("Unknown error fetching products");
+        setError("Failed to fetch products. Please try again later.");
+      }
     } finally {
       setIsLoading(false);
     }
   };
-
+  
   return (
     <ClientProductContext.Provider
       value={{
