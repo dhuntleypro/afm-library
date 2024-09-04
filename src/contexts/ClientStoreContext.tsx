@@ -47,9 +47,10 @@ export const ClientStoreProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  useEffect(() => {
-    getClientStore();
-  }, []);
+  // useEffect(() => {
+  //   console.log("getClientStore()....")
+  //   getClientStore();
+  // }, []);
 
   return (
     <ClientStoreContext.Provider

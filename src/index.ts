@@ -3,8 +3,8 @@
 export  { MyButton } from './components/buttons/MyButton'
 
 // Cards
-export { ProductCardView } from "./components/card/ProductCardView"
-export { OrderCrudCard } from "./components/card/OrderCrudCard"
+export {default as ProductCardView } from "./components/card/ProductCardView"
+export {default as OrderCrudCard } from "./components/card/OrderCrudCard"
 export { ProductCrudCard } from "./components/card/ProductCrudCard"
 export { ProductCardV2 } from "./components/card/ProductCardV2"
 // export { TalentCard } from "./components/card/TalentCard"
@@ -24,17 +24,18 @@ export {default as LoginComponentTwo} from "./components/pages/login/LoginCompon
 
 // Demos
 export * from "./model-sample-data/sample-order"
-export * from "./model-sample-data/sample-product"
+export {SAMPLE_PRODUCT} from "./model-sample-data/sample-product"
 
 
 
 
 
 // Layout
-export * from './layouts/RootLayout'
-export * from './layouts/CoreLayout'
-export * from './layouts/TabLayout'
-export * from './layouts/AuthLayout'
+export { RootLayout} from './layouts/RootLayout'
+
+export { CoreLayout}  from './layouts/CoreLayout'
+export { TabLayout}  from './layouts/TabLayout'
+export { AuthLayout}  from './layouts/AuthLayout'
 
 
 // Context
@@ -48,10 +49,10 @@ export  { MankindProductProvider, useMankindProduct } from './contexts/MankindPr
 export  { MankindStoreProvider, useMankindStore } from './contexts/MankindStoreContext'
 export  { OrderProvider, useClientOrder } from './contexts/OrderContext'
 
-export  { ThemeProvider, useTheme } from './contexts/ThemeContext'
+// export  { ThemeProvider } from './contexts/ThemeContext'
 
-// export  { ClientStoreProvider, useClientStore } from './contexts/ThemeContext'
-// export  { ClientStoreProvider, useClientStore } from './contexts/Themed'
+export  { ThemeProvider, useTheme } from './contexts/ThemeContext'
+// export  { T, useTheme } from './contexts/Themed'
 // export  { ClientStoreProvider, useClientStore } from './contexts/UserFavoriteContext'
  
 
@@ -106,61 +107,20 @@ export { default as EditScreenInfo } from './components/EditScreenInfo';
 
 
 // Pages
-export { CollectionPageVTwo } from "./components/pages/collections/CollectionPageVTwo"
-export { SettingsPage } from "./components/pages/settings/SettingsPage"
-export { WelcomePageTwo } from "./components/pages/welcome/WelcomePageTwo"
+export { default as CollectionPageVTwo } from "./components/pages/collections/CollectionPageVTwo"
+export { default as SettingsPage } from "./components/pages/settings/SettingsPage"
+export { default as WelcomePageTwo } from "./components/pages/welcome/WelcomePageTwo"
 export { default as ClientOrderCard } from "./components/pages/client-order/ClientOrderCard"
-export {CartPageVOne } from "./components/pages/cart/CartPageVOne"
-export {ProductDetailsPageVThree } from "./components/pages/product-details/ProductDetailsPageVThree"
-
-// export { CollectionPageVTwo } from "./components/pages/collections/CollectionPageVTwo"
-// export { CollectionPageVTwo } from "./components/pages/collections/CollectionPageVTwo"
-// export { CollectionPageVTwo } from "./components/pages/collections/CollectionPageVTwo"
+export { default as CartPageVOne } from "./components/pages/cart/CartPageVOne"
+export { default as ProductDetailsPageVThree } from "./components/pages/product-details/ProductDetailsPageVThree"
 
 
 
 
 // Component 
-export { HomeDesignOne } from "./components/home/HomeDesignOne"
-export { ProductSearchScreen } from "./components/products/ProductSearchScreen"
+export { default as HomeDesignOne } from "./components/home/HomeDesignOne"
+export { default as HomeDesignTwo } from "./components/home/HomeDesignTwo"
 
+export { default as ProductSearchScreen } from "./components/products/ProductSearchScreen"
 
-
-
-
-
-// export { HomeDesignTwo } from "./components/home/HomeDesignTwo"
-
-
-// export * from  './components/EditScreenInfo'; 
-// export { default as HomeDesignTwo } from './components/home/HomeDesignTwo';
-// export { default as HomeDesignThree } from './components/home/HomeDesignThree';
-
-// export { default as SomeComponent } from './components/home/SomeComponent';
-// export * from './components/home/SimpleProvider';
-
-// no error - not wokring
-// export * from '@/contexts/AuthContext'
-// export type { AuthContext } from './contexts/AuthContext'
-// export  { useClientStore } from './contexts/ClientStoreContext';
-// export  { ClientStoreProvider } from './providers/ClientStoreProvider'
-
-// export  { CartProvider } from './contexts/CartContext';
-
-
-
-
-// export  { useClientStore } from './contexts/ClientStoreContext'
-
-
-// Provider
-// export  { ClientProductProvider } from './providers/ClientProductProvider';
-
-
-
-// export  { OrderProvider , useClientOrder} from './contexts/OrderContext';
-// export  { CollectionProvider , useClientCollection} from './contexts/CollectionContext';
-// export  { MankindProductProvider , useMankindProduct} from './contexts/MankindProductContext';
-// export  { MankindStoreProvider , useMankindStore} from './contexts/MankindStoreContext';
-// export  {  useClientProduct} from './contexts/ClientProductContext';
 

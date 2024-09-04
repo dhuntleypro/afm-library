@@ -37,12 +37,12 @@ export const ClientProductProvider = ({ children }: { children: ReactNode }) => 
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    // if (authState?.token) {
-    console.log("Getting store products...")
-      getClientProducts(); // Initial load of products
-    // }
-  }, []);
+  // useEffect(() => {
+  //   // if (authState?.token) {
+  //   console.log("Getting client store products...")
+  //     getClientProducts(); // Initial load of products
+  //   // }
+  // }, []);
 
   const addClientProduct = async (product: ProductModelProps) => {
     if (!authState?.user) return;
@@ -116,7 +116,7 @@ export const ClientProductProvider = ({ children }: { children: ReactNode }) => 
       setProducts(fetchedProducts);
       console.log("Products Fetched !!")
     } catch (error: any) {
-      console.error("Failed to fetch products:", error.response?.data?.message || error.message);
+      console.error("Failed to fetch products 3:", error.response?.data?.message );
       setError(error.response?.data?.message || "Failed to fetch products. Please try again later.");
     } finally {
       setIsLoading(false);

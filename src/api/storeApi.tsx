@@ -31,7 +31,7 @@ export async function getStoresApi(storeID: string, email: string) {
     });
     return response.data;
   } catch (error) {
-    console.error('Error fetching stores:', error);
+    console.error('Error fetching stores:',  error.response?.data?.message);
     throw error;
   }
 }
@@ -45,7 +45,7 @@ export async function getStoreApi(id: any) {
     });
     return response.data;
   } catch (error) {
-    console.error('Error fetching store:', error);
+    console.error('Error fetching store:', error.response?.data?.message);
     throw error;
   }
 }

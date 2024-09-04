@@ -23,7 +23,7 @@ const products: ProductProps[] = [
   { id: 6, name: 'Chair 2', price: '$423', image: 'https://example.com/chair2.jpg' },
 ];
 
-export const CollectionPageVTwo = () => {
+const CollectionPageVTwo = () => {
   const { collections, selectedCollection, selectCollection, isLoading, error } = useClientCollection();
 
   const handleProductSelect = (product: CollectionModelProps) => {

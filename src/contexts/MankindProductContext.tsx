@@ -31,9 +31,10 @@ export const MankindProductProvider = ({ children }: { children: ReactNode }) =>
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    getMankindProducts(); // Initial load of products
-  }, []);
+  // useEffect(() => {
+  //   console.log("getMankindProducts()....")
+  //   getMankindProducts(); // Initial load of products
+  // }, []);
 
   const addProduct = (product: ProductModelProps) => {
     setProducts((prevProducts) => [...prevProducts, product]);

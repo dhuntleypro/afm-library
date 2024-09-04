@@ -30,8 +30,8 @@ export async function getProductsApi(storeID: string, email: string) {
       },
     });
     return response.data;
-  } catch (error) {
-    console.error('Error fetching products:', error);
+  } catch (error: any) {
+    console.error('Error fetching products 4:', error.data);
     throw error;
   }
 }

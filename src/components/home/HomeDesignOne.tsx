@@ -4,11 +4,7 @@ import { TouchableOpacity, Text, View , ScrollView } from 'react-native'
 import { StyleSheet } from "react-native";
 // import { COLORS, SIZES } from "../utils/theme";
 
-import { Ionicons , Fontisto} from '@expo/vector-icons'
-// import { TopSectionHeaderV1 } from '@/components/home/TopSectionHeader';
-// import SearchBar from '@/components/other/general/SearchBar';
-// import Carousel from '@/components/home/Carousel';
-// import SectionHeader from '@/components/home/Headings';
+
 import ProductRow from '@/components/other/cards/other/ProductRow';
 import { COLORS, SIZES } from '@/utils/theme';
 import { TopSectionHeaderV1 } from '@/components/pages/home/TopSectionHeader';
@@ -19,7 +15,7 @@ import SectionHeader from '@/components/pages/home/Headings';
 import SearchBarVOne from '../search/SearchBarVOne';
 
 
-export const HomeDesignOne: FC = () => {
+const HomeDesignOne = () => {
     // const { store } = useClientStore()
 
     return (

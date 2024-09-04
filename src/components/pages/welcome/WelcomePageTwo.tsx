@@ -24,7 +24,7 @@ import { useAuth } from "@/contexts/AuthContext";
 const { width, height } = Dimensions.get("screen");
 
 // export default function WelcomePageTwo() {
-  export const WelcomePageTwo = () => {
+const WelcomePageTwo = () => {
 
   const [isLoading, setIsLoading] = useState(true);
   const [modalVisible, setModalVisible] = useState(false);
@@ -103,6 +103,11 @@ const { width, height } = Dimensions.get("screen");
     </View>
   );
 }
+
+export default WelcomePageTwo
+
+
+
 
 const styles = StyleSheet.create({
   loadingContainer: {

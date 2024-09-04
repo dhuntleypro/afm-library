@@ -1,3 +1,6 @@
+
+
+
 import React from "react";
 import {
   View,
@@ -9,9 +12,7 @@ import {
   ScrollView,
 } from "react-native";
 import { useClientStore } from "@/contexts/ClientStoreContext";
-import { View as MotiView } from "moti";
 import TopHomeSeaction from "./TopHomeSeaction";
-// import SearchBar from '@/components/other/general/SearchBar';
 import ProductRow from "@/components/other/cards/other/ProductRow";
 import Carousel from "@/components/pages/home/Carousel";
 import SectionHeader from "@/components/pages/home/Headings";
@@ -38,7 +39,7 @@ const HomeDesignTwo = () => {
       <ProductRow client={true} />
       <View style={styles.card}>
         <Image
-          source={{ uri: store?.images.welcome_image ?? AWS_HOLDER_IMAGE }} // Use a fallback image if store image is null
+          source={{ uri: store?.images.welcome_image ?? AWS_HOLDER_IMAGE }} 
           style={styles.profileImage}
         />
         <Text style={styles.name}>JACOB JAMES</Text>

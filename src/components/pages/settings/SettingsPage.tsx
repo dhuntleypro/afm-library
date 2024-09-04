@@ -9,7 +9,7 @@ import MyButton from '@/components/buttons/MyButton';
 // import CustomButton from '@/components/buttons/WhiteButton';
 // import MyButton from '@/components/buttons/WhiteButton';
 
-export const SettingsPage = () => {
+const SettingsPage = () => {
   const insets = useSafeAreaInsets();
 
   const { authState , onLogout } = useAuth()

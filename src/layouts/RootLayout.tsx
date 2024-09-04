@@ -3,27 +3,32 @@ import { AuthProvider, useAuth } from '../contexts/AuthContext';
 import { ThemeProvider, DefaultTheme, DarkTheme } from '@react-navigation/native';
 import { useColorScheme } from 'react-native';
 import CoreLayout from './CoreLayout';
+import { CartProvider } from '@/contexts/CartContext';
+import { ClientStoreProvider } from '@/contexts/ClientStoreContext';
+import { CollectionProvider } from '@/contexts/CollectionContext';
+import { ClientProductProvider } from '@/contexts/ClientProductContext';
+import { OrderProvider } from '@/contexts/OrderContext';
 
  const AppProviders = ({ children }: { children: React.ReactNode }) => {
   return (
     <AuthProvider>
-      {/* <CartProvider>
+      <CartProvider>
         <ClientStoreProvider>
           <CollectionProvider>
             <ClientProductProvider>
-              <OrderProvider> */}
+              <OrderProvider>
                 {children}
-              {/* </OrderProvider>
+              </OrderProvider>
             </ClientProductProvider>
           </CollectionProvider>
         </ClientStoreProvider>
-      </CartProvider> */}
+      </CartProvider>
     </AuthProvider>
   );
 };
 
 
-export function RootLayout() {
+export const RootLayout = () => {
   // const { authState } = useAuth(); // DO NOT ADD HERE
 
   const colorScheme = useColorScheme();
@@ -40,3 +45,4 @@ export function RootLayout() {
 }
 
 
+export default RootLayout;

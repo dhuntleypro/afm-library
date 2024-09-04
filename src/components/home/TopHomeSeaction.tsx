@@ -10,14 +10,10 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import { useClientStore } from "@/contexts/ClientStoreContext";
 import { View as MotiView } from "moti";
-// import RoundedButton from "@/app/(tabs)/(home)/(drawer)/(component-library)/lib-buttons/[roundedButton]";
 import { COLORS } from "@/utils/theme";
 import { Link, router } from "expo-router";
-import SearchBarVOne from "../search/SearchBarVOne";
-import SearchBar from "../search/SearchBar";
 import SearchBarVOneButton from "../search/SearchBarVOneButton";
 import { ROUTES } from "@/utils/Routes";
-// import SearchBar from "@/components/other/general/SearchBar";
 
 const { width } = Dimensions.get("window");
 

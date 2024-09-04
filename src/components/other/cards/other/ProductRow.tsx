@@ -17,11 +17,12 @@ import { useClientProduct } from "@/contexts/ClientProductContext";
 
 export interface ClientStateProps {
   client: boolean;
+  // storeID: string
 }
 
-const ProductRow: React.FC<ClientStateProps> = ({ client }) => {
+const ProductRow: React.FC<ClientStateProps> = (props) => {
   const { authState } = useAuth();
-  const storeID = client ? authState?.user?.store_owner_id || '' : CONSTANTS.store_id;
+  //const storeID = props.storeID // client ? authState?.user?.store_owner_id || '' : CONSTANTS.store_id;
   const email = authState?.user?.email || '';
   const { products, selectedProduct, selectProduct, isLoading, error } = useClientProduct();
 
