@@ -38,7 +38,7 @@ const handleProductSelect = (productId: string) => {
   if (selected) {
     selectProduct(selected); // Select the product
     // Navigate to product details using the correct string format
-    router.push(`/products/${productId}`); // Navigate to product details
+    router.push(`/products/${productId}` as never); // Navigate to product details
   }
 };
 

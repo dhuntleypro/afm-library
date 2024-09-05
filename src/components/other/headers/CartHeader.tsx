@@ -9,11 +9,11 @@ import { Ionicons , Fontisto} from '@expo/vector-icons'
 // import { NavigationProp } from '../../screens/ProductDetails'
 import { useNavigation } from '@react-navigation/native'
 // import { Avatar } from 'react-native-paper'
-import { CartContext } from '../../../contexts/CartContext'
+import { CartContext, useCart } from '../../../contexts/CartContext'
 
  const CartHeader = () => {
     const navigation = useNavigation()
-    const { quantity } = useContext(CartContext)
+    const { quantity } = useCart()
 
     return (
     <View style={styles.appBarWrapper}>

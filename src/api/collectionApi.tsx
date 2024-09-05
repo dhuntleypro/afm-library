@@ -1,42 +1,41 @@
 import { CollectionModelProps } from '../models/CollectionModelProps';
-import { TOKEN_KEY } from '../contexts/AuthContext';
 import { createFetchClient } from '../utils/createFetchClient';
+import { createFetchClientForItems } from '../utils/createFetchClientForItems';
 import { BASE_URL } from '@/utils/api';
-import { CONSTANTS } from '@/utils/constants';
 
-const collectionTableName =  'prof-website-collection-table'
+const collectionTableName = 'prof-website-collection-table';
 
-// Initialize the fetch client with the base URL and headers
-const clientCollectionsApi = createFetchClient(
+// Collection
+const clientCollectionApi = createFetchClient(
   BASE_URL, // Base URL includes the `/prod` part
   {}, // No default parameters for now
   { 'Content-Type': 'application/json' } // Default headers
 );
 
-// GET ALL STORES
-export async function getClientCollectionsApi(collectionID: string, email: string) {
-  try {
-    const response = await clientCollectionsApi.get('/collections', {
-      params: {
-        collection_id: collectionID,
-        email: email,
-      },
-      headers: {
-        Authorization: TOKEN_KEY,
-        'Content-Type': 'application/json',
-      },
-    });
-    return response; // Return the server response
-  } catch (error) {
-    console.error('Error fetching collections:', error);
-    throw error; // Re-throw error for handling
-  }
-}
+// Collections
+const clientCollectionsApi = createFetchClientForItems(
+  BASE_URL,
+  { showFilteredItems: 'false' }, // Default as string
+  { 'Content-Type': 'application/json' }
+);
 
-// GET SINGLE STORE
+// GET ALL PRODUCTS
+export const getClientCollectionsApi = async (storeID: string, showFilteredItems: boolean) => {
+  const response = await clientCollectionsApi.get('/collections', {
+    params: {
+      store_id: storeID,
+      tableName: collectionTableName,
+      showFilteredItems: showFilteredItems ? 'true' : 'false', // Convert boolean to string
+    },
+  });
+
+  return response;
+};
+
+// GET SINGLE PRODUCT
 export async function getClientCollectionApi(id: string) {
   try {
-    const response = await clientCollectionsApi.get('/collection', {
+    const response = await clientCollectionApi.get('/collection', {
       params: {
         id,
         tableName: collectionTableName,
@@ -49,10 +48,10 @@ export async function getClientCollectionApi(id: string) {
   }
 }
 
-// POST - CREATE OR UPDATE STORE
+// POST - CREATE OR UPDATE PRODUCT
 export const postClientCollectionApi = async (collection: CollectionModelProps, collectionID: string, email: string, token: string) => {
   try {
-    const response = await clientCollectionsApi.post('/collection', collection, {
+    const response = await clientCollectionApi.post('/collection', collection, {
       params: {
         collection_id: collectionID,
         email: email,
@@ -69,10 +68,10 @@ export const postClientCollectionApi = async (collection: CollectionModelProps, 
   }
 };
 
-// PUT - UPDATE STORE
+// PUT - UPDATE PRODUCT
 export const updateClientCollectionApi = async (collection: CollectionModelProps) => {
   try {
-    const response = await clientCollectionsApi.put(`/collection?id=${collection.id}`, collection);
+    const response = await clientCollectionApi.put(`/collection?id=${collection.id}`, collection);
     return response; // Return the server response
   } catch (error) {
     console.error('Error updating collection:', error);
@@ -80,10 +79,10 @@ export const updateClientCollectionApi = async (collection: CollectionModelProps
   }
 };
 
-// DELETE STORE
+// DELETE PRODUCT
 export const deleteClientCollectionApi = async (id: string) => {
   try {
-    const response = await clientCollectionsApi.delete('/collection', {
+    const response = await clientCollectionApi.delete('/collection', {
       params: { id },
     });
     return response; // Return the server response
@@ -92,3 +91,5 @@ export const deleteClientCollectionApi = async (id: string) => {
     throw error; // Re-throw error for handling
   }
 };
+
+

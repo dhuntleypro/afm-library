@@ -34,6 +34,7 @@ const CollectionPageVTwo = () => {
     ? products
     : products.filter(product => product.name.toLowerCase().includes(selectedCollection?.title.toLowerCase() || ''));
 
+    console.log(`filteredProducts: ${filteredProducts}`)
   return (
     <View style={styles.container}>
       <FlatList
@@ -77,12 +78,13 @@ const CollectionPageVTwo = () => {
         <FlatList
           data={filteredProducts}
           numColumns={2}
-          keyExtractor={(item ) => item.id}
+          keyExtractor={(item ) =>  String(item.id)}
           renderItem={({ item }) => (
             <View style={styles.productCard}>
               <TouchableOpacity onPress={() => router.push(`/products/${item.id}` as never)}>
-                <Image source={{ uri: item.image }} style={styles.productImage} />
-                <Text style={styles.productPrice}>{item.price}</Text>
+              {/* <Image source={{ uri: item.image }} style={styles.productImage} /> */}
+              <Image source={{ uri: AWS_HOLDER_IMAGE }} style={styles.productImage} />
+              <Text style={styles.productPrice}>{item.price}</Text>
                 <Text style={styles.productName}>{item.name}</Text>
               </TouchableOpacity>
             </View>

@@ -13,14 +13,14 @@ import { CONSTANTS } from '@/utils/constants'
 const CartCard = ({ item }: any) => {
     const { deleteItemFromCart, addToCart , decreaseFromCart, totalSum} = useCart()
     const [quantity, setQuantity] = useState(item.quantity);
-    const {authState, onLogout } = useAuth()
+    const {authState, onLogout , updateUserProfile} = useAuth()
     const [paymentStatus, setPaymentStatus] = useState('ijiij');
 
     // Plus
     const increment = () => {
         // handlePayment(totalSum, 10)
 
-        addToCart(item);
+        addToCart(item, authState.user, updateUserProfile)
     };
 
     // Minus
@@ -32,7 +32,7 @@ const CartCard = ({ item }: any) => {
 
         } else {
             console.log("remove 1")
-            decreaseFromCart(item);
+            decreaseFromCart(item, authState.user, updateUserProfile)
         }
     };
 
@@ -101,7 +101,7 @@ const CartCard = ({ item }: any) => {
             </View>
 
         </View>
-        <TouchableOpacity onPress={() => deleteItemFromCart(item)}>
+        <TouchableOpacity onPress={() => deleteItemFromCart(item, authState.user, updateUserProfile)}>
             <Ionicons name='trash-outline' size={SIZES.xLarge} color={COLORS.black}/>
         </TouchableOpacity>    
 

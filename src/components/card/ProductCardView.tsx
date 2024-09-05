@@ -9,6 +9,7 @@ import convertToCurrency from '@/hooks/convertToCurrency';
 import { ProductModelProps } from '@/models/ProductModelProps';
 import { useClientProduct } from '@/contexts/ClientProductContext';
 import { useCart } from '@/contexts/CartContext';
+import { useAuth } from '@/contexts/AuthContext';
 // import { useClientProduct } from '@/contexts/ClientProductContext';
 
 const { width } = Dimensions.get('window');
@@ -17,6 +18,7 @@ export const ProductCardView: FC<{ product: ProductModelProps }> = ({ product })
   const navigation = useNavigation();
   const { addToCart } = useCart()
   const { selectProduct } = useClientProduct();
+  const { authState,  updateUserProfile} = useAuth()
 
   const handleProductPress = () => {
     selectProduct(product);
@@ -49,7 +51,7 @@ export const ProductCardView: FC<{ product: ProductModelProps }> = ({ product })
             </View>
 
             {/* Button */}
-            <TouchableOpacity style={styles.addBtn} onPress={() => addToCart(product)}>
+            <TouchableOpacity style={styles.addBtn} onPress={() =>  addToCart(product, authState.user, updateUserProfile)}>
               <Ionicons 
                 name={product.item_type === "subscription" ? "arrow-forward-circle-outline" : 'add-circle'} 
                 size={35} 

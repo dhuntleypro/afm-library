@@ -1,10 +1,7 @@
 import { ProductModelProps } from '../models/ProductModelProps';
-import { TOKEN_KEY } from '../contexts/AuthContext';
 import { createFetchClient } from '../utils/createFetchClient';
 import { createFetchClientForItems } from '../utils/createFetchClientForItems';
-
 import { BASE_URL } from '@/utils/api';
-import { CONSTANTS } from '@/utils/constants';
 
 const productTableName = 'prof-website-product-table';
 

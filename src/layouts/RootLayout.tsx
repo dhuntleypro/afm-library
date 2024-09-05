@@ -5,7 +5,7 @@ import { useColorScheme } from 'react-native';
 import CoreLayout from './CoreLayout';
 import { CartProvider } from '@/contexts/CartContext';
 import { ClientStoreProvider } from '@/contexts/ClientStoreContext';
-import { CollectionProvider } from '@/contexts/CollectionContext';
+import { ClientCollectionProvider } from '@/contexts/CollectionContext';
 import { ClientProductProvider } from '@/contexts/ClientProductContext';
 import { OrderProvider } from '@/contexts/OrderContext';
 
@@ -14,13 +14,13 @@ import { OrderProvider } from '@/contexts/OrderContext';
     <AuthProvider>
       <CartProvider>
         <ClientStoreProvider>
-          <CollectionProvider>
+          <ClientCollectionProvider>
             <ClientProductProvider>
               <OrderProvider>
                 {children}
               </OrderProvider>
             </ClientProductProvider>
-          </CollectionProvider>
+          </ClientCollectionProvider>
         </ClientStoreProvider>
       </CartProvider>
     </AuthProvider>
