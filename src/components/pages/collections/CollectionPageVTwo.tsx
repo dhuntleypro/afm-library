@@ -1,40 +1,35 @@
+import { useClientProduct } from '@/contexts/ClientProductContext';
+import { useClientStore } from '@/contexts/ClientStoreContext';
 import { useClientCollection } from '@/contexts/CollectionContext';
+import convertToCurrency from '@/hooks/convertToCurrency';
 import { CollectionModelProps } from '@/models/CollectionModelProps';
 import { AWS_HOLDER_IMAGE } from '@/utils/api';
+import { COLORS } from '@/utils/theme';
 import { router } from 'expo-router';
 import React, { useState } from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity, FlatList, Dimensions } from 'react-native';
 
 const { width, height } = Dimensions.get('window');
 
-interface ProductProps {
-  id: number;
-  name: string;
-  price: string;
-  image: string;
-}
 
-const products: ProductProps[] = [
-  { id: 1, name: 'Facet Table Lamp', price: '$284', image: 'https://example.com/lamp.jpg' },
-  { id: 2, name: 'Carlisle Double', price: '$583', image: 'https://example.com/cabinet.jpg' },
-  { id: 3, name: 'Sofia Footstool', price: '$495', image: 'https://example.com/footstool.jpg' },
-  { id: 4, name: 'Theodore', price: '$322', image: 'https://example.com/chair.jpg' },
-  { id: 5, name: 'Lamp 2', price: '$369', image: 'https://example.com/lamp2.jpg' },
-  { id: 6, name: 'Chair 2', price: '$423', image: 'https://example.com/chair2.jpg' },
-];
 
 const CollectionPageVTwo = () => {
   const { collections, selectedCollection, selectCollection, isLoading, error } = useClientCollection();
-
+  const {products} = useClientProduct()
+  const {store} = useClientStore()
   const handleProductSelect = (product: CollectionModelProps) => {
     selectCollection(product);
   };
 
   const filteredProducts = selectedCollection?.title === 'All'
-    ? products
-    : products.filter(product => product.name.toLowerCase().includes(selectedCollection?.title.toLowerCase() || ''));
+  ? products
+  : products.filter(product =>
+      selectedCollection?.relatedProductIds.includes(product.id.toString())
+    );
 
-    console.log(`filteredProducts: ${filteredProducts}`)
+console.log(`Filtered Products: ${JSON.stringify(filteredProducts)}`);
+
+    // console.log(`filteredProducts: ${filteredProducts}`)
   return (
     <View style={styles.container}>
       <FlatList
@@ -64,7 +59,7 @@ const CollectionPageVTwo = () => {
 
       <View style={styles.promoContainer}>
         <Image
-          source={{ uri: AWS_HOLDER_IMAGE }} // Replace with actual promo image URI
+          source={{ uri: store?.images.welcome_image }} // Replace with actual promo image URI
           style={styles.promoImage}
         />
         <View style={styles.promoTextContainer}>
@@ -83,8 +78,8 @@ const CollectionPageVTwo = () => {
             <View style={styles.productCard}>
               <TouchableOpacity onPress={() => router.push(`/products/${item.id}` as never)}>
               {/* <Image source={{ uri: item.image }} style={styles.productImage} /> */}
-              <Image source={{ uri: AWS_HOLDER_IMAGE }} style={styles.productImage} />
-              <Text style={styles.productPrice}>{item.price}</Text>
+              <Image source={{ uri: item.images[0] }} style={styles.productImage} />
+              <Text style={styles.productPrice}>{convertToCurrency(item.price)}</Text>
                 <Text style={styles.productName}>{item.name}</Text>
               </TouchableOpacity>
             </View>
@@ -152,11 +147,11 @@ const styles = StyleSheet.create({
   promoTitle: {
     fontSize: 20, // Adjusted font size
     fontWeight: 'bold',
-    color: '#333333',
+    color: COLORS.white,
   },
   promoSubtitle: {
     fontSize: 14, // Adjusted font size
-    color: '#666666',
+    color: COLORS.gray3,
     marginTop: 5,
   },
   promoDiscount: {
