@@ -23,7 +23,7 @@ export const useClientCollection = (): ClientCollectionContextProps => {
     throw new Error('useClientCollection must be used within a ClientCollectionProvider');
   }
   return context;
-};
+};     
 
 export const ClientCollectionProvider = ({ children }: { children: ReactNode }) => {
   const [collection, setCollection] = useState<CollectionModelProps | null>(null);
