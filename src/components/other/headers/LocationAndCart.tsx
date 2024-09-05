@@ -5,11 +5,11 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { Ionicons , Fontisto} from '@expo/vector-icons'
 // import { NavigationProp } from '../../screens/ProductDetails'
 import { useNavigation } from '@react-navigation/native'
-import { CartContext } from '../../../contexts/CartContext'
+import { CartContext, useCart } from '../../../contexts/CartContext'
 
  const LocationAndCart = () => {
     const navigation = useNavigation()
-    const { carts , quantity} = useContext(CartContext)
+    const { carts , quantity} = useCart()
 
     return (
     <View style={styles.appBarWrapper}>

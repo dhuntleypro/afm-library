@@ -73,7 +73,6 @@ export const ClientProductProvider = ({ children }: { children: ReactNode }) => 
     try {
       const response: ProductModelProps[] = await getClientProductsApi(store_id, true);
       // console.log("Full API response:", JSON.stringify(response, null, 2));
-      console.log(`Fetched client products Successfully`);
       if (!response || response.length === 0) {
         throw new Error('No data returned from the API');
       }

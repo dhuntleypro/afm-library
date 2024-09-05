@@ -15,12 +15,14 @@ import { ProductModelProps } from '@/models/ProductModelProps';
 import convertToCurrency from '@/hooks/convertToCurrency';
 import { useClientProduct } from '@/contexts/ClientProductContext';
 import { useCart } from '@/contexts/CartContext';
+import { useAuth } from '@/contexts/AuthContext';
 // import { ProductModelProps } from '../../models/ProductModelProps';
 // import convertToCurrency from '@/hooks/convertToCurrency';;
 // import { CartContext } from '../../contexts/CartContext';
 
  export const ProductCardV2: FC<ProductModelProps> = (item) => {
   const { addToCart} = useCart()
+  const { authState,  updateUserProfile} = useAuth()
   const { products, selectedProduct, selectProduct, isLoading, error } = useClientProduct();
 
   const handleProductSelect = (product: ProductModelProps) => {
@@ -51,7 +53,7 @@ import { useCart } from '@/contexts/CartContext';
         </View>
 
         {/* Button */}
-        <TouchableOpacity style={styles.addBtn} onPress={() => {addToCart(item)}}>
+        <TouchableOpacity style={styles.addBtn} onPress={() => { addToCart(item, authState.user, updateUserProfile)}}>
           <Ionicons name='add-circle' size={35} color={COLORS.primary} />
         </TouchableOpacity>
       </View>

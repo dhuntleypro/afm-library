@@ -34,7 +34,7 @@ const HomeDesignTwo = () => {
         paddingBottom: 200,
       }}
     >
-      <TopHomeSeaction />
+      <TopHomeSeaction product_1_Id={"98yhjhkj"} product_2_Id={"2340398"} product_3_Id={"fewrfgg5"} product_4_Id={"XimUY5KD"} product_1_Name={"Sea Moss Powder"} product_2_Name={"Sea Moss Gel"} product_3_Name={"Sea Moss Capsules"} product_4_Name={"Sea Moss Juice"} />
       <SectionHeader />
       <ProductRow client={true} />
       <View style={styles.card}>

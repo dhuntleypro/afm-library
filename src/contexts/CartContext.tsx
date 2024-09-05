@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, ReactNode } from "react";
 import { useFocusEffect } from "@react-navigation/native";
-import { ProductModelProps } from "@/models/ProductModelProps"; // Assume a partial version of ProductModelProps is used
+import { ProductModelProps } from "@/models/ProductModelProps"; 
 
 // Define the context type
 interface CartContextType {
@@ -16,7 +16,7 @@ interface CartContextType {
   clearData: (authUser: any, updateUserProfile: any) => void;
 }
 
-const CartContext = createContext<CartContextType | undefined>(undefined);
+export const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export const useCart = (): CartContextType => {
   const context = useContext(CartContext);
@@ -117,8 +117,6 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     </CartContext.Provider>
   );
 };
-
-
 
 
 // import React, { createContext, useContext, useEffect, useState, ReactNode } from "react";

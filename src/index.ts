@@ -113,6 +113,7 @@ export { default as WelcomePageTwo } from "./components/pages/welcome/WelcomePag
 export { default as ClientOrderCard } from "./components/pages/client-order/ClientOrderCard"
 export { default as CartPageVOne } from "./components/pages/cart/CartPageVOne"
 export { default as ProductDetailsPageVThree } from "./components/pages/product-details/ProductDetailsPageVThree"
+export { default as ProductDetailsPageVFour } from "./components/pages/product-details/ProductDetailsPageVFour"
 
 
 
