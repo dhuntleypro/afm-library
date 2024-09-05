@@ -3,7 +3,7 @@ import React, { FC, useContext, useState } from 'react'
 import { COLORS, SIZES } from '@/utils/theme'
 import { ProductModelProps } from '../../../models/ProductModelProps'
 import convertToCurrency from '@/hooks/convertToCurrency';
-import { CartContext } from '../../../contexts/CartContext'
+import {  useCart } from '../../../contexts/CartContext'
 import { Ionicons , SimpleLineIcons} from "@expo/vector-icons"
 // import { stripeConverter } from '../../hook/stripeConverter'
 import { useAuth } from '../../../contexts/AuthContext'
@@ -11,7 +11,7 @@ import { createPaymentIntent } from '../../../api/paymentApi'
 import { CONSTANTS } from '@/utils/constants'
 
 const CartCard = ({ item }: any) => {
-    const { deleteItemFromCart, addToCart , decreaseFromCart, totalSum} = useContext(CartContext);
+    const { deleteItemFromCart, addToCart , decreaseFromCart, totalSum} = useCart()
     const [quantity, setQuantity] = useState(item.quantity);
     const {authState, onLogout } = useAuth()
     const [paymentStatus, setPaymentStatus] = useState('ijiij');

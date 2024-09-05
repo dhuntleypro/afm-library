@@ -2,20 +2,20 @@ import React, { FC, useContext } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Image, Dimensions } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
-import { CartContext } from '@/contexts/CartContext';
 import { COLORS, SIZES } from '@/utils/theme';
 import { CONSTANTS } from '@/utils/constants';
 import { Link } from 'expo-router';
 import convertToCurrency from '@/hooks/convertToCurrency';
 import { ProductModelProps } from '@/models/ProductModelProps';
 import { useClientProduct } from '@/contexts/ClientProductContext';
+import { useCart } from '@/contexts/CartContext';
 // import { useClientProduct } from '@/contexts/ClientProductContext';
 
 const { width } = Dimensions.get('window');
 
 export const ProductCardView: FC<{ product: ProductModelProps }> = ({ product }) => {
   const navigation = useNavigation();
-  const { addToCart } = useContext(CartContext);
+  const { addToCart } = useCart()
   const { selectProduct } = useClientProduct();
 
   const handleProductPress = () => {

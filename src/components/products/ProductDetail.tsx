@@ -5,7 +5,7 @@ import { Ionicons, SimpleLineIcons, MaterialCommunityIcons, Fontisto } from "@ex
 import { ProductModelProps } from '../../models/ProductModelProps';
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import convertToCurrency from '@/hooks/convertToCurrency';;
-import { CartContext } from '../../contexts/CartContext';
+import {  useCart } from '../../contexts/CartContext';
 import { useAuth } from '../../contexts/AuthContext';
 // import { CONSTANTS } from '../utils/constants';
 // import { WebView } from 'react-native-webview';
@@ -22,9 +22,12 @@ export interface NavigationProp {
 }
 
 const ProductDetails: FC<ProductModelProps> = (item) => {
-  const { authState, onLogout } = useAuth();
+  const { authState, onLogout , updateUserProfile} = useAuth();
+
   // const route = useRoute<RouteProp<{ params: { item: ProductModelProps } }>>();
-  const { addToCart } = useContext(CartContext);
+  // const { addToCart } = useContext(CartContext);
+
+  const { addToCart } = useCart()
 
   // const { item } = route.params;
   const [count, setCount] = useState(1);
@@ -148,7 +151,7 @@ const ProductDetails: FC<ProductModelProps> = (item) => {
           </TouchableOpacity>
 
           <TouchableOpacity onPress={() => {
-            addToCart(item);
+            addToCart(item ,  authState.user, updateUserProfile);
           }} style={styles.addToCart}>
             <Fontisto name='shopping-bag' size={22} color={COLORS.lightWhite} />
           </TouchableOpacity>

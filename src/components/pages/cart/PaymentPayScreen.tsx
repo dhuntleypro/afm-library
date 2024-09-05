@@ -3,7 +3,7 @@ import { Alert, Platform, StyleSheet, Text, View } from 'react-native';
 import React, { FC, useContext, useEffect, useState } from 'react';
 import { StripeProvider, usePlatformPay, PlatformPayButton, PlatformPay } from '@stripe/stripe-react-native';
 import { useFocusEffect } from '@react-navigation/native';
-import { CartContext } from '../../../contexts/CartContext';
+import { useCart } from '../../../contexts/CartContext';
 import { useClientStore } from '../../../contexts/ClientStoreContext';
 import { stripeConverter } from '../../../hooks/stripeConverter';
 import { createPaymentIntent } from '../../../api/paymentApi';
@@ -27,7 +27,7 @@ export const PaymentPayScreen: FC<PaymentPayScreenProps> = (props) => {
   const [clientSecret, setClientSecret] = useState('');
   const { isPlatformPaySupported, confirmPlatformPayPayment } = usePlatformPay();
   const { store } = useClientStore();
-  const { carts, totalSum, totalShipping, totalTax, grandTotal, quantity, deleteItemFromCart, clearData, decreaseFromCart} = useContext(CartContext)
+  const { carts, totalSum, totalShipping, totalTax, grandTotal, quantity, deleteItemFromCart, clearData, decreaseFromCart} = useCart()
 
   useFocusEffect(
     React.useCallback(() => {

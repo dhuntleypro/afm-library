@@ -39,9 +39,9 @@ export function createFetchClient(
     });
 
     // Log the URL, headers, and parameters for debugging
-    console.log('Request URL:', url.toString());
-    console.log('Request Params:', params.toString());
-    console.log('Request Headers:', Object.fromEntries(headers.entries()));
+    // console.log('Request URL:', url.toString());
+    // console.log('Request Params:', params.toString());
+    // console.log('Request Headers:', Object.fromEntries(headers.entries()));
 
     // Perform the fetch request
     const response = await fetch(url.toString(), {

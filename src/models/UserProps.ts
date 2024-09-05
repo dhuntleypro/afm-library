@@ -5,6 +5,17 @@ interface StoreAuth {
     email: string;
 }
 
+// Define the interface for cart items
+export interface CartItem {
+    id: string;
+    productID: string;
+    price: number;
+    quantity: number;
+    size: string;
+    color: string;
+    notes: string;
+  }
+
 export interface UserProps {
     id: string;
     store_ids: string[];
@@ -15,7 +26,7 @@ export interface UserProps {
     onboardingQ4: string;
     orders: string[];
     favoriteItems: string[];
-    cart: string[];
+    cart: CartItem[];
     abandonedCart?: boolean;
     affiliate_link: string;
     active: boolean;

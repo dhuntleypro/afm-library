@@ -36,7 +36,7 @@ const Carousel: FunctionComponent = () => {
             { useNativeDriver: false },
           )}
           pagingEnabled={true}
-          keyExtractor={(_, index) => index}
+          keyExtractor={(_, index : any) => index}
           renderItem={({ item }) => {
             return (
               <View style={style.imageContainer}>
@@ -50,7 +50,7 @@ const Carousel: FunctionComponent = () => {
         <FlatList
           horizontal
           data={storeImages}
-          keyExtractor={(_, index) => index}
+          keyExtractor={(_, index: any) => index}
           renderItem={({ index }) => {
             const inputRange = [
               (index - 1) * width,

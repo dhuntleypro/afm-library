@@ -4,7 +4,6 @@ import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 // import { useNavigation } from '@react-navigation/native';
 // import { ProductModelProps } from '../../../models/ProductModelProps';
-import { CartContext } from '@/contexts/CartContext';
 // import convertToCurrency from '../../../hook/convertToCurrency';
 import { COLORS, SIZES } from '@/utils/theme';
 // import { Constants } from '@stripe/stripe-react-native';
@@ -15,13 +14,13 @@ import { Link } from 'expo-router';
 import { ProductModelProps } from '@/models/ProductModelProps';
 import convertToCurrency from '@/hooks/convertToCurrency';
 import { useClientProduct } from '@/contexts/ClientProductContext';
+import { useCart } from '@/contexts/CartContext';
 // import { ProductModelProps } from '../../models/ProductModelProps';
 // import convertToCurrency from '@/hooks/convertToCurrency';;
 // import { CartContext } from '../../contexts/CartContext';
 
  export const ProductCardV2: FC<ProductModelProps> = (item) => {
-  // const navigation = useNavigation();
-  const { addToCart} = useContext(CartContext)
+  const { addToCart} = useCart()
   const { products, selectedProduct, selectProduct, isLoading, error } = useClientProduct();
 
   const handleProductSelect = (product: ProductModelProps) => {

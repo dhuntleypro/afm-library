@@ -1,184 +1,58 @@
-import React, { FC, useContext } from "react";
-import {
-  View,
-  Text,
-  Image,
-  TouchableOpacity,
-  StyleSheet,
-  Dimensions,
-  ScrollView,
-} from "react-native";
-import { Ionicons } from "@expo/vector-icons";
-import { Link } from "expo-router";
-import { CartContext } from "@/contexts/CartContext";
-// import { useClientProduct } from "@/contexts/ClientProductContext";
-import { ProductModelProps } from "@/models/ProductModelProps";
+import React, { FC } from "react";
+import { View, Text, Image, TouchableOpacity, StyleSheet, ScrollView, Dimensions } from "react-native";
 import { useClientProduct } from "@/contexts/ClientProductContext";
+import { useCart } from "@/contexts/CartContext";
+import { useAuth } from "@/contexts/AuthContext"; // Import to get authUser
 
-const { width } = Dimensions.get("window");
-
-// const ProductDetailsPageVTwo: React.FC = () => {
-
-export const ProductDetailsPageVTwo = () => {
-  const { addToCart } = useContext(CartContext);
+export const ProductDetailsPageVTwo: FC = () => {
+  const { addToCart } = useCart();
   const { selectedProduct } = useClientProduct();
+  const { authState, updateUserProfile } = useAuth(); // Access authState and updateUserProfile
 
-  // Static image URLs
-  const images = [
-    "https://appsformankind-assets.s3.amazonaws.com/Store/Jays_Sea_Moss/rock.jpg",
-    "https://appsformankind-assets.s3.amazonaws.com/Store/Jays_Sea_Moss/gel.jpg",
-    "https://appsformankind-assets.s3.amazonaws.com/Store/Jays_Sea_Moss/waterfall.jpg",
-  ];
+  const handleAddToCart = () => {
+    if (selectedProduct) {
+      const productToAdd = {
+        id: selectedProduct.id,
+        name: selectedProduct.name,
+        price: selectedProduct.price,
+        quantity: 1, // Set an initial quantity of 1 for adding to the cart
+        image: selectedProduct.images[0], // Assuming the first image is the main one
+      };
+      addToCart(productToAdd, authState.user, updateUserProfile); // Pass authUser and updateUserProfile
+    }
+  };
 
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
         {/* Product Images */}
-        <ScrollView
-          horizontal
-          pagingEnabled
-          showsHorizontalScrollIndicator={false}
-          style={styles.imageCarousel}
-        >
-          {images.map((image, index) => (
-            <Image
-              key={index}
-              source={{ uri: image }}
-              style={styles.productImage}
-            />
+        <ScrollView horizontal pagingEnabled showsHorizontalScrollIndicator={false} style={styles.imageCarousel}>
+          {selectedProduct?.images.map((image, index) => (
+            <Image key={index} source={{ uri: image }} style={styles.productImage} />
           ))}
         </ScrollView>
 
         {/* Product Info */}
         <View style={styles.productInfo}>
-          <Text style={styles.productName}>Sample Sea Moss Product</Text>
-          <Text style={styles.productDescription}>
-            This is a sample product description that highlights key features
-            and benefits of Sea Moss products.
-          </Text>
+          <Text style={styles.productName}>{selectedProduct?.name}</Text>
+          <Text style={styles.productDescription}>{selectedProduct?.description}</Text>
           <Text style={styles.productPrice}>
-            <Text style={styles.salePrice}>$149.99</Text>{" "}
-            <Text style={styles.originalPrice}>$199.99</Text>
+            <Text style={styles.salePrice}>${selectedProduct?.price}</Text>
           </Text>
-
-          {/* Features */}
-          <View style={styles.featuresContainer}>
-            <Text style={styles.sectionTitle}>Features:</Text>
-            <Text style={styles.featureItem}>
-              - Rich in essential minerals and vitamins
-            </Text>
-            <Text style={styles.featureItem}>
-              - Supports overall health and wellness
-            </Text>
-            <Text style={styles.featureItem}>
-              - Can be used in various recipes and remedies
-            </Text>
-          </View>
-
-          {/* Sea Moss Benefits */}
-          <View style={styles.benefitsContainer}>
-            <Text style={styles.sectionTitle}>Benefits of Sea Moss:</Text>
-            <Text style={styles.benefitItem}>
-              - Boosts immune system and overall health
-            </Text>
-            <Text style={styles.benefitItem}>
-              - Improves digestion and gut health
-            </Text>
-            <Text style={styles.benefitItem}>
-              - Supports skin health and promotes a healthy complexion
-            </Text>
-            <Text style={styles.benefitItem}>
-              - Provides a natural source of iodine, aiding in thyroid function
-            </Text>
-            <Text style={styles.benefitItem}>
-              - Rich in Omega-3 fatty acids, which support heart health
-            </Text>
-          </View>
-
-          {/* Variants
-          <View style={styles.variantsContainer}>
-            <Text style={styles.sectionTitle}>Available Variants:</Text>
-            <View style={styles.variantItem}>
-              <Text style={styles.variantTitle}>Sea Moss Gel</Text>
-              <Text style={styles.variantDescription}>
-                A convenient, ready-to-use Sea Moss gel, perfect for adding to
-                smoothies or skincare routines.
-              </Text>
-              <Image
-                source={{
-                  uri: "https://appsformankind-assets.s3.amazonaws.com/Store/Jays_Sea_Moss/gel.jpg",
-                }}
-                style={styles.variantImage}
-                resizeMode="cover"
-              />
-              <Text style={styles.variantPrice}>
-                <Text style={styles.salePrice}>$129.99</Text>{" "}
-                <Text style={styles.originalPrice}>$149.99</Text>
-              </Text>
-            </View>
-            <View style={styles.variantItem}>
-              <Text style={styles.variantTitle}>Raw Sea Moss</Text>
-              <Text style={styles.variantDescription}>
-                Raw, organic Sea Moss, ideal for those who prefer to prepare it
-                themselves.
-              </Text>
-              <Image
-                source={{
-                  uri: "https://appsformankind-assets.s3.amazonaws.com/Store/Jays_Sea_Moss/rock.jpg",
-                }}
-                style={styles.variantImage}
-                resizeMode="cover"
-              />
-              <Text style={styles.variantPrice}>
-                <Text style={styles.salePrice}>$109.99</Text>{" "}
-                <Text style={styles.originalPrice}>$129.99</Text>
-              </Text>
-            </View>
-          </View> */}
-
-          {/* Reviews */}
-          <View style={styles.reviewsContainer}>
-            <Text style={styles.sectionTitle}>Customer Reviews:</Text>
-            <ScrollView
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              style={styles.reviewsScrollView}
-            >
-              <View style={styles.reviewItem}>
-                <Text style={styles.reviewUserName}>John Doe</Text>
-                <Text style={styles.reviewTitle}>Great product!</Text>
-                <Text style={styles.reviewComment}>
-                  I really enjoyed using this Sea Moss product. Highly recommend
-                  it!
-                </Text>
-              </View>
-              <View style={styles.reviewItem}>
-                <Text style={styles.reviewUserName}>Jane Smith</Text>
-                <Text style={styles.reviewTitle}>Good value for money</Text>
-                <Text style={styles.reviewComment}>
-                  This Sea Moss offers great value for the price.
-                </Text>
-              </View>
-            </ScrollView>
-          </View>
         </View>
       </ScrollView>
 
-      {/* Add to Cart Button - Fixed at the Bottom */}
-
-      <TouchableOpacity
-        style={styles.addToCartButton}
-        onPress={() => {
-          if (selectedProduct) {
-            addToCart(selectedProduct);
-          }
-        }}
-      >
+      {/* Add to Cart Button */}
+      <TouchableOpacity style={styles.addToCartButton} onPress={handleAddToCart}>
         <Text style={styles.addToCartButtonText}>Add to cart</Text>
       </TouchableOpacity>
     </View>
   );
 };
+
+// Styles definition remains the same...
+const { width } = Dimensions.get("window");
+
 
 // Styles definition
 const styles = StyleSheet.create({

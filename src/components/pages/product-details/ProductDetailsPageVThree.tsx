@@ -1,29 +1,31 @@
-import React, { FC, useContext, useState } from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
-import { COLORS, SIZES } from '@/utils/theme';
-import { CartContext } from '@/contexts/CartContext';
+import React, { FC, useState } from 'react';
+import { View, Text, Image, StyleSheet, ScrollView } from 'react-native';
+import { useCart } from '@/contexts/CartContext';
 import { useClientProduct } from '@/contexts/ClientProductContext';
-import { ProductModelProps } from '@/models/ProductModelProps';
 import convertToCurrency from '@/hooks/convertToCurrency';
-import { MotiView } from 'moti';
 import GlitterButton from '@/components/buttons/GlitterButtom';
+import { ProductModelProps } from '@/models/ProductModelProps';
+import { useAuth } from '@/contexts/AuthContext';
 
-const ProductDetailsPageVThree: FC<ProductModelProps> = (props) => {
+const ProductDetailsPageVThree: FC = () => {
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
-  const { addToCart } = useContext(CartContext);
+  const { addToCart } = useCart();
   const { selectedProduct } = useClientProduct();
-
-  const [isPressed, setIsPressed] = useState(false);
+  const { authState, updateUserProfile } = useAuth(); // Access authState and updateUserProfile
 
   const handlePress = () => {
     if (selectedProduct) {
-      addToCart(selectedProduct);
-      setIsPressed(true);
-
-      // Reset animation state after some time
-      setTimeout(() => setIsPressed(false), 500);
+      const partialProduct: Partial<ProductModelProps> = {
+        id: selectedProduct.id,
+        name: selectedProduct.name,
+        price: selectedProduct.price,
+        images: selectedProduct.images,
+        quantity: 1, // Default quantity
+        color: selectedColor ?? 'default', // Add color if necessary
+        size: selectedSize ?? 'default', // Add size if necessary
+      };
+      addToCart(partialProduct, authState.user, updateUserProfile); // Pass authUser and updateUserProfile
     }
   };
 
@@ -44,26 +46,26 @@ const ProductDetailsPageVThree: FC<ProductModelProps> = (props) => {
         </View>
         
         <View style={styles.section}>
-         <View style={styles.productInfo}>
-           <Text style={styles.productTitle}>{selectedProduct?.name}</Text>
-           <Text style={styles.productSubtitle}>{description.length > 11 ? description.slice(0, 11) + '...' : description}
-           </Text>
-         </View>
-       </View>
+          <View style={styles.productInfo}>
+            <Text style={styles.productTitle}>{selectedProduct?.name}</Text>
+            <Text style={styles.productSubtitle}>
+              {description.length > 11 ? description.slice(0, 11) + '...' : description}
+            </Text>
+          </View>
+        </View>
 
         <View style={styles.section}>
           <View style={styles.priceSection}>
             <Text style={styles.priceLabel}>Price</Text>
             <Text style={styles.divider}>|</Text>
             <View style={styles.priceInfo}>
-              <Text style={styles.price}>{convertToCurrency(selectedProduct?.price ?? 10000)}</Text>
-              <Text style={styles.description}>
-                {description}
+              <Text style={styles.price}>
+                {convertToCurrency(selectedProduct?.price ?? 10000)}
               </Text>
+              <Text style={styles.description}>{description}</Text>
             </View>
           </View>
         </View>
-
 
         <GlitterButton onPress={handlePress} buttonText={'Add To Cart'} />
       </ScrollView>
@@ -94,7 +96,16 @@ const styles = StyleSheet.create({
     left: 20,
     right: 20,
   },
-
+  overlayTitle: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#FFFFFF',
+    marginBottom: 5,
+  },
+  overlaySubtitle: {
+    fontSize: 16,
+    color: '#FFFFFF',
+  },
   productInfo: {
     marginBottom: 20,
   },
@@ -108,43 +119,12 @@ const styles = StyleSheet.create({
     color: '#7D7D7D',
     marginTop: 5,
   },
-  overlayTitle: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#FFFFFF',
-    marginBottom: 5,
-  },
-  overlaySubtitle: {
-    fontSize: 16,
-    color: '#FFFFFF',
-  },
   section: {
     borderWidth: 1,
     borderColor: '#E0E0E0',
     borderRadius: 10,
     padding: 16,
     marginBottom: 20,
-  },
-  sectionTitle: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#000000',
-    marginBottom: 10,
-  },
-  colorOptions: {
-    flexDirection: 'row',
-  },
-  colorCircle: {
-    width: 30,
-    height: 30,
-    borderRadius: 15,
-    marginRight: 10,
-    borderWidth: 1,
-    borderColor: '#E0E0E0',
-  },
-  selectedColorCircle: {
-    borderWidth: 2,
-    borderColor: '#000000',
   },
   priceSection: {
     flexDirection: 'row',
@@ -173,23 +153,164 @@ const styles = StyleSheet.create({
   description: {
     fontSize: 14,
     color: '#7D7D7D',
-    flexWrap: 'wrap',
-  },
-  buyButton: {
-    backgroundColor: '#FFFFFF',
-    borderWidth: 2,
-    borderColor: '#000000',
-    borderRadius: 25,
-    paddingVertical: 15,
-    alignItems: 'center',
-    marginTop: 20,
-  },
-  buyButtonText: {
-    color: '#000000',
-    fontSize: 18,
-    fontWeight: 'bold',
   },
 });
+
+
+// import React, { FC, useState } from 'react';
+// import { View, Text, Image, StyleSheet, ScrollView } from 'react-native';
+// import { COLORS, SIZES } from '@/utils/theme';
+// import { useCart } from '@/contexts/CartContext';
+// import { useClientProduct } from '@/contexts/ClientProductContext';
+// import convertToCurrency from '@/hooks/convertToCurrency';
+// import GlitterButton from '@/components/buttons/GlitterButtom';
+
+// const ProductDetailsPageVThree: FC = () => {
+//   const [selectedColor, setSelectedColor] = useState<string | null>(null);
+//   const [selectedSize, setSelectedSize] = useState<string | null>(null);
+//   const { addToCart } = useCart();
+//   const { selectedProduct } = useClientProduct();
+
+//   const [isPressed, setIsPressed] = useState(false);
+
+//   const handlePress = () => {
+//     if (selectedProduct) {
+//       const partialProduct: Partial<typeof selectedProduct> = {
+//         ...selectedProduct,
+//         quantity: 1, // Default quantity
+//         color: selectedColor ?? 'default', // Add color if necessary
+//         size: selectedSize ?? 'default', // Add size if necessary
+//       };
+//       addToCart(partialProduct); // Add the product to the cart
+//       setIsPressed(true);
+
+//       // Reset animation state after some time
+//       setTimeout(() => setIsPressed(false), 500);
+//     }
+//   };
+
+//   const description = selectedProduct?.description ?? "";
+
+//   return (
+//     <View style={{ backgroundColor: 'white' }}>
+//       <ScrollView contentContainerStyle={styles.container}>
+//         <View style={styles.imageContainer}>
+//           <Image 
+//             source={{ uri: selectedProduct?.images[0] }} // Replace with actual image URI
+//             style={styles.productImage}
+//           />
+//           <View style={styles.textOverlay}>
+//             <Text style={styles.overlayTitle}>{selectedProduct?.name}</Text>
+//             <Text style={styles.overlaySubtitle}>{description}</Text>
+//           </View>
+//         </View>
+        
+//         <View style={styles.section}>
+//           <View style={styles.productInfo}>
+//             <Text style={styles.productTitle}>{selectedProduct?.name}</Text>
+//             <Text style={styles.productSubtitle}>
+//               {description.length > 11 ? description.slice(0, 11) + '...' : description}
+//             </Text>
+//           </View>
+//         </View>
+
+//         <View style={styles.section}>
+//           <View style={styles.priceSection}>
+//             <Text style={styles.priceLabel}>Price</Text>
+//             <Text style={styles.divider}>|</Text>
+//             <View style={styles.priceInfo}>
+//               <Text style={styles.price}>
+//                 {convertToCurrency(selectedProduct?.price ?? 10000)}
+//               </Text>
+//               <Text style={styles.description}>{description}</Text>
+//             </View>
+//           </View>
+//         </View>
+
+//         <GlitterButton onPress={handlePress} buttonText={'Add To Cart'} />
+//       </ScrollView>
+//     </View>
+//   );
+// };
+
+// export default ProductDetailsPageVThree;
+
+// const styles = StyleSheet.create({
+//   container: {
+//     flexGrow: 1,
+//     backgroundColor: '#FFFFFF',
+//     padding: 16,
+//   },
+//   imageContainer: {
+//     position: 'relative',
+//   },
+//   productImage: {
+//     width: '100%',
+//     height: 400,
+//     borderRadius: 10,
+//     marginBottom: 20,
+//   },
+//   textOverlay: {
+//     position: 'absolute',
+//     top: 20,
+//     left: 20,
+//     right: 20,
+//   },
+//   productInfo: {
+//     marginBottom: 20,
+//   },
+//   productTitle: {
+//     fontSize: 22,
+//     fontWeight: 'bold',
+//     color: '#000000',
+//   },
+//   productSubtitle: {
+//     fontSize: 16,
+//     color: '#7D7D7D',
+//     marginTop: 5,
+//   },
+//   overlayTitle: {
+//     fontSize: 24,
+//     fontWeight: 'bold',
+//     color: '#FFFFFF',
+//     marginBottom: 5,
+//   },
+//   overlaySubtitle: {
+//     fontSize: 16,
+//     color: '#FFFFFF',
+//   },
+//   section: {
+//     borderWidth: 1,
+//     borderColor: '#E0E0E0',
+//     borderRadius: 10,
+//     padding: 16,
+//     marginBottom: 20,
+//   },
+//   priceSection: {
+//     flexDirection: 'row',
+//     alignItems: 'center',
+//   },
+//   priceLabel: {
+//     fontSize: 16,
+//     fontWeight: 'bold',
+//     color: '#000000',
+//     marginRight: 10, // Added margin to separate label from price
+//   },
+//   divider: {
+//     fontSize: 16,
+//     color: '#E0E0E0',
+//     marginHorizontal: 10, // Divider spacing
+//   },
+//   priceInfo: {
+//     flex: 1,
+//   },
+//   price: {
+//     fontSize: 28,
+//     fontWeight: 'bold',
+//     color: '#000000',
+//     marginBottom: 5,
+//   },
+ 
 
 
 

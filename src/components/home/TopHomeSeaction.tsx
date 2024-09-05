@@ -91,7 +91,9 @@ const TopHomeSeaction: React.FC = () => {
             delay:  isMenuVisible ? 600 : 0,
           }}
         >
+          <Link href={"/products"} asChild>
           <Text style={styles.productItem}> All Products</Text>
+          </Link>
         </MotiView>
         <MotiView
           key={`t2`} // Force re-render to reset animation

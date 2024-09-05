@@ -30,18 +30,18 @@ export {SAMPLE_PRODUCT} from "./model-sample-data/sample-product"
 
 
 
-// Layout
-export { RootLayout} from './layouts/RootLayout'
-
-export { CoreLayout}  from './layouts/CoreLayout'
-export { TabLayout}  from './layouts/TabLayout'
-export { AuthLayout}  from './layouts/AuthLayout'
+// Layout DO NOT WORK -- NOT COMPATABLE 
+// export { RootLayout} from './layouts/RootLayout'
+// export { CoreLayout}  from './layouts/CoreLayout'
+// export { TabLayout}  from './layouts/TabLayout'
+// export { AuthLayout}  from './layouts/AuthLayout'
 
 
 // Context
 // export  { ClientStoreProvider, useClientStore } from './contexts/AppUserContext'
 export  { AuthProvider , useAuth } from './contexts/AuthContext'
-export  { CartProvider , CartContext } from './contexts/CartContext'
+// export  { CartProvider , CartContext } from './contexts/CartContext'
+export  { CartProvider , useCart } from './contexts/CartContext'
 export  { ClientProductProvider, useClientProduct } from './contexts/ClientProductContext'
 export  { ClientStoreProvider, useClientStore } from './contexts/ClientStoreContext'
 export  { CollectionProvider, useClientCollection } from './contexts/CollectionContext'
