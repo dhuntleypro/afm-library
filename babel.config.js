@@ -2,11 +2,25 @@ module.exports = function(api) {
   api.cache(true);
   return {
     presets: ['babel-preset-expo'],
-    plugins: ['@babel/plugin-transform-runtime'],
+    plugins: [
+      '@babel/plugin-transform-runtime',
+      'react-native-reanimated/plugin', // Required for Reanimated 2
+    ],
   };
 };
 
 
+
+
+// module.exports = function(api) {
+//   api.cache(true);
+//   return {
+//     presets: ['babel-preset-expo'],
+//     plugins: ['@babel/plugin-transform-runtime'],
+//   };
+// };
+
+// react-native-gesture-handler
 // export default {
 //   presets: [
 //     '@babel/preset-env',
