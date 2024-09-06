@@ -1,4 +1,4 @@
-import ProductCardV2 from "@/components/card/ProductCardV2";
+import {ProductCardV2} from "@/components/card/ProductCardV2";
 import ProductDetailsPageVTwo from "@/components/pages/product-details/ProductDetailsPageVTwo";
 // prof-website-slice-table
 

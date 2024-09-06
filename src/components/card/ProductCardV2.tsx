@@ -20,51 +20,52 @@ import { useAuth } from '@/contexts/AuthContext';
 // import convertToCurrency from '@/hooks/convertToCurrency';;
 // import { CartContext } from '../../contexts/CartContext';
 
- export const ProductCardV2: FC<ProductModelProps> = (item) => {
-  const { addToCart} = useCart()
-  const { authState,  updateUserProfile} = useAuth()
+export const ProductCardV2: FC<ProductModelProps> = (item) => {
+  const { addToCart } = useCart();
+  const { authState, updateUserProfile } = useAuth();
   const { products, selectedProduct, selectProduct, isLoading, error } = useClientProduct();
 
   const handleProductSelect = (product: ProductModelProps) => {
     selectProduct(product);
   };
 
+  const handleAddToCart = () => {
+    if (authState?.user) {
+      addToCart(item, authState.user, updateUserProfile);
+    } else {
+      console.error("User not logged in, cannot add to cart");
+      // Optionally: redirect to login page or show message
+    }
+  };
 
-  return ( 
+  return (
     <View>
       {/* @ts-ignore */}
       <Link href={`/products/${selectedProduct?.id}`} asChild>
-      <TouchableOpacity onPress={() => handleProductSelect(item)}>
-    {/* <TouchableOpacity onPress={() => navigation.navigate("ProductDetails", { item } as never)}> */}
+        <TouchableOpacity onPress={() => handleProductSelect(item)}>
+          <View style={styles.container}>
+            {/* Image */}
+            <View style={styles.imageContainer}>
+              <Image style={styles.image} source={{ uri: item.image || CONSTANTS.holderImageProductCard }} />
+            </View>
 
-    {/* <TouchableOpacity onPressIn={() => navigation.navigate("ProductDetails" as never)} >  */}
+            {/* Details */}
+            <View style={styles.details}>
+              <Text style={styles.title} numberOfLines={2}>{item.name}</Text>
+              <Text style={styles.supplier} numberOfLines={1}>{item.color_code}</Text>
+              <Text style={styles.price}>{convertToCurrency(item.price)}</Text>
+            </View>
 
-      <View style={styles.container}>
-        {/* Image */}
-        <View style={styles.imageContainer}>
-          <Image style={styles.image} source={{ uri: item.image ? item.image : CONSTANTS.holderImageProductCard }} />
-        </View>
-
-        {/* Details */}
-        <View style={styles.details}>
-          <Text style={styles.title} numberOfLines={2}>{item.name}</Text>
-          <Text style={styles.supplier} numberOfLines={1}>{item.color_code}</Text>
-          <Text style={styles.price}>{convertToCurrency(item.price)}</Text>
-        </View>
-
-        {/* Button */}
-        <TouchableOpacity style={styles.addBtn} onPress={() => { addToCart(item, authState.user, updateUserProfile)}}>
-          <Ionicons name='add-circle' size={35} color={COLORS.primary} />
+            {/* Button */}
+            <TouchableOpacity style={styles.addBtn} onPress={handleAddToCart}>
+              <Ionicons name='add-circle' size={35} color={COLORS.primary} />
+            </TouchableOpacity>
+          </View>
         </TouchableOpacity>
-      </View>
-    </TouchableOpacity>
-    </Link>
-   
+      </Link>
     </View>
   );
 };
-
-export default ProductCardV2;
 
 
 // export default ProductCardView; 

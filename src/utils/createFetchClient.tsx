@@ -1,4 +1,4 @@
-// Fetch Client Initialization Function
+// src/util/createFetchClient.ts
 export function createFetchClient(
   baseURL: string,
   defaultParams: Record<string, string | number>,
@@ -8,48 +8,33 @@ export function createFetchClient(
     endpoint: string,
     options: RequestInit & { params?: Record<string, string | number> } = {}
   ): Promise<T> => {
-    // Ensure `/prod` is part of the base URL if not already present
     const baseHasProd = baseURL.includes('/prod');
     const normalizedBaseURL = baseHasProd ? baseURL : `${baseURL}/prod`;
-
-    // Ensure the endpoint always starts with a leading slash
     const normalizedEndpoint = endpoint.startsWith('/') ? endpoint : `/${endpoint}`;
-
-    // Create the full URL using the normalizedBaseURL and normalized endpoint
     const url = new URL(`${normalizedBaseURL}${normalizedEndpoint}`);
 
-    // Add default parameters to the URL
     const params = new URLSearchParams();
     Object.entries(defaultParams).forEach(([key, value]) => {
-      params.append(key, String(value)); // No need for toString() if the value is already a string or number
+      params.append(key, String(value));
     });
 
-    // Append options.params if provided
     if (options.params) {
       Object.entries(options.params).forEach(([key, value]) => {
-        params.append(key, String(value)); // Convert number to string only when necessary
+        params.append(key, String(value));
       });
     }
-    url.search = params.toString(); // Set search params
+    url.search = params.toString();
 
-    // Merge default headers with any provided headers
     const headers = new Headers({
       ...defaultHeaders,
       ...options.headers,
     });
 
-    // Log the URL, headers, and parameters for debugging
-    // console.log('Request URL:', url.toString());
-    // console.log('Request Params:', params.toString());
-    // console.log('Request Headers:', Object.fromEntries(headers.entries()));
-
-    // Perform the fetch request
     const response = await fetch(url.toString(), {
       ...options,
       headers,
     });
 
-    // Check for HTTP errors
     if (!response.ok) {
       const errorData = await response.json().catch(() => ({}));
       throw new Error(`HTTP error! Status: ${response.status}, ${JSON.stringify(errorData)}`);
@@ -80,8 +65,13 @@ export function createFetchClient(
 
 
 
-// // Axios alternitive
-// // Fetch Client Initialization Function
+
+
+
+
+
+
+// // Axios alternitive Fetch Client Initialization Function
 // export function createFetchClient(
 //   baseURL: string,
 //   defaultParams: Record<string, string | number>,
@@ -104,16 +94,16 @@ export function createFetchClient(
 //     // Add default parameters to the URL
 //     const params = new URLSearchParams();
 //     Object.entries(defaultParams).forEach(([key, value]) => {
-//       params.append(key, value.toString()); // Ensure all defaultParams are strings
+//       params.append(key, String(value)); // No need for toString() if the value is already a string or number
 //     });
 
-//     // Append options.params if provided, converting numbers to strings
+//     // Append options.params if provided
 //     if (options.params) {
 //       Object.entries(options.params).forEach(([key, value]) => {
-//         params.append(key, value.toString()); // Convert number to string
+//         params.append(key, String(value)); // Convert number to string only when necessary
 //       });
 //     }
-//     url.search = params.toString(); // Set search params as string
+//     url.search = params.toString(); // Set search params
 
 //     // Merge default headers with any provided headers
 //     const headers = new Headers({
@@ -122,9 +112,9 @@ export function createFetchClient(
 //     });
 
 //     // Log the URL, headers, and parameters for debugging
-//     console.log('Request URL:', url.toString());
-//     console.log('Request Params:', params.toString());
-//     console.log('Request Headers:', Object.fromEntries(headers.entries()));
+//     // console.log('Request URL:', url.toString());
+//     // console.log('Request Params:', params.toString());
+//     // console.log('Request Headers:', Object.fromEntries(headers.entries()));
 
 //     // Perform the fetch request
 //     const response = await fetch(url.toString(), {
@@ -155,9 +145,5 @@ export function createFetchClient(
 //       fetchClient<T>(endpoint, { ...options, method: 'DELETE' }),
 //   };
 // }
-
-
-
-
 
 

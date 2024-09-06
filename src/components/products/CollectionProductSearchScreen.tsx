@@ -11,7 +11,7 @@ import { useClientProduct } from '@/contexts/ClientProductContext';
 
 const { width } = Dimensions.get('window');
 
-const ProductSearchScreen = () => {
+const CollectionProductSearchScreen = () => {
   const { authState } = useAuth();
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState<ProductModelProps[]>([]);
@@ -77,7 +77,7 @@ const ProductSearchScreen = () => {
   );
 };
 
-export default ProductSearchScreen;
+export default CollectionProductSearchScreen;
 
 export const styles = StyleSheet.create({
   gridLayout: {

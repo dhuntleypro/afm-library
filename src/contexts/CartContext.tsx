@@ -5,7 +5,7 @@ import { ProductModelProps } from "@/models/ProductModelProps";
 // Define the context type
 interface CartContextType {
   carts: Partial<ProductModelProps>[];
-  addToCart: (item: Partial<ProductModelProps>, authUser: any, updateUserProfile: any) => void;
+  addToCart: (item: Partial<ProductModelProps>, authUser: any, updateUserProfile: any) => Promise<void>;
   decreaseFromCart: (item: Partial<ProductModelProps>, authUser: any, updateUserProfile: any) => void;
   deleteItemFromCart: (item: Partial<ProductModelProps>, authUser: any, updateUserProfile: any) => void;
   totalSum: number;
@@ -28,7 +28,6 @@ export const useCart = (): CartContextType => {
 
 export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [carts, setCarts] = useState<Partial<ProductModelProps>[]>([]); // Initialize state with an empty cart
-
   const [totalSum, setTotalSum] = useState<number>(0);
   const [totalShipping, setTotalShipping] = useState<number>(10); // Example shipping cost
   const [quantity, setQuantity] = useState<number>(0);
@@ -44,20 +43,28 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     }, [carts]) // Runs when the cart is updated
   );
 
-  const addToCart = (item: Partial<ProductModelProps>, authUser: any, updateUserProfile: any) => {
-    let updatedCarts = [...carts];
-    const itemExistIndex = updatedCarts.findIndex((cart) => cart.id === item.id);
+  const addToCart = async (item: Partial<ProductModelProps>, authUser: any, updateUserProfile: any) => {
+    try {
+      let updatedCarts = [...carts];
+      const itemExistIndex = updatedCarts.findIndex((cart) => cart.id === item.id);
 
-    if (itemExistIndex !== -1) {
-      updatedCarts[itemExistIndex].quantity = (updatedCarts[itemExistIndex].quantity || 0) + 1; // Increment quantity
-    } else {
-      updatedCarts = [...updatedCarts, { ...item, quantity: 1 }];
+      if (itemExistIndex !== -1) {
+        updatedCarts[itemExistIndex].quantity = (updatedCarts[itemExistIndex].quantity || 0) + 1; // Increment quantity
+      } else {
+        updatedCarts = [...updatedCarts, { ...item, quantity: 1 }];
+      }
+
+      setCarts(updatedCarts);
+      calculateTotalSum(updatedCarts);
+      setQuantity((prev) => prev + 1);
+
+      // Ensure to await the user profile update
+      await updateUserProfile({ cart: updatedCarts, user: authUser });
+
+    } catch (error) {
+      console.error("Error adding item to cart:", error);
+      // You can add further error handling here, e.g., show a notification to the user
     }
-
-    setCarts(updatedCarts);
-    calculateTotalSum(updatedCarts);
-    setQuantity((prev) => prev + 1);
-    updateUserProfile({ cart: updatedCarts, user: authUser }); // Update user profile with cart changes
   };
 
   const decreaseFromCart = (item: Partial<ProductModelProps>, authUser: any, updateUserProfile: any) => {
@@ -117,6 +124,137 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     </CartContext.Provider>
   );
 };
+
+
+
+
+
+
+
+
+
+
+
+// import React, { createContext, useContext, useState, ReactNode } from "react";
+// import { useFocusEffect } from "@react-navigation/native";
+// import { ProductModelProps } from "@/models/ProductModelProps"; 
+
+// // Define the context type
+// interface CartContextType {
+//   carts: Partial<ProductModelProps>[];
+//   addToCart: (item: Partial<ProductModelProps>, authUser: any, updateUserProfile: any) => void;
+//   decreaseFromCart: (item: Partial<ProductModelProps>, authUser: any, updateUserProfile: any) => void;
+//   deleteItemFromCart: (item: Partial<ProductModelProps>, authUser: any, updateUserProfile: any) => void;
+//   totalSum: number;
+//   totalTax: number;
+//   totalShipping: number;
+//   grandTotal: number;
+//   quantity: number;
+//   clearData: (authUser: any, updateUserProfile: any) => void;
+// }
+
+// export const CartContext = createContext<CartContextType | undefined>(undefined);
+
+// export const useCart = (): CartContextType => {
+//   const context = useContext(CartContext);
+//   if (!context) {
+//     throw new Error("useCart must be used within a CartProvider");
+//   }
+//   return context;
+// };
+
+// export const CartProvider = ({ children }: { children: ReactNode }) => {
+//   const [carts, setCarts] = useState<Partial<ProductModelProps>[]>([]); // Initialize state with an empty cart
+
+//   const [totalSum, setTotalSum] = useState<number>(0);
+//   const [totalShipping, setTotalShipping] = useState<number>(10); // Example shipping cost
+//   const [quantity, setQuantity] = useState<number>(0);
+
+//   const totalTax = totalSum * 0.08875; // Tax calculation
+//   const grandTotal = totalSum + totalTax + totalShipping; // Grand total calculation
+
+//   useFocusEffect(
+//     React.useCallback(() => {
+//       // Load or calculate initial values when the cart context is first used
+//       calculateTotalSum(carts);
+//       setQuantity(carts.reduce((sum, item) => sum + (item.quantity || 0), 0));
+//     }, [carts]) // Runs when the cart is updated
+//   );
+
+//   const addToCart = (item: Partial<ProductModelProps>, authUser: any, updateUserProfile: any) => {
+//     let updatedCarts = [...carts];
+//     const itemExistIndex = updatedCarts.findIndex((cart) => cart.id === item.id);
+
+//     if (itemExistIndex !== -1) {
+//       updatedCarts[itemExistIndex].quantity = (updatedCarts[itemExistIndex].quantity || 0) + 1; // Increment quantity
+//     } else {
+//       updatedCarts = [...updatedCarts, { ...item, quantity: 1 }];
+//     }
+
+//     setCarts(updatedCarts);
+//     calculateTotalSum(updatedCarts);
+//     setQuantity((prev) => prev + 1);
+//     updateUserProfile({ cart: updatedCarts, user: authUser }); // Update user profile with cart changes
+//   };
+
+//   const decreaseFromCart = (item: Partial<ProductModelProps>, authUser: any, updateUserProfile: any) => {
+//     const itemExistIndex = carts.findIndex((cart) => cart.id === item.id);
+//     if (itemExistIndex !== -1) {
+//       const updatedCarts = [...carts];
+//       if ((updatedCarts[itemExistIndex].quantity || 0) > 1) {
+//         updatedCarts[itemExistIndex].quantity = (updatedCarts[itemExistIndex].quantity || 0) - 1;
+//       } else {
+//         updatedCarts.splice(itemExistIndex, 1); // Remove item if quantity <= 1
+//       }
+
+//       setCarts(updatedCarts);
+//       calculateTotalSum(updatedCarts);
+//       setQuantity((prev) => prev - 1);
+//       updateUserProfile({ cart: updatedCarts, user: authUser }); // Update user profile cart
+//     }
+//   };
+
+//   const deleteItemFromCart = (item: Partial<ProductModelProps>, authUser: any, updateUserProfile: any) => {
+//     const updatedCarts = carts.filter((cart) => cart.id !== item.id);
+//     setCarts(updatedCarts);
+//     calculateTotalSum(updatedCarts);
+//     setQuantity((prev) => prev - (item.quantity || 0));
+//     updateUserProfile({ cart: updatedCarts, user: authUser }); // Update user profile cart
+//   };
+
+//   const clearData = (authUser: any, updateUserProfile: any) => {
+//     setCarts([]);
+//     setTotalSum(0);
+//     setQuantity(0);
+//     updateUserProfile({ cart: [], user: authUser }); // Clear cart in user profile
+//   };
+
+//   // Calculate total sum
+//   const calculateTotalSum = (carts: Partial<ProductModelProps>[]) => {
+//     const total = carts.reduce((sum, item) => sum + (item.price || 0) * (item.quantity || 0), 0);
+//     setTotalSum(total);
+//   };
+
+//   const value: CartContextType = {
+//     carts,
+//     addToCart,
+//     decreaseFromCart,
+//     quantity,
+//     totalSum,
+//     totalTax,
+//     totalShipping,
+//     grandTotal,
+//     deleteItemFromCart,
+//     clearData,
+//   };
+  
+
+//   return (
+//     <CartContext.Provider value={value}>
+//       {children}
+//     </CartContext.Provider>
+//   );
+// };
 
 
 // import React, { createContext, useContext, useEffect, useState, ReactNode } from "react";

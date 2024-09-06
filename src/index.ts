@@ -124,5 +124,6 @@ export { default as HomeDesignOne } from "./components/home/HomeDesignOne"
 export { default as HomeDesignTwo } from "./components/home/HomeDesignTwo"
 
 export { default as ProductSearchScreen } from "./components/products/ProductSearchScreen"
+export { default as CollectionProductSearchScreen } from "./components/products/CollectionProductSearchScreen"
 
 

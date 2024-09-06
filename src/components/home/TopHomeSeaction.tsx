@@ -7,6 +7,8 @@ import { router } from "expo-router";
 import { COLORS } from "@/utils/theme";
 import { useClientProduct } from "@/contexts/ClientProductContext";
 import { ProductModelProps } from "@/models/ProductModelProps";
+import SearchBarVOneButton from "../search/SearchBarVOneButton";
+import { ROUTES } from "@/utils/Routes";
 
 const { width } = Dimensions.get("window");
 
@@ -141,6 +143,38 @@ const handleProductSelect = (productId: string) => {
           resizeMode="cover"
         />
       </MotiView>
+
+
+   {/* Description */}
+   <MotiView
+        from={{ opacity: 0, translateX: -90, scale: 0.85 }}
+        animate={{ opacity: 1, translateX: 0, scale: 1 }}
+        transition={{ type: "timing", duration: 600, delay: 1500 }}
+      >
+        <Text style={styles.description}>
+          Discover the natural benefits of Sea Moss, rich in essential minerals
+          and nutrients to support your health and well-being.
+        </Text>
+      </MotiView>
+
+      {/* Shop Button */}
+      <MotiView
+        from={{ opacity: 0, translateX: -90, scale: 0.85 }}
+        animate={{ opacity: 1, translateX: 0, scale: 1 }}
+        transition={{ type: "timing", duration: 600, delay: 1600 }}
+      >
+        <View style={{ paddingTop: 20 }}>
+          <TouchableOpacity style={styles.shopNowButton} onPress={() => router.push("/products" as never)}>
+            <Text style={styles.shopNowButtonText}>Shop</Text>
+          </TouchableOpacity>
+        </View>
+
+        <View style={{ paddingTop: 20 }}>
+          <SearchBarVOneButton path={ROUTES.products as never} />
+        </View>
+      </MotiView>
+
+
     </View>
   );
 };
@@ -194,6 +228,33 @@ const styles = StyleSheet.create({
     height: 300,
     borderRadius: 10,
     marginTop: 20,
+  },
+  description: {
+    fontSize: 16,
+    color: "black",
+    textAlign: "left",
+    marginTop: 20,
+  },
+  shopNowButton: {
+    paddingVertical: 15,
+    paddingHorizontal: 30,
+    backgroundColor: COLORS.primary,
+    borderRadius: 25,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 5,
+    elevation: 8,
+    alignItems: "center",
+    justifyContent: "center",
+    width: "40%",
+  },
+  shopNowButtonText: {
+    color: "white",
+    fontWeight: "bold",
+    fontSize: 18,
+    letterSpacing: 1,
+    textTransform: "uppercase",
   },
 });
 
@@ -359,34 +420,34 @@ export default TopHomeSeaction;
 // //         />
 // //       </MotiView>
 
-// //       {/* Description */}
-// //       <MotiView
-// //         from={{ opacity: 0, translateX: -90, scale: 0.85 }}
-// //         animate={{ opacity: 1, translateX: 0, scale: 1 }}
-// //         transition={{ type: "timing", duration: 600, delay: 1500 }}
-// //       >
-// //         <Text style={styles.description}>
-// //           Discover the natural benefits of Sea Moss, rich in essential minerals
-// //           and nutrients to support your health and well-being.
-// //         </Text>
-// //       </MotiView>
+      // {/* Description */}
+      // <MotiView
+      //   from={{ opacity: 0, translateX: -90, scale: 0.85 }}
+      //   animate={{ opacity: 1, translateX: 0, scale: 1 }}
+      //   transition={{ type: "timing", duration: 600, delay: 1500 }}
+      // >
+      //   <Text style={styles.description}>
+      //     Discover the natural benefits of Sea Moss, rich in essential minerals
+      //     and nutrients to support your health and well-being.
+      //   </Text>
+      // </MotiView>
 
-// //       {/* Shop Button */}
-// //       <MotiView
-// //         from={{ opacity: 0, translateX: -90, scale: 0.85 }}
-// //         animate={{ opacity: 1, translateX: 0, scale: 1 }}
-// //         transition={{ type: "timing", duration: 600, delay: 1600 }}
-// //       >
-// //         <View style={{ paddingTop: 20 }}>
-// //           <TouchableOpacity style={styles.shopNowButton} onPress={() => router.push("/products" as never)}>
-// //             <Text style={styles.shopNowButtonText}>Shop</Text>
-// //           </TouchableOpacity>
-// //         </View>
+      // {/* Shop Button */}
+      // <MotiView
+      //   from={{ opacity: 0, translateX: -90, scale: 0.85 }}
+      //   animate={{ opacity: 1, translateX: 0, scale: 1 }}
+      //   transition={{ type: "timing", duration: 600, delay: 1600 }}
+      // >
+      //   <View style={{ paddingTop: 20 }}>
+      //     <TouchableOpacity style={styles.shopNowButton} onPress={() => router.push("/products" as never)}>
+      //       <Text style={styles.shopNowButtonText}>Shop</Text>
+      //     </TouchableOpacity>
+      //   </View>
 
-// //         <View style={{ paddingTop: 20 }}>
-// //           <SearchBarVOneButton path={ROUTES.products as never} />
-// //         </View>
-// //       </MotiView>
+      //   <View style={{ paddingTop: 20 }}>
+      //     <SearchBarVOneButton path={ROUTES.products as never} />
+      //   </View>
+      // </MotiView>
 // //     </View>
 // //   );
 // // };
@@ -441,33 +502,33 @@ export default TopHomeSeaction;
 // //     borderRadius: 10,
 // //     marginTop: 20,
 // //   },
-// //   description: {
-// //     fontSize: 16,
-// //     color: "black",
-// //     textAlign: "left",
-// //     marginTop: 20,
-// //   },
-// //   shopNowButton: {
-// //     paddingVertical: 15,
-// //     paddingHorizontal: 30,
-// //     backgroundColor: COLORS.primary,
-// //     borderRadius: 25,
-// //     shadowColor: "#000",
-// //     shadowOffset: { width: 0, height: 4 },
-// //     shadowOpacity: 0.3,
-// //     shadowRadius: 5,
-// //     elevation: 8,
-// //     alignItems: "center",
-// //     justifyContent: "center",
-// //     width: "40%",
-// //   },
-// //   shopNowButtonText: {
-// //     color: "white",
-// //     fontWeight: "bold",
-// //     fontSize: 18,
-// //     letterSpacing: 1,
-// //     textTransform: "uppercase",
-// //   },
+  // description: {
+  //   fontSize: 16,
+  //   color: "black",
+  //   textAlign: "left",
+  //   marginTop: 20,
+  // },
+  // shopNowButton: {
+  //   paddingVertical: 15,
+  //   paddingHorizontal: 30,
+  //   backgroundColor: COLORS.primary,
+  //   borderRadius: 25,
+  //   shadowColor: "#000",
+  //   shadowOffset: { width: 0, height: 4 },
+  //   shadowOpacity: 0.3,
+  //   shadowRadius: 5,
+  //   elevation: 8,
+  //   alignItems: "center",
+  //   justifyContent: "center",
+  //   width: "40%",
+  // },
+  // shopNowButtonText: {
+  //   color: "white",
+  //   fontWeight: "bold",
+  //   fontSize: 18,
+  //   letterSpacing: 1,
+  //   textTransform: "uppercase",
+  // },
 // // });
 
 // // export default TopHomeSeaction;

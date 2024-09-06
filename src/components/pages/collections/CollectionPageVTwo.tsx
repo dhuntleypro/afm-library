@@ -2,38 +2,72 @@ import { useClientProduct } from '@/contexts/ClientProductContext';
 import { useClientStore } from '@/contexts/ClientStoreContext';
 import { useClientCollection } from '@/contexts/CollectionContext';
 import convertToCurrency from '@/hooks/convertToCurrency';
-import { CollectionModelProps } from '@/models/CollectionModelProps';
+import { ProductModelProps } from '@/models/ProductModelProps';
 import { AWS_HOLDER_IMAGE } from '@/utils/api';
 import { COLORS } from '@/utils/theme';
 import { router } from 'expo-router';
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity, FlatList, Dimensions } from 'react-native';
 
-const { width, height } = Dimensions.get('window');
-
-
+const { width } = Dimensions.get('window');
 
 const CollectionPageVTwo = () => {
-  const { collections, selectedCollection, selectCollection, isLoading, error } = useClientCollection();
-  const {products} = useClientProduct()
-  const {store} = useClientStore()
-  const handleProductSelect = (product: CollectionModelProps) => {
-    selectCollection(product);
+  const { collections, selectedCollection, selectCollection } = useClientCollection();
+  const { products, selectProduct } = useClientProduct();
+  const { store } = useClientStore();
+
+  // Define the "All" collection with default values
+  const allCollection = {
+    id: 'all',
+    store_id: 'all-store',
+    user_id: 'all-user',
+    index: 0,
+    timestamp: new Date().toISOString(),
+    title: 'All',
+    description: 'All available products',
+    caption: '',
+    amount: 0,
+    likes: 0,
+    isliked: false,
+    onSale: false,
+    relatedProductIds: products.map((product) => product.id.toString()),
+    image: '',
+    images: [],
+    tags: [],
+    active: true,
   };
 
-  const filteredProducts = selectedCollection?.title === 'All'
-  ? products
-  : products.filter(product =>
-      selectedCollection?.relatedProductIds.includes(product.id.toString())
-    );
+  // Add the "All" collection to the collections array
+  const collectionsWithAll = [allCollection, ...collections];
 
-console.log(`Filtered Products: ${JSON.stringify(filteredProducts)}`);
+  // Select "All" collection by default on initial render
+  useEffect(() => {
+    if (!selectedCollection) {
+      selectCollection(allCollection);
+    }
+  }, [selectedCollection, selectCollection]);
 
-    // console.log(`filteredProducts: ${filteredProducts}`)
+  // Handle selecting a product
+  const handleProductSelect = (product: ProductModelProps) => {
+    selectProduct(product);
+    // Ensure navigation to the correct product route within the selected collection
+    if (selectedCollection?.id && product.id) {
+      router.push(`/collections/${selectedCollection.id}/products/${product.id}` as never);
+    }
+  };
+
+  // Filter products based on the selected collection
+  const filteredProducts: ProductModelProps[] = selectedCollection?.id === 'all'
+    ? products // Show all products when "All" is selected
+    : products.filter(product =>
+        selectedCollection?.relatedProductIds.includes(product.id.toString())
+      );
+
   return (
     <View style={styles.container}>
+      {/* Collection Selection List */}
       <FlatList
-        data={collections}
+        data={collectionsWithAll}
         horizontal
         showsHorizontalScrollIndicator={false}
         keyExtractor={(item) => item.id}
@@ -54,12 +88,13 @@ console.log(`Filtered Products: ${JSON.stringify(filteredProducts)}`);
           </TouchableOpacity>
         )}
         contentContainerStyle={styles.categoryContainer}
-        style={styles.categoryList} // Added style to control height
+        style={styles.categoryList}
       />
 
+      {/* Promo Section */}
       <View style={styles.promoContainer}>
         <Image
-          source={{ uri: store?.images.welcome_image }} // Replace with actual promo image URI
+          source={{ uri: store?.images?.welcome_image || AWS_HOLDER_IMAGE }}
           style={styles.promoImage}
         />
         <View style={styles.promoTextContainer}>
@@ -69,17 +104,17 @@ console.log(`Filtered Products: ${JSON.stringify(filteredProducts)}`);
         </View>
       </View>
 
+      {/* Products List */}
       <View style={styles.productListContainer}>
         <FlatList
           data={filteredProducts}
           numColumns={2}
-          keyExtractor={(item ) =>  String(item.id)}
+          keyExtractor={(item) => String(item.id)}
           renderItem={({ item }) => (
             <View style={styles.productCard}>
-              <TouchableOpacity onPress={() => router.push(`/products/${item.id}` as never)}>
-              {/* <Image source={{ uri: item.image }} style={styles.productImage} /> */}
-              <Image source={{ uri: item.images[0] }} style={styles.productImage} />
-              <Text style={styles.productPrice}>{convertToCurrency(item.price)}</Text>
+              <TouchableOpacity onPress={() => handleProductSelect(item)}>
+                <Image source={{ uri: item.images[0] || AWS_HOLDER_IMAGE }} style={styles.productImage} />
+                <Text style={styles.productPrice}>{convertToCurrency(item.price)}</Text>
                 <Text style={styles.productName}>{item.name}</Text>
               </TouchableOpacity>
             </View>
@@ -92,6 +127,7 @@ console.log(`Filtered Products: ${JSON.stringify(filteredProducts)}`);
   );
 };
 
+// Styles
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -99,7 +135,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   categoryList: {
-    maxHeight: 50, // Limit the height of the category list to prevent it from taking too much space
+    maxHeight: 50,
   },
   categoryContainer: {
     alignItems: 'center',
@@ -114,29 +150,28 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     justifyContent: 'center',
     alignItems: 'center',
-    height: 30, // Adjusted the height to be more compact
+    height: 30,
   },
-  selectedCategoryButton: {
-    backgroundColor: '#000000',
-    borderColor: '#000000',
+  selectedCollectionButton: {
+    backgroundColor: '#000',
   },
   categoryText: {
-    fontSize: 13, // Slightly smaller font for the text
+    fontSize: 13,
     fontWeight: 'bold',
     color: '#000000',
   },
-  selectedCategoryText: {
+  selectedCollectionText: {
     color: '#FFFFFF',
   },
   promoContainer: {
-    marginVertical: 10, // Reduced margin to bring elements closer
+    marginVertical: 10,
     borderRadius: 10,
-    overflow: 'hidden', // corner radius
+    overflow: 'hidden',
     backgroundColor: '#F5F5F5',
   },
   promoImage: {
     width: '100%',
-    height: 150, // Slightly reduced height for better fit
+    height: 150,
     resizeMode: 'cover',
   },
   promoTextContainer: {
@@ -145,17 +180,17 @@ const styles = StyleSheet.create({
     left: 20,
   },
   promoTitle: {
-    fontSize: 20, // Adjusted font size
+    fontSize: 20,
     fontWeight: 'bold',
     color: COLORS.white,
   },
   promoSubtitle: {
-    fontSize: 14, // Adjusted font size
+    fontSize: 14,
     color: COLORS.gray3,
     marginTop: 5,
   },
   promoDiscount: {
-    fontSize: 16, // Adjusted font size
+    fontSize: 16,
     color: '#FF6347',
     marginTop: 5,
   },
@@ -187,12 +222,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#000000',
   },
-  selectedCollectionButton: {
-    backgroundColor: '#000',
-  },
-  selectedCollectionText: {
-    color: '#fff',
-  },
   productName: {
     fontSize: 14,
     color: '#333333',
@@ -209,15 +238,104 @@ const styles = StyleSheet.create({
 export default CollectionPageVTwo;
 
 
+// All not included
+// import { useClientProduct } from '@/contexts/ClientProductContext';
+// import { useClientStore } from '@/contexts/ClientStoreContext';
+// import { useClientCollection } from '@/contexts/CollectionContext';
+// import convertToCurrency from '@/hooks/convertToCurrency';
+// import { ProductModelProps } from '@/models/ProductModelProps';
+// import { AWS_HOLDER_IMAGE } from '@/utils/api';
+// import { COLORS } from '@/utils/theme';
+// import { router } from 'expo-router';
+// import React from 'react';
+// import { View, Text, Image, StyleSheet, TouchableOpacity, FlatList, Dimensions } from 'react-native';
 
+// const { width } = Dimensions.get('window');
 
+// const CollectionPageVTwo = () => {
+//   const { collections, selectedCollection, selectCollection } = useClientCollection();
+//   const { products, selectProduct } = useClientProduct();
+//   const { store } = useClientStore();
 
+//   // Handle selecting a product
+//   const handleProductSelect = (product: ProductModelProps) => {
+//     selectProduct(product);
+//     // Ensure navigation to the correct product route within the selected collection
+//     if (selectedCollection?.id && product.id) {
+//       router.push(`/collections/${selectedCollection.id}/products/${product.id}` as never);
+//     }
+//   };
 
+//   // Filter products based on the selected collection
+//   const filteredProducts = selectedCollection?.title === 'All'
+//     ? products
+//     : products.filter(product =>
+//         selectedCollection?.relatedProductIds.includes(product.id.toString())
+//       );
 
+//   return (
+//     <View style={styles.container}>
+//       {/* Collection Selection List */}
+//       <FlatList
+//         data={collections}
+//         horizontal
+//         showsHorizontalScrollIndicator={false}
+//         keyExtractor={(item) => item.id}
+//         renderItem={({ item }) => (
+//           <TouchableOpacity
+//             style={[
+//               styles.categoryButton,
+//               item.id === selectedCollection?.id && styles.selectedCollectionButton
+//             ]}
+//             onPress={() => selectCollection(item)}
+//           >
+//             <Text style={[
+//               styles.categoryText,
+//               item.id === selectedCollection?.id && styles.selectedCollectionText
+//             ]}>
+//               {item.title}
+//             </Text>
+//           </TouchableOpacity>
+//         )}
+//         contentContainerStyle={styles.categoryContainer}
+//         style={styles.categoryList}
+//       />
 
+//       {/* Promo Section */}
+//       <View style={styles.promoContainer}>
+//         <Image
+//           source={{ uri: store?.images?.welcome_image || AWS_HOLDER_IMAGE }}
+//           style={styles.promoImage}
+//         />
+//         <View style={styles.promoTextContainer}>
+//           <Text style={styles.promoTitle}>Promo for first purchase</Text>
+//           <Text style={styles.promoSubtitle}>Special Offers</Text>
+//           <Text style={styles.promoDiscount}>40% Off Prices</Text>
+//         </View>
+//       </View>
 
-
-
+//       {/* Products List */}
+//       <View style={styles.productListContainer}>
+//         <FlatList
+//           data={filteredProducts}
+//           numColumns={2}
+//           keyExtractor={(item) => String(item.id)}
+//           renderItem={({ item }) => (
+//             <View style={styles.productCard}>
+//               <TouchableOpacity onPress={() => handleProductSelect(item)}>
+//                 <Image source={{ uri: item.images[0] || AWS_HOLDER_IMAGE }} style={styles.productImage} />
+//                 <Text style={styles.productPrice}>{convertToCurrency(item.price)}</Text>
+//                 <Text style={styles.productName}>{item.name}</Text>
+//               </TouchableOpacity>
+//             </View>
+//           )}
+//           contentContainerStyle={styles.productContainer}
+//           ListEmptyComponent={<Text style={styles.emptyMessage}>No products available</Text>}
+//         />
+//       </View>
+//     </View>
+//   );
+// };
 
 // const styles = StyleSheet.create({
 //   container: {
@@ -226,7 +344,7 @@ export default CollectionPageVTwo;
 //     paddingHorizontal: 10,
 //   },
 //   categoryList: {
-//     maxHeight: 50, // Limit the height of the category list to prevent it from taking too much space
+//     maxHeight: 50,
 //   },
 //   categoryContainer: {
 //     alignItems: 'center',
@@ -241,14 +359,13 @@ export default CollectionPageVTwo;
 //     borderRadius: 15,
 //     justifyContent: 'center',
 //     alignItems: 'center',
-//     height: 30, // Adjusted the height to be more compact
+//     height: 30,
 //   },
 //   selectedCollectionButton: {
-//     backgroundColor: '#000000',
-//     borderColor: '#000000',
+//     backgroundColor: '#000',
 //   },
 //   categoryText: {
-//     fontSize: 13, // Slightly smaller font for the text
+//     fontSize: 13,
 //     fontWeight: 'bold',
 //     color: '#000000',
 //   },
@@ -256,14 +373,14 @@ export default CollectionPageVTwo;
 //     color: '#FFFFFF',
 //   },
 //   promoContainer: {
-//     marginVertical: 10, // Reduced margin to bring elements closer
+//     marginVertical: 10,
 //     borderRadius: 10,
-//     overflow: 'hidden', // corner radius
+//     overflow: 'hidden',
 //     backgroundColor: '#F5F5F5',
 //   },
 //   promoImage: {
 //     width: '100%',
-//     height: 150, // Slightly reduced height for better fit
+//     height: 150,
 //     resizeMode: 'cover',
 //   },
 //   promoTextContainer: {
@@ -272,17 +389,17 @@ export default CollectionPageVTwo;
 //     left: 20,
 //   },
 //   promoTitle: {
-//     fontSize: 20, // Adjusted font size
+//     fontSize: 20,
 //     fontWeight: 'bold',
-//     color: '#333333',
+//     color: COLORS.white,
 //   },
 //   promoSubtitle: {
-//     fontSize: 14, // Adjusted font size
-//     color: '#666666',
+//     fontSize: 14,
+//     color: COLORS.gray3,
 //     marginTop: 5,
 //   },
 //   promoDiscount: {
-//     fontSize: 16, // Adjusted font size
+//     fontSize: 16,
 //     color: '#FF6347',
 //     marginTop: 5,
 //   },
@@ -326,4 +443,23 @@ export default CollectionPageVTwo;
 //     marginTop: 20,
 //   },
 // });
+
+// export default CollectionPageVTwo;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

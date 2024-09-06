@@ -20,7 +20,6 @@ const CartPageVOne: React.FC = () => {
   //   deleteItemFromCart,
   // } = useContext(CartContext);
 
-
   const {
       carts,
     totalSum,
@@ -39,19 +38,20 @@ const CartPageVOne: React.FC = () => {
         </View>
       ) : (
         <>
-          <FlatList
-            data={carts}
-            showsVerticalScrollIndicator={false}
-            keyExtractor={(_, index) => index.toString()}
-            contentContainerStyle={{ paddingBottom: 100 }}
-            renderItem={({ item }) => (
-              <CartCard
-                item={item}
-                deleteItemFromCart={deleteItemFromCart}
-                triggerValueChange={triggerValueChange}
-              />
-            )}
-          />
+       <FlatList
+  data={carts}
+  showsVerticalScrollIndicator={false}
+  keyExtractor={(item) => String(item.id)} // Convert item.id to string to ensure it's a valid key
+  contentContainerStyle={{ paddingBottom: 100 }}
+  renderItem={({ item }) => (
+    <CartCard
+      item={item}
+      deleteItemFromCart={deleteItemFromCart}
+      triggerValueChange={triggerValueChange}
+    />
+  )}
+/>
+
 
           <View>
             <View style={styles.priceContainer}>

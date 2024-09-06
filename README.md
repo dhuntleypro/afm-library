@@ -72,5 +72,12 @@ npm install --save-dev @babel/cli @babel/core @babel/preset-env
 
 
 # Remove watcher error --
-watchman watch-del '/Users/huntley/Desktop/Production/Projects/test-area'
-watchman watch-project '/Users/huntley/Desktop/Production/Projects/test-area'
+watchman watch-del '/Users/huntley/Desktop/Production/Projects/ecom-expo-project' ; watchman watch-project '/Users/huntley/Desktop/Production/Projects/ecom-expo-project'
+
+Creare file : .watchmanconfig
+{
+  "ignore_dirs": ["node_modules", "build"]
+}
+
+Increase limit 
+ulimit -n 8192
