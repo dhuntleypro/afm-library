@@ -1,23 +1,21 @@
 import * as SecureStore from "expo-secure-store";
 
 // Securely save a value with a specified key
-export const saveSecurely = async (key: string, value: any): Promise<void> => {
+export const saveToSecureStore = async (key: string, value: string) => {
   try {
-    const jsonValue = JSON.stringify(value);
-    await SecureStore.setItemAsync(key, jsonValue);
+    await SecureStore.setItemAsync(key, value);
   } catch (error) {
-    console.error(`Error saving data for key "${key}":`, error);
-    throw error;
+    console.error('Error saving to SecureStore', error);
   }
 };
 
-// Securely fetch a value for a specified key
-export const fetchSecurely = async (key: string): Promise<any> => {
+export const getFromSecureStore = async (key: string) => {
   try {
-    const jsonValue = await SecureStore.getItemAsync(key);
-    return jsonValue != null ? JSON.parse(jsonValue) : null;
+    const value = await SecureStore.getItemAsync(key);
+    if (value) {
+      console.log('Retrieved value:', value);
+    }
   } catch (error) {
-    console.error(`Error fetching data for key "${key}":`, error);
-    throw error;
+    console.error('Error getting from SecureStore', error);
   }
 };

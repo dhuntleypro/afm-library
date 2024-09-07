@@ -1,7 +1,6 @@
 import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 import { useColorScheme } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { NavigationContainer, DarkTheme as NavigationDarkTheme, DefaultTheme as NavigationDefaultTheme } from '@react-navigation/native';
+import * as SecureStore from 'expo-secure-store';
 
 type ThemeMode = 'light' | 'dark' | 'system';
 
@@ -10,6 +9,7 @@ interface ThemeContextProps {
   setTheme: (mode: ThemeMode) => void;
   isDarkMode: boolean;
   toggleTheme: () => void;
+  themeValue: any; // Add the themeValue to the context
 }
 
 export const ThemeContext = createContext<ThemeContextProps | undefined>(undefined);
@@ -22,30 +22,34 @@ export const useTheme = () => {
   return context;
 };
 
-export const ThemeProvider = ({ children }: { children: ReactNode }) => {
+export const ThemeProvider = ({ children, value }: { children: ReactNode; value: any }) => {
   const systemColorScheme = useColorScheme();
   const [theme, setTheme] = useState<ThemeMode>('system');
   const [isDarkMode, setIsDarkMode] = useState(systemColorScheme === 'dark');
 
-  // Function to toggle between light and dark theme
   const toggleTheme = () => {
     setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
   };
 
-  // Load saved theme mode from storage (persist the user's choice)
   const loadSavedTheme = async () => {
-    const savedTheme = await AsyncStorage.getItem('app-theme');
-    if (savedTheme && (savedTheme === 'light' || savedTheme === 'dark' || savedTheme === 'system')) {
-      setTheme(savedTheme as ThemeMode);
+    try {
+      const savedTheme = await SecureStore.getItemAsync('app-theme');
+      if (savedTheme && (savedTheme === 'light' || savedTheme === 'dark' || savedTheme === 'system')) {
+        setTheme(savedTheme as ThemeMode);
+      }
+    } catch (error) {
+      console.error('Failed to load saved theme:', error);
     }
   };
 
-  // Save theme to AsyncStorage whenever it changes
   const saveTheme = async (newTheme: ThemeMode) => {
-    await AsyncStorage.setItem('app-theme', newTheme);
+    try {
+      await SecureStore.setItemAsync('app-theme', newTheme);
+    } catch (error) {
+      console.error('Failed to save theme:', error);
+    }
   };
 
-  // Set theme based on system preferences or user choice
   useEffect(() => {
     loadSavedTheme();
   }, []);
@@ -54,17 +58,12 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
     const isSystemDarkMode = systemColorScheme === 'dark';
     const darkMode = theme === 'system' ? isSystemDarkMode : theme === 'dark';
     setIsDarkMode(darkMode);
-
-    // Save theme choice to AsyncStorage
     saveTheme(theme);
   }, [theme, systemColorScheme]);
 
   return (
-    <ThemeContext.Provider value={{ theme, setTheme, isDarkMode, toggleTheme }}>
-      {/* Wrap NavigationContainer with the correct theme */}
-      <NavigationContainer theme={isDarkMode ? NavigationDarkTheme : NavigationDefaultTheme}>
-        {children}
-      </NavigationContainer>
+    <ThemeContext.Provider value={{ theme, setTheme, isDarkMode, toggleTheme, themeValue: value }}>
+      {children}
     </ThemeContext.Provider>
   );
 };

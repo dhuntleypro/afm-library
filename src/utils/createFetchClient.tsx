@@ -37,7 +37,8 @@ export function createFetchClient(
     const token = await getAuthToken(); // Get auth token if needed
     const headers = new Headers({
       ...defaultHeaders,
-      Authorization: token ? `Bearer ${token}` : '', // Set auth token if available
+      // Authorization: token ? `Bearer ${token}` : '', // Set auth token if available
+      Authorization: token ? `${token}` : '', // Set auth token if available
       ...options.headers,
     });
 
