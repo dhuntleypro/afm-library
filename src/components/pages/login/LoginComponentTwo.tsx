@@ -42,7 +42,7 @@ const LoginComponentTwo = () => {
 
   const loginAction = async () => {
     try {
-      const result = await onLogin!(email, password);
+      const result = await onLogin!(store?.id ?? "", email, password);
       if (result.error) {
         showAlert(result.msg);
       } else {
@@ -115,7 +115,7 @@ const LoginComponentTwo = () => {
     };
 
     try {
-      const result = await onRegister!(user);
+      const result = await onRegister!(store?.id ?? "", user);
       if (result.error) {
         showAlert(result);
         return;
@@ -124,7 +124,7 @@ const LoginComponentTwo = () => {
         loginAction();
       }
     } catch (error) {
-      console.error("Registration error:", error);
+      console.error("(2) Registration error:", error);
       showAlert("Registration failed. Please try again.");
     }
   };

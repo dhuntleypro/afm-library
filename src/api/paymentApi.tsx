@@ -15,7 +15,7 @@ interface PaymentJsonProps  {
 const paymentApi = createFetchClient(
   BASE_URL,
   {
-    store_id: CONSTANTS.store_id,
+    store_id: "", // fix
     email: "", // user?.email ?? "",
     tableName: 'prof-website-payment-table',
     stripe_id: "acct_1NVCh3JEHBX7gOQA", // Example value, replace with your actual data

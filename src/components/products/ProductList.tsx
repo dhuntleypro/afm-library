@@ -28,7 +28,7 @@ import { useClientProduct } from "@/contexts/ClientProductContext";
     
   const navigation = useNavigation();
   const { authState } = useAuth();
-  const storeID = client ? authState?.user?.store_owner_id || '' : CONSTANTS.store_id; // Replace 'CONSTANT_STORE_ID' with your constant store ID
+  // const storeID = store?.id ?? ""// Replace 'CONSTANT_STORE_ID' with your constant store ID
   const email = authState?.user?.email || '';
 
   // const { data, isLoading, error, refetch } = useFetchObjects(() => getProducts(storeID, email));

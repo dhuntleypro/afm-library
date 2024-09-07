@@ -12,6 +12,7 @@ import { Ionicons } from "@expo/vector-icons"; // Import Ionicons from Expo
 import { COLORS } from "@/utils/theme";
 import { useAuth } from "@/contexts/AuthContext";
 import { router } from "expo-router";
+import { useClientStore } from "@/contexts/ClientStoreContext";
 
 const { width } = Dimensions.get("window");
 
@@ -23,6 +24,7 @@ const UserLoginTextFields = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
+    const {store} = useClientStore() 
 
   const [activeTabIsLogin, setActiveTabIsLogin] = useState(true);
   const { onLogin, onRegister, onLogout, authState } = useAuth();
@@ -34,7 +36,7 @@ const UserLoginTextFields = () => {
 
   const loginAction = async () => {
     try {
-      const result = await onLogin!(email, password);
+      const result = await onLogin!(store?.id ?? "", email, password);
       if (result.error) {
         showAlert(result.msg);
       } else {
@@ -46,7 +48,7 @@ const UserLoginTextFields = () => {
         }
       }
     } catch (error) {
-      console.error("Login error:", error);
+      console.error("(6) Login error:", error.message);
       showAlert("Login failed. Please try again.");
     }
   };

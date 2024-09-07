@@ -15,10 +15,13 @@ import { UserProps } from "@/models/UserProps";
 import { generateUUID } from "@/hooks/generateUUID";
 import { router } from "expo-router";
 import { COLORS } from "@/utils/theme";
+import { useClientStore } from "@/contexts/ClientStoreContext";
 
 
 const { width } = Dimensions.get("window");
 const UserRegisterTextFields = () => {
+
+    const {store} = useClientStore()
 
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
@@ -39,7 +42,7 @@ const UserRegisterTextFields = () => {
 
   const loginAction = async () => {
     try {
-      const result = await onLogin!(email, password);
+      const result = await onLogin!(store?.id ?? "", email, password);
       if (result.error) {
         showAlert(result.msg);
       } else {
@@ -51,7 +54,7 @@ const UserRegisterTextFields = () => {
         }
       }
     } catch (error) {
-      console.error("Login error:", error);
+      console.error("(7) Login error:", error.message);
       showAlert("Login failed. Please try again.");
     }
   };
@@ -112,17 +115,22 @@ const UserRegisterTextFields = () => {
     };
 
     try {
-      const result = await onRegister!(user);
+      const result = await onRegister(store?.id ?? "", user);
       if (result.error) {
-        showAlert(result);
+        showAlert(result.error);
+        console.error("(3) Registration error:", error.response);
+        console.error("(3) Registration error:", error.message);
+        console.error("(3) Registration error:", error);
+
         return;
       } else {
         console.log("Registration successful");
         loginAction();
       }
-    } catch (error) {
-      console.error("Registration error:", error);
-      showAlert("Registration failed. Please try again.");
+    } catch (error: any) {
+      console.error("(1) Registration error:", error.message);
+      console.error("(1) Registration error:", error.response.message);
+      showAlert(`Registration failed. Please try again. ${error.response}`);
     }
   };
 

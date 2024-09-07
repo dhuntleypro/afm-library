@@ -3,6 +3,7 @@ import { ProductModelProps } from "../models/ProductModelProps";
 // import { getMankindProducts as gmP } from "../api/mankindProductApi";
 import { CONSTANTS } from "../utils/constants";
 import { getMankindProductsApi } from "@/api/mankindProductApi";
+import { useClientStore } from "./ClientStoreContext";
 
 interface ProductContextProps {
   products: ProductModelProps[];
@@ -31,6 +32,7 @@ export const MankindProductProvider = ({ children }: { children: ReactNode }) =>
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
+  const {store} = useClientStore()
   // useEffect(() => {
   //   console.log("getMankindProducts()....")
   //   getMankindProducts(); // Initial load of products
@@ -49,7 +51,7 @@ export const MankindProductProvider = ({ children }: { children: ReactNode }) =>
     setError(null);
     try {
       const email = ""; // Replace with logic to get the current user's email
-      const response = await getMankindProductsApi(CONSTANTS.mankind_store_id, email);
+      const response = await getMankindProductsApi(store?.id ?? "", email);
       const fetchedProducts = response.data; // Extract the data from the  response
       setProducts(fetchedProducts);
     } catch (error) {

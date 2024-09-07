@@ -31,14 +31,35 @@ export const verify = async (user: any) => {
   });
 };
 
-export const login = async (user: any) => {
-  const token = await getAuthToken();
-  return await authApi.post('/login', user, {
-    headers: {
-      Authorization: `${token}`,
-    },
-  });
+// export const login = async (user: any) => {
+//   const token = await getAuthToken();
+//   return await authApi.post('/login', user, {
+//     headers: {
+//       Authorization: `${token}`,
+//     },
+//   });
+// };
+
+
+// Example usage of the new fetch client for login
+export const login = async (user: UserProps) => {
+  const authApi = createFetchClient(
+    BASE_URL,
+    { tableName: "prof-website-user-table" },
+    { "Content-Type": "application/json" }
+  );
+
+  // Create the request body using the user object properties
+  const body = {
+    email: user.email,
+    password: user.password,
+  };
+
+  // Perform the login request and return the result
+  return await authApi.post("/login", body);
 };
+
+
 
 export const getUsersApi = async () => {
   const token = await getAuthToken();

@@ -4,6 +4,7 @@ import { router, SplashScreen, Stack, useNavigation, useRouter } from 'expo-rout
 import { useAuth } from '@/contexts/AuthContext';
 import { UserProps } from '@/models/UserProps';
 import { generateUUID } from '@/hooks/generateUUID';
+import { useClientStore } from '@/contexts/ClientStoreContext';
 
 const LoginComponentOne = () => {
   const [name, setName] = useState('');
@@ -14,6 +15,7 @@ const LoginComponentOne = () => {
   const navigation = useNavigation();
   const [openModal , setOpenModal] = useState(false)
 
+  const {store} = useClientStore()
 
 
 
@@ -21,7 +23,7 @@ const LoginComponentOne = () => {
 
   const loginAction = async () => {
     try {
-      const result = await onLogin!(email, password);
+      const result = await onLogin!(store?.id ?? "",email, password);
       if (result.error) {
         showAlert(result.msg);
       } else {
@@ -35,7 +37,7 @@ const LoginComponentOne = () => {
         }
       }
     } catch (error) {
-      console.error("Login error:", error);
+      console.error("(5) Login error:", error.message);
       showAlert("Login failed. Please try again.");
     }
   };
@@ -96,7 +98,7 @@ const LoginComponentOne = () => {
     };
 
     try {
-      const result = await onRegister!(user);
+      const result = await onRegister!(store?.id ?? "", user);
       if (result.error) {
         showAlert(result);
         return;
@@ -106,7 +108,7 @@ const LoginComponentOne = () => {
         loginAction();
       }
     } catch (error) {
-      console.error("Registration error:", error);
+      console.error("(1) Registration error:", error.message);
       showAlert("Registration failed. Please try again.");
     }
   };
