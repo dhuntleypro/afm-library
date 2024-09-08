@@ -6,7 +6,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { COLORS, SIZES } from '@/utils/theme';
 import { CONSTANTS } from '@/utils/constants';
 import { ProductModelProps } from '@/models/ProductModelProps';
-import {ProductCardV2} from '@/components/card/ProductCardV2';
+import {ProductCardV2} from '@/components/card/product/ProductCardV2';
 import { useClientProduct } from '@/contexts/ClientProductContext';
 
 const { width } = Dimensions.get('window');

@@ -145,10 +145,10 @@ export const ClientCollectionProvider = ({ children }: { children: ReactNode }) 
 //   error: string | null;
 // }
 
-// export const CollectionContext = createContext<CollectionContextProps | undefined>(undefined);
+// export const ClientCollectionContext = createContext<CollectionContextProps | undefined>(undefined);
 
 // export const useClientCollection = () => {
-//   const context = useContext(CollectionContext);
+//   const context = useContext(ClientCollectionContext);
 //   if (!context) {
 //     throw new Error("useClientCollection must be used within an CollectionProvider");
 //   }
@@ -247,7 +247,7 @@ export const ClientCollectionProvider = ({ children }: { children: ReactNode }) 
 //   };
 
 //   return (
-//     <CollectionContext.Provider 
+//     <ClientCollectionContext.Provider 
 //       value={{ 
 //         collections, 
 //         addCollection, 
@@ -261,7 +261,7 @@ export const ClientCollectionProvider = ({ children }: { children: ReactNode }) 
 //       }}
 //     >
 //       {children}
-//     </CollectionContext.Provider>
+//     </ClientCollectionContext.Provider>
 //   );
 // };
 

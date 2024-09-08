@@ -16,7 +16,7 @@
 //   const [selectedSize, setSelectedSize] = useState<number | null>(null);
 //   const [isFavorite, setIsFavorite] = useState(false); // Control heart button toggle
 //   const { selectedProduct } = useClientProduct();
-//   const { authState, updateUserProfile } = useAuth();
+//   const { authState, updateSingleUserItem } = useAuth();
 //   const { addToCart } = useCart();
 
 //   const sizes = [6, 6.5, 7, 7.5, 8]; // Example sizes
@@ -32,7 +32,7 @@
 //         color: 'default',
 //         size: String(selectedSize) ?? 'default',
 //       };
-//       addToCart(partialProduct, authState.user, updateUserProfile);
+//       addToCart(partialProduct);
 //     }
 //   };
 
@@ -114,7 +114,7 @@
 //   const [selectedSize, setSelectedSize] = useState<number | null>(null);
 //   const { selectedProduct } = useClientProduct();
 //   const { addToCart } = useCart();
-//   const { authState, updateUserProfile } = useAuth(); // Access authState and updateUserProfile
+//   const { authState, updateSingleUserItem } = useAuth(); // Access authState and updateSingleUserItem
 
 //   const sizes = [6, 6.5, 7, 7.5, 8]; // Example sizes
 
@@ -142,7 +142,7 @@
 //         color: 'default',
 //         size: String(selectedSize) ?? 'default',
 //       };
-//       addToCart(partialProduct, authState.user, updateUserProfile);
+//       addToCart(partialProduct);
 //     }
 //   };
 
@@ -308,6 +308,7 @@ import { ProductModelProps } from '@/models/ProductModelProps';
 import { useAuth } from '@/contexts/AuthContext';
 import { useCart } from '@/contexts/CartContext';
 import { MotiView } from 'moti';
+import { useFavorite } from '@/contexts/FavoriteContext';
 
 const { width } = Dimensions.get('window');
 
@@ -315,30 +316,52 @@ const ProductDetails: React.FC = () => {
   const [selectedSize, setSelectedSize] = useState<number | null>(null);
   const [isFavorite, setIsFavorite] = useState(false); 
   const { selectedProduct } = useClientProduct();
-  const { authState, updateUserProfile } = useAuth();
+  const { authState, updateSingleUserItem } = useAuth();
   const { addToCart } = useCart();
+  const { addToFavorite } = useFavorite();
 
   const sizes = [6, 6.5, 7, 7.5, 8]; 
 
   const handlePress = () => {
+    console.log("Fav selected 4")
+
     if (selectedProduct) {
-      const partialProduct: Partial<ProductModelProps> = {
-        id: selectedProduct.id,
-        name: selectedProduct.name,
-        price: selectedProduct.price,
-        images: selectedProduct.images,
-        quantity: 1,
-        color: 'default',
-        size: String(selectedSize) ?? 'default',
-      };
-      addToCart(partialProduct, authState.user, updateUserProfile);
+      // const partialProduct: Partial<ProductModelProps> = {
+      //   id: selectedProduct.id,
+      //   name: selectedProduct.name,
+      //   price: selectedProduct.price,
+      //   images: selectedProduct.images,
+      //   quantity: 1,
+      //   color: 'default',
+      //   size: String(selectedSize) ?? 'default',
+      // };
+      addToCart(selectedProduct);
     }
   };
 
   const toggleFavorite = () => {
     setIsFavorite(!isFavorite);
-  };
+  
+    console.log("Fav selected 4 Item favorted 4 - check favorites")
+    // Get the current favorite items and append the selected product's ID
+    const currentFavorites = authState?.user?.favoriteItems || [];
+    
+    if (selectedProduct) { 
+    // Check if the product is already a favorite
+    // const updatedFavorites = currentFavorites.includes(selectedProduct?.id)
+    //   ? currentFavorites.filter(itemId => itemId !== selectedProduct?.id) // Remove if already in favorites
+    //   : [...currentFavorites, selectedProduct?.id]; // Add to favorites if not in the list
+  
+    // Update the favoriteItems with the new list (api)
+    // updateSingleUserItem("favoriteItems", updatedFavorites);
 
+    addToFavorite(selectedProduct);
+    
+    }
+  };
+  
+
+  
   return (
     <View style={styles.container}>
       {/* Product Image Carousel */}
@@ -528,7 +551,7 @@ export default ProductDetails;
 //   const [selectedSize, setSelectedSize] = useState<number | null>(null);
 //   const [isFavorite, setIsFavorite] = useState(false); // Control heart button toggle
 //   const { selectedProduct } = useClientProduct();
-//   const { authState, updateUserProfile } = useAuth();
+//   const { authState, updateSingleUserItem } = useAuth();
 //   const { addToCart } = useCart();
 
 //   const sizes = [6, 6.5, 7, 7.5, 8]; // Example sizes
@@ -544,7 +567,7 @@ export default ProductDetails;
 //         color: 'default',
 //         size: String(selectedSize) ?? 'default',
 //       };
-//       addToCart(partialProduct, authState.user, updateUserProfile);
+//       addToCart(partialProduct);
 //     }
 //   };
 
@@ -739,7 +762,7 @@ export default ProductDetails;
 // const ProductDetails: React.FC = () => {
 //   const [selectedSize, setSelectedSize] = useState<number | null>(null);
 //   const { selectedProduct } = useClientProduct();
-//   const { authState, updateUserProfile } = useAuth();
+//   const { authState, updateSingleUserItem } = useAuth();
 //   const { addToCart } = useCart();
 //   const [isModalVisible, setIsModalVisible] = useState(true); // Control the modal
 
@@ -756,7 +779,7 @@ export default ProductDetails;
 //         color: 'default',
 //         size: String(selectedSize) ?? 'default',
 //       };
-//       addToCart(partialProduct, authState.user, updateUserProfile);
+//       addToCart(partialProduct);
 //     }
 //   };
 

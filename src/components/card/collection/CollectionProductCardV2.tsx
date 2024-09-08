@@ -14,22 +14,25 @@ import { useAuth } from '@/contexts/AuthContext';
 
 const { width } = Dimensions.get('window');
 
-export const ProductCardView: FC<{ product: ProductModelProps }> = ({ product }) => {
+export const CollectionProductCardV2: FC<{ product: ProductModelProps }> = ({ product }) => {
   const navigation = useNavigation();
   const { addToCart } = useCart()
-  const { selectProduct } = useClientProduct();
-  const { authState,  updateUserProfile} = useAuth()
+  const { selectProduct , selectedProduct} = useClientProduct();
+  const { authState,  updateSingleUserItem} = useAuth()
+
+
 
   const handleProductPress = () => {
     selectProduct(product);
   };
 
+  8
   return (
     <View>
-     <Link 
-      href={`/products/${product.id}` as never}  
-      asChild
-     >
+    {/* <Link href={`/collections/${selectedCollection?.id}/products/${selectedProduct?.id}`} asChild> */}
+    {/* <Link href={`/collections/products/${selectedProduct?.id}`} asChild> */}
+    <Link href={`/collections/products/${selectedProduct?.id}` as never} asChild>
+
         <TouchableOpacity onPress={handleProductPress}>
           <View style={styles.container}>
             {/* Image */}
@@ -51,7 +54,7 @@ export const ProductCardView: FC<{ product: ProductModelProps }> = ({ product })
             </View>
 
             {/* Button */}
-            <TouchableOpacity style={styles.addBtn} onPress={() =>  addToCart(product, authState.user, updateUserProfile)}>
+            <TouchableOpacity style={styles.addBtn} onPress={() =>  addToCart(product)}>
               <Ionicons 
                 name={product.item_type === "subscription" ? "arrow-forward-circle-outline" : 'add-circle'} 
                 size={35} 
@@ -65,7 +68,7 @@ export const ProductCardView: FC<{ product: ProductModelProps }> = ({ product })
   );
 };
 
-export default ProductCardView;
+export default CollectionProductCardV2;
 
 const styles = StyleSheet.create({
   container: {
@@ -117,3 +120,6 @@ const styles = StyleSheet.create({
     right: SIZES.xSmall,
   }
 });
+
+
+

@@ -4,7 +4,7 @@ import { COLORS, SIZES } from '@/utils/theme';
 import convertToCurrency from '@/hooks/convertToCurrency';
 import { OrderModelProps } from '@/models/OrderModelProps';
 import { Link } from 'expo-router';
-import { useClientOrder } from '@/contexts/OrderContext';
+import { useClientOrder } from '@/contexts/ClientOrderContext';
 import { Ionicons } from '@expo/vector-icons';
 
 const ClientOrderCard: React.FC<{ order: OrderModelProps }> = ({ order }) => {
@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
 // import convertToCurrency from '@/hooks/convertToCurrency';
 // import { OrderModelProps } from '@/models/OrderModelProps';
 // import { Link } from 'expo-router';
-// import { useClientOrder } from '@/contexts/OrderContext';
+// import { useClientOrder } from '@/contexts/ClientOrderContext';
 
 
 // const ClientOrderCard: React.FC<OrderModelProps> = (order) => {

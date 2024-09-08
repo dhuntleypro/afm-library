@@ -5,7 +5,6 @@ import { StyleSheet } from "react-native";
 // import { COLORS, SIZES } from "../utils/theme";
 
 
-import ProductRow from '@/components/other/cards/other/ProductRow';
 import { COLORS, SIZES } from '@/utils/theme';
 import { TopSectionHeaderV1 } from '@/components/pages/home/TopSectionHeader';
 import Carousel from '@/components/pages/home/Carousel';
@@ -13,6 +12,7 @@ import SectionHeader from '@/components/pages/home/Headings';
 // import { useClientStore } from '@/contexts/ClientStoreContext';
 // import SearchBar from '../search/SearchBar';
 import SearchBarVOne from '../search/SearchBarVOne';
+import ProductRow from '../card/product/ProductRow';
 
 
 const HomeDesignOne = () => {

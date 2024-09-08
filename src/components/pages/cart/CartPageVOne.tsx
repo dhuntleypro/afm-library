@@ -4,22 +4,14 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import {  useCart } from '@/contexts/CartContext';
 import CartHeader from '@/components/other/headers/CartHeader';
 import { generalStyles } from '@/components/other/general/Styles';
-import CartCard from '@/components/other/cart/CartCard';
+// import CartCard from '@/components/cart/CartCard';
 import convertToCurrency from '@/hooks/convertToCurrency';
 import { CONSTANTS } from '@/utils/constants';
 import PaymentPayScreen from './PaymentPayScreen';
+import CartCard from '@/components/card/cart/CartCard';
 
 // Define the CartPageVOne component
 const CartPageVOne: React.FC = () => {
-  // const {
-  //   carts,
-  //   totalSum,
-  //   totalShipping,
-  //   totalTax,
-  //   grandTotal,
-  //   deleteItemFromCart,
-  // } = useContext(CartContext);
-
   const {
       carts,
     totalSum,

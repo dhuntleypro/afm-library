@@ -14,11 +14,11 @@ import { useAuth } from '@/contexts/AuthContext';
 
 const { width } = Dimensions.get('window');
 
-export const CollectionProductCardV2: FC<{ product: ProductModelProps }> = ({ product }) => {
+export const ProductCardView: FC<{ product: ProductModelProps }> = ({ product }) => {
   const navigation = useNavigation();
   const { addToCart } = useCart()
-  const { selectProduct , selectedProduct} = useClientProduct();
-  const { authState,  updateUserProfile} = useAuth()
+  const { selectProduct } = useClientProduct();
+  const { authState,  updateSingleUserItem} = useAuth()
 
   const handleProductPress = () => {
     selectProduct(product);
@@ -26,10 +26,10 @@ export const CollectionProductCardV2: FC<{ product: ProductModelProps }> = ({ pr
 
   return (
     <View>
-    {/* <Link href={`/collections/${selectedCollection?.id}/products/${selectedProduct?.id}`} asChild> */}
-    {/* <Link href={`/collections/products/${selectedProduct?.id}`} asChild> */}
-    <Link href={`/collections/products/${selectedProduct?.id}` as never} asChild>
-
+     <Link 
+      href={`/products/${product.id}` as never}  
+      asChild
+     >
         <TouchableOpacity onPress={handleProductPress}>
           <View style={styles.container}>
             {/* Image */}
@@ -51,7 +51,7 @@ export const CollectionProductCardV2: FC<{ product: ProductModelProps }> = ({ pr
             </View>
 
             {/* Button */}
-            <TouchableOpacity style={styles.addBtn} onPress={() =>  addToCart(product, authState.user, updateUserProfile)}>
+            <TouchableOpacity style={styles.addBtn} onPress={() =>  addToCart(product)}>
               <Ionicons 
                 name={product.item_type === "subscription" ? "arrow-forward-circle-outline" : 'add-circle'} 
                 size={35} 
@@ -65,7 +65,7 @@ export const CollectionProductCardV2: FC<{ product: ProductModelProps }> = ({ pr
   );
 };
 
-export default CollectionProductCardV2;
+export default ProductCardView;
 
 const styles = StyleSheet.create({
   container: {
@@ -117,6 +117,3 @@ const styles = StyleSheet.create({
     right: SIZES.xSmall,
   }
 });
-
-
-

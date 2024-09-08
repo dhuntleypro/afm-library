@@ -6,7 +6,7 @@ import { Alert } from "react-native";
 import { router } from "expo-router";
 // import MyAlert from "@/components/interfaces/MyAlert";
 
-interface OrderContextProps {
+interface ClientOrderContextProps {
   orders: OrderModelProps[];
   addOrder: (order: OrderModelProps) => Promise<void>;
   removeOrder: (orderId: string) => Promise<void>;
@@ -18,17 +18,17 @@ interface OrderContextProps {
   error: string | null;
 }
 
-export const OrderContext = createContext<OrderContextProps | undefined>(undefined);
+export const ClientOrderContext = createContext<ClientOrderContextProps | undefined>(undefined);
 
 export const useClientOrder = () => {
-  const context = useContext(OrderContext);
+  const context = useContext(ClientOrderContext);
   if (!context) {
-    throw new Error("useClientOrder must be used within an OrderProvider");
+    throw new Error("useClientOrder must be used within an ClientOrderProvider");
   }
   return context;
 };
 
-export const OrderProvider = ({ children }: { children: ReactNode }) => {
+export const ClientOrderProvider = ({ children }: { children: ReactNode }) => {
   const { authState } = useAuth();
   const [orders, setOrders] = useState<OrderModelProps[]>([]);
   const [selectedOrder, setSelectedOrder] = useState<OrderModelProps | null>(null);
@@ -124,7 +124,7 @@ export const OrderProvider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <OrderContext.Provider 
+    <ClientOrderContext.Provider 
       value={{ 
         orders, 
         addOrder, 
@@ -138,6 +138,6 @@ export const OrderProvider = ({ children }: { children: ReactNode }) => {
       }}
     >
       {children}
-    </OrderContext.Provider>
+    </ClientOrderContext.Provider>
   );
 };

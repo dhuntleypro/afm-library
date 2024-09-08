@@ -22,7 +22,7 @@ import { useAuth } from '@/contexts/AuthContext';
 
 export const ProductCardV2: FC<ProductModelProps> = (item) => {
   const { addToCart } = useCart();
-  const { authState, updateUserProfile } = useAuth();
+  const { authState, updateSingleUserItem } = useAuth();
   const { products, selectedProduct, selectProduct, isLoading, error } = useClientProduct();
 
   const handleProductSelect = (product: ProductModelProps) => {
@@ -31,7 +31,7 @@ export const ProductCardV2: FC<ProductModelProps> = (item) => {
 
   const handleAddToCart = () => {
     if (authState?.user) {
-      addToCart(item, authState.user, updateUserProfile);
+      addToCart(item);
     } else {
       console.error("User not logged in, cannot add to cart");
       // Optionally: redirect to login page or show message

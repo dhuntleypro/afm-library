@@ -47,7 +47,7 @@ const UserLoginTextFields = () => {
           console.error("Navigation error:", navError);
         }
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error("(6) Login error:", error.message);
       showAlert("Login failed. Please try again.");
     }

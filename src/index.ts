@@ -1,89 +1,99 @@
+// ----------------------------------
+// 1. Components
+// ----------------------------------
+
+// Banners
+export { BannerVOne } from './components/banner/BannerVOne';
 
 // Buttons
-export  { MyButton } from './components/buttons/MyButton'
+export { MyButton } from './components/buttons/MyButton';
 
 // Cards
-export {default as ProductCardView } from "./components/card/ProductCardView"
-export {default as OrderCrudCard } from "./components/card/OrderCrudCard"
-export { ProductCrudCard } from "./components/card/ProductCrudCard"
-export { ProductCardV2 } from "./components/card/ProductCardV2"
-// export { TalentCard } from "./components/card/TalentCard"
+// export { default as OrderCrudCard } from './components/card/order/OrderCrudCard';
+// export { ProductCardV2 } from './components/card/product/ProductCardV2';
+// export { default as ProductCardView } from './components/card/product/ProductCardView';
+// export { ProductCrudCard } from './components/card/product/ProductCrudCard';
+// export { FavoritrCard } from './components/card/fovorite/FavoritrCard'
 
-// Banner
-export { BannerVOne } from "./components/banner/BannerVOne"
-// export { PromoBannerCard } from "./components/banner/PromoBannerCard"
+// Miscellaneous Components
+export { default as DeleteSectionView } from './components/delete/DeleteSectionView';
+export { default as Divider } from './components/divider/Divider';
+export { default as EditScreenInfo } from './components/EditScreenInfo';
+export { default as ProductListItem } from './components/products/ProductListItem';
+export { default as TextFieldVOne } from './components/textfield/TextFieldVOne';
 
+// Pages
+export { default as CartPageVOne } from './components/pages/cart/CartPageVOne';
+export { default as ClientOrderCard } from './components/pages/client-order/ClientOrderCard';
+export { default as CollectionPageVTwo } from './components/pages/collections/CollectionPageVTwo';
+export { default as FavoritesPageVOne } from './components/pages/favorites/FavoritesPageVOne';
+export { default as LoginComponentTwo } from './components/pages/login/LoginComponentTwo';
+export { default as ProductDetailsPageVThree } from './components/pages/product-details/ProductDetailsPageVThree';
+export { default as ProductDetailsPageVFour } from './components/pages/product-details/ProductDetailsPageVFour';
+export { default as RegisterComponentTwo } from './components/pages/register/RegisterComponentTwo';
+export { default as SettingsPage } from './components/pages/settings/SettingsPage';
+export { default as WelcomePageTwo } from './components/pages/welcome/WelcomePageTwo';
 
-export { default as TextFieldVOne} from "./components/textfield/TextFieldVOne"
-export { default as DeleteSectionView} from "./components/delete/DeleteSectionView"
-export { default as Divider} from "./components/divider/Divider"
-export { default as ProductListItem} from "./components/products/ProductListItem"
+// Product Search
+export { default as CollectionProductSearchScreen } from './components/products/CollectionProductSearchScreen';
+export { default as ProductSearchScreen } from './components/products/ProductSearchScreen';
 
-export {default as RegisterComponentTwo} from "./components/pages/register/RegisterComponentTwo"
-export {default as LoginComponentTwo} from "./components/pages/login/LoginComponentTwo"
-
-// Demos
-export * from "./model-sample-data/sample-order"
-export {SAMPLE_PRODUCT} from "./model-sample-data/sample-product"
-
-
-
-
-
-// Layout DO NOT WORK -- NOT COMPATABLE 
-// export { RootLayout} from './layouts/RootLayout'
-// export { CoreLayout}  from './layouts/CoreLayout'
-// export { TabLayout}  from './layouts/TabLayout'
-// export { AuthLayout}  from './layouts/AuthLayout'
-
-
-// Context
-// export  { ClientStoreProvider, useClientStore } from './contexts/AppUserContext'
-export  { AuthProvider , useAuth } from './contexts/AuthContext'
-// export  { CartProvider , CartContext } from './contexts/CartContext'
-export  { CartProvider , useCart } from './contexts/CartContext'
-export  { ClientProductProvider, useClientProduct } from './contexts/ClientProductContext'
-export  { ClientStoreProvider, useClientStore } from './contexts/ClientStoreContext'
-export  { ClientCollectionProvider, useClientCollection } from './contexts/CollectionContext'
-export  { MankindProductProvider, useMankindProduct } from './contexts/MankindProductContext'
-export  { MankindStoreProvider, useMankindStore } from './contexts/MankindStoreContext'
-export  { OrderProvider, useClientOrder } from './contexts/OrderContext'
-
-// export  { ThemeProvider } from './contexts/ThemeContext'
- 
-export  { ThemeProvider, useTheme } from './contexts/ThemeContext'
-// export  { T, useTheme } from './contexts/Themed'
-// export  { ClientStoreProvider, useClientStore } from './contexts/UserFavoriteContext'
- 
-
-
-// api
-export  * from './api/authorization'
-export  * from './api/collectionApi'
-export  * from './api/couponApi'
-export  * from './api/inboxApi'
-export  * from './api/mankindProductApi'
-export  * from './api/mankindStoreApi'
-export  * from './api/ordersApi'
-export  * from './api/paymentApi'
-export  * from './api/productApi'
-export  * from './api/storeApi'
+// Home Designs
+export { default as HomeDesignOne } from './components/home/HomeDesignOne';
+export { default as HomeDesignTwo } from './components/home/HomeDesignTwo';
 
 
 
-// // Utils
-export  * from './utils/api'
-export  * from './utils/constants'
-export  * from './utils/pages'
-export  * from './utils/Routes'
-export  * from './utils/storage'
-export  * from './utils/theme'
 
 
-// // Hook 
+
+// ----------------------------------
+// 2. Contexts
+// ----------------------------------
+
+export { AuthProvider, useAuth } from './contexts/AuthContext';
+export { CartProvider, useCart } from './contexts/CartContext';
+export { ClientCollectionProvider, useClientCollection } from './contexts/ClientCollectionContext';
+export { ClientOrderProvider, useClientOrder } from './contexts/ClientOrderContext';
+export { ClientProductProvider, useClientProduct } from './contexts/ClientProductContext';
+export { ClientStoreProvider, useClientStore } from './contexts/ClientStoreContext';
+export { FavoriteProvider, useFavorite } from './contexts/FavoriteContext';
+export { MankindProductProvider, useMankindProduct } from './contexts/MankindProductContext';
+export { MankindStoreProvider, useMankindStore } from './contexts/MankindStoreContext';
+export { ThemeProvider, useTheme } from './contexts/ThemeContext';
+
+
+
+
+
+
+// ----------------------------------
+// 3. APIs
+// ----------------------------------
+
+export * from './api/authorization';
+export * from './api/collectionApi';
+export * from './api/couponApi';
+export * from './api/inboxApi';
+export * from './api/mankindProductApi';
+export * from './api/mankindStoreApi';
+export * from './api/ordersApi';
+export * from './api/paymentApi';
+export * from './api/productApi';
+export * from './api/storeApi';
+
+
+
+
+
+
+// ----------------------------------
+// 4. Hooks
+// ----------------------------------
+
 export { convertToCurrency } from './hooks/convertToCurrency';
-export { formatPhoneNumber } from './hooks/formatPhoneNumber';
 export { ExternalLink } from './hooks/ExternalLink';
+export { formatPhoneNumber } from './hooks/formatPhoneNumber';
 export { generateUUID } from './hooks/generateUUID';
 export { stripeConverter } from './hooks/stripeConverter';
 export { useClientOnlyValue } from './hooks/useClientOnlyValue';
@@ -91,7 +101,13 @@ export { useColorScheme } from './hooks/useColorScheme';
 
 
 
-// Model Exports (types)
+
+
+
+// ----------------------------------
+// 5. Models (Types)
+// ----------------------------------
+
 export type { CollectionModelProps } from './models/CollectionModelProps';
 export type { CouponModelProps } from './models/CouponModelProps';
 export type { InboxModelProps } from './models/InboxModelProps';
@@ -103,27 +119,27 @@ export type { UserProps } from './models/UserProps';
 
 
 
-export { default as EditScreenInfo } from './components/EditScreenInfo';
 
 
-// Pages
-export { default as CollectionPageVTwo } from "./components/pages/collections/CollectionPageVTwo"
-export { default as SettingsPage } from "./components/pages/settings/SettingsPage"
-export { default as WelcomePageTwo } from "./components/pages/welcome/WelcomePageTwo"
-export { default as ClientOrderCard } from "./components/pages/client-order/ClientOrderCard"
-export { default as CartPageVOne } from "./components/pages/cart/CartPageVOne"
-export { default as ProductDetailsPageVThree } from "./components/pages/product-details/ProductDetailsPageVThree"
-// export { default as ProductDetailsPageVFour } from "./components/pages/product-details/ProductDetailsPageVFour"
-export { default as ProductDetailsPageVFour } from "./components/pages/product-details/ProductDetailsPageVFour"
+// ----------------------------------
+// 6. Sample Data (Demos)
+// ----------------------------------
+
+export * from './model-sample-data/sample-order';
+export { SAMPLE_PRODUCT } from './model-sample-data/sample-product';
 
 
 
 
-// Component 
-export { default as HomeDesignOne } from "./components/home/HomeDesignOne"
-export { default as HomeDesignTwo } from "./components/home/HomeDesignTwo"
-
-export { default as ProductSearchScreen } from "./components/products/ProductSearchScreen"
-export { default as CollectionProductSearchScreen } from "./components/products/CollectionProductSearchScreen"
 
 
+// ----------------------------------
+// 7. Utilities
+// ----------------------------------
+
+export * from './utils/api';
+export * from './utils/constants';
+export * from './utils/pages';
+export * from './utils/Routes';
+export * from './utils/storage';
+export * from './utils/theme';

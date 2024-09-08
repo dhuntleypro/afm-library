@@ -7,9 +7,9 @@ import {
   TouchableOpacity,
 } from "react-native";
 import React from "react";
-import { useAuth } from "../../../../contexts/AuthContext";
+import { useAuth } from "../../../contexts/AuthContext";
 import { COLORS, SIZES } from "@/utils/theme";
-import ProductCardView from "@/components/card/ProductCardView";
+import ProductCardView from "@/components/card/product/ProductCardView";
 import { ProductModelProps } from "@/models/ProductModelProps";
 // import { useClientProduct } from "@/contexts/ClientProductContext";
 import { CONSTANTS } from "@/utils/constants";

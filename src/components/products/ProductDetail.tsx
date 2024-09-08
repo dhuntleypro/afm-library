@@ -22,7 +22,7 @@ export interface NavigationProp {
 }
 
 const ProductDetails: FC<ProductModelProps> = (item) => {
-  const { authState, onLogout , updateUserProfile} = useAuth();
+  const { authState, onLogout , updateSingleUserItem} = useAuth();
 
   // const route = useRoute<RouteProp<{ params: { item: ProductModelProps } }>>();
   // const { addToCart } = useContext(CartContext);
@@ -93,7 +93,11 @@ const ProductDetails: FC<ProductModelProps> = (item) => {
           <Ionicons name='chevron-back-circle' size={30} color={COLORS.black} />
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => toggleLikes(item.id)}>
+        <TouchableOpacity onPress={() => {
+          toggleLikes(item.id)
+          console.log("Item favorted 3- check favorites")
+
+          }}>
           <Ionicons name={likedProducts ? 'heart' : 'heart-outline'} size={30} color={COLORS.primary} />
         </TouchableOpacity>
       </View>
@@ -151,7 +155,7 @@ const ProductDetails: FC<ProductModelProps> = (item) => {
           </TouchableOpacity>
 
           <TouchableOpacity onPress={() => {
-            addToCart(item ,  authState.user, updateUserProfile);
+            addToCart(item );
           }} style={styles.addToCart}>
             <Fontisto name='shopping-bag' size={22} color={COLORS.lightWhite} />
           </TouchableOpacity>

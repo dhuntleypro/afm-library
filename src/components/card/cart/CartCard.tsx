@@ -1,26 +1,28 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { FC, useContext, useState } from 'react'
 import { COLORS, SIZES } from '@/utils/theme'
-import { ProductModelProps } from '../../../models/ProductModelProps'
+// import { ProductModelProps } from '../../models/ProductModelProps'
 import convertToCurrency from '@/hooks/convertToCurrency';
-import {  useCart } from '../../../contexts/CartContext'
+// import {  useCart } from '../../contexts/CartContext'
 import { Ionicons , SimpleLineIcons} from "@expo/vector-icons"
 // import { stripeConverter } from '../../hook/stripeConverter'
-import { useAuth } from '../../../contexts/AuthContext'
-import { createPaymentIntent } from '../../../api/paymentApi'
+// import { useAuth } from '../../contexts/AuthContext'
+// import { createPaymentIntent } from '../../api/paymentApi'
 import { CONSTANTS } from '@/utils/constants'
+import { useAuth } from '@/contexts/AuthContext';
+import { useCart } from '@/contexts/CartContext';
 
 const CartCard = ({ item }: any) => {
     const { deleteItemFromCart, addToCart , decreaseFromCart, totalSum} = useCart()
     const [quantity, setQuantity] = useState(item.quantity);
-    const {authState, onLogout , updateUserProfile} = useAuth()
+    const {authState, onLogout} = useAuth()
     const [paymentStatus, setPaymentStatus] = useState('ijiij');
 
     // Plus
     const increment = () => {
         // handlePayment(totalSum, 10)
 
-        addToCart(item, authState.user, updateUserProfile)
+        addToCart(item)
     };
 
     // Minus
@@ -32,7 +34,7 @@ const CartCard = ({ item }: any) => {
 
         } else {
             console.log("remove 1")
-            decreaseFromCart(item, authState.user, updateUserProfile)
+            decreaseFromCart(item)
         }
     };
 
@@ -101,7 +103,7 @@ const CartCard = ({ item }: any) => {
             </View>
 
         </View>
-        <TouchableOpacity onPress={() => deleteItemFromCart(item, authState.user, updateUserProfile)}>
+        <TouchableOpacity onPress={() => deleteItemFromCart(item)}>
             <Ionicons name='trash-outline' size={SIZES.xLarge} color={COLORS.black}/>
         </TouchableOpacity>    
 

@@ -7,7 +7,7 @@ import { useAuth } from "@/contexts/AuthContext"; // Import to get authUser
 export const ProductDetailsPageVTwo: FC = () => {
   const { addToCart } = useCart();
   const { selectedProduct } = useClientProduct();
-  const { authState, updateUserProfile } = useAuth(); // Access authState and updateUserProfile
+  const { authState, updateSingleUserItem } = useAuth(); // Access authState and updateSingleUserItem
 
   const handleAddToCart = () => {
     if (selectedProduct) {
@@ -18,7 +18,7 @@ export const ProductDetailsPageVTwo: FC = () => {
         quantity: 1, // Set an initial quantity of 1 for adding to the cart
         image: selectedProduct.images[0], // Assuming the first image is the main one
       };
-      addToCart(productToAdd, authState.user, updateUserProfile); // Pass authUser and updateUserProfile
+      addToCart(productToAdd); // Pass authUser and updateSingleUserItem
     }
   };
 

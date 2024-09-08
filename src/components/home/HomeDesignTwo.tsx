@@ -13,12 +13,12 @@ import {
 } from "react-native";
 import { useClientStore } from "@/contexts/ClientStoreContext";
 import TopHomeSeaction from "./TopHomeSeaction";
-import ProductRow from "@/components/other/cards/other/ProductRow";
 import Carousel from "@/components/pages/home/Carousel";
 import SectionHeader from "@/components/pages/home/Headings";
 import { AWS_HOLDER_IMAGE } from "@/utils/api";
 import { router } from "expo-router";
 import { ROUTES } from "@/utils/Routes";
+import ProductRow from "../card/product/ProductRow";
 
 const { width } = Dimensions.get("window");
 
@@ -42,7 +42,8 @@ const HomeDesignTwo = () => {
           source={{ uri: store?.images.welcome_image ?? AWS_HOLDER_IMAGE }} 
           style={styles.profileImage}
         />
-        <Text style={styles.name}>JACOB JAMES</Text>
+        {/* <Text style={styles.name}>JACOB JAMES</Text> */}
+        <Text style={styles.name}>YOUR NAME HERE</Text>
         <Text style={styles.title}>
           Founder of {store?.store_name ?? ""} Co.
         </Text>

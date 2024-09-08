@@ -2,6 +2,7 @@ import * as SecureStore from 'expo-secure-store';
 import { UserProps } from "../models/UserProps";
 import { BASE_URL } from "../utils/api";
 import { createFetchClient } from "../utils/createFetchClient";
+import { getAuthToken } from '@/utils/getAuthToken';
 
 // Create a fetch client instance
 export const authApi = createFetchClient(
@@ -15,13 +16,10 @@ export const authApi = createFetchClient(
   }
 );
 
-// Helper function to get the authorization token
-async function getAuthToken() {
-  return await SecureStore.getItemAsync('your_token_key_here');
-}
 
 // API Calls
 
+// Verify user API
 export const verify = async (user: any) => {
   const token = await getAuthToken();
   return await authApi.post('/verify', user, {
@@ -31,17 +29,7 @@ export const verify = async (user: any) => {
   });
 };
 
-// export const login = async (user: any) => {
-//   const token = await getAuthToken();
-//   return await authApi.post('/login', user, {
-//     headers: {
-//       Authorization: `${token}`,
-//     },
-//   });
-// };
-
-
-// Example usage of the new fetch client for login
+// Login API with token-based authorization
 export const login = async (user: UserProps) => {
   const authApi = createFetchClient(
     BASE_URL,
@@ -59,17 +47,18 @@ export const login = async (user: UserProps) => {
   return await authApi.post("/login", body);
 };
 
-
-
+// Get users API
 export const getUsersApi = async () => {
   const token = await getAuthToken();
   return await authApi.get('/users', {
     headers: {
       Authorization: `${token}`,
+
     },
   });
 };
 
+// Get client users by store ID and email
 export const getClientUsersApi = async (storeID: string, email: string) => {
   try {
     const token = await getAuthToken();
@@ -90,9 +79,10 @@ export const getClientUsersApi = async (storeID: string, email: string) => {
   }
 };
 
-// Updated updateUserApi function
+
+// Update user API
 export const updateUserApi = async (
-  userId: string,
+  userEmail: string,
   tableName: string,
   updateKey: string,
   updateValue: any
@@ -101,19 +91,21 @@ export const updateUserApi = async (
 
   // Construct the body for the API call
   const body = {
-    id: userId,
+    email: userEmail,
     tableName: tableName, // Example: "prof-website-product-table"
     updateKey: updateKey, // The key that needs to be updated, e.g. "on_sale"
     updateValue: updateValue, // The new value for the key, e.g. true or false
   };
 
-  return await authApi.put(`/user?id=${userId}`, body, {
+  return await authApi.put(`/user`, body, {
     headers: {
       Authorization: `${token}`,
+      "Content-Type": "application/json", // Properly added Content-Type
     },
   });
 };
 
+// Delete user API
 export const deleteUserApi = async ({ id }: { id: any }) => {
   const token = await getAuthToken();
   console.log(id);
@@ -124,7 +116,6 @@ export const deleteUserApi = async ({ id }: { id: any }) => {
     },
   });
 };
-
 
 
 

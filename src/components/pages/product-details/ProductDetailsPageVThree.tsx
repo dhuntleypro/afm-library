@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity, Dimensions, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { COLORS } from '@/utils/theme'; // Assuming you have a COLORS file
@@ -8,6 +8,7 @@ import { ProductModelProps } from '@/models/ProductModelProps';
 import { useAuth } from '@/contexts/AuthContext';
 import { useCart } from '@/contexts/CartContext';
 import convertToCurrency from '@/hooks/convertToCurrency';
+import { useFavorite } from '@/contexts/FavoriteContext';
 
 const { width, height } = Dimensions.get('window');
 
@@ -19,8 +20,9 @@ const ProductDetailsPageVThree: FC<ProductDetailsPageVThreeProps> = (props) => {
   const [selectedSize, setSelectedSize] = useState<number | null>(null);
   const [isFavorite, setIsFavorite] = useState<boolean>(false); // State for heart icon toggle
   const { selectedProduct } = useClientProduct();
-  const { authState, updateUserProfile } = useAuth(); // Access authState and updateUserProfile
+  const { authState, updateSingleUserItem} = useAuth(); // Access authState and updateSingleUserItem
   const { addToCart } = useCart();
+  const { addToFavorite, favorites } = useFavorite();
 
   const sizes = [6, 6.5, 7, 7.5, 8]; // Example sizes
 
@@ -35,13 +37,37 @@ const ProductDetailsPageVThree: FC<ProductDetailsPageVThreeProps> = (props) => {
         color: 'default', // Add color if necessary
         size: String(selectedSize) ?? 'default', // Add size if necessary
       };
-      addToCart(partialProduct, authState.user, updateUserProfile); // Pass authUser and updateUserProfile
+      addToCart(partialProduct); // Pass authUser and updateSingleUserItem
     }
   };
+// Check if product is already a favorite when favorites or selectedProduct changes
+useEffect(() => {
+  if (selectedProduct && favorites.some((fav) => fav.id === selectedProduct.id)) {
+    setIsFavorite(true);
+  } else {
+    setIsFavorite(false);
+  }
+}, [favorites, selectedProduct]); // Dependency array: Runs when favorites or selectedProduct changes
 
-  const toggleFavorite = () => {
-    setIsFavorite(!isFavorite); // Toggle the heart icon
-  };
+const toggleFavorite = async () => {
+  console.log("Fav selected 3")
+  if (selectedProduct) {
+    const currentFavorites = authState?.user?.favoriteItems || [];
+
+    // Check if the product is already a favorite
+    const updatedFavorites = currentFavorites.includes(selectedProduct.id)
+      ? currentFavorites.filter((itemId) => itemId !== selectedProduct.id) // Remove from favorites
+      : [...currentFavorites, selectedProduct.id]; // Add to favorites
+
+    setIsFavorite(!isFavorite); // Toggle UI state
+
+    // Call the `updateSingleUserItem` function with the updated favorites list
+    // await updateSingleUserItem('favoriteItems', updatedFavorites);
+
+    // Add the product to the favorites list in the context
+    addToFavorite(selectedProduct);
+  }
+};
 
   return (
     <View style={styles.container}>
@@ -241,7 +267,7 @@ export default ProductDetailsPageVThree;
 //   const [selectedSize, setSelectedSize] = useState<number | null>(null);
 //   const [isFavorite, setIsFavorite] = useState<boolean>(false); // State for heart icon toggle
 //   const { selectedProduct } = useClientProduct();
-//   const { authState, updateUserProfile } = useAuth(); // Access authState and updateUserProfile
+//   const { authState, updateSingleUserItem } = useAuth(); // Access authState and updateSingleUserItem
 //   const { addToCart } = useCart();
 
 //   const sizes = [6, 6.5, 7, 7.5, 8]; // Example sizes
@@ -257,7 +283,7 @@ export default ProductDetailsPageVThree;
 //         color: 'default', // Add color if necessary
 //         size: String(selectedSize) ?? 'default', // Add size if necessary
 //       };
-//       addToCart(partialProduct, authState.user, updateUserProfile); // Pass authUser and updateUserProfile
+//       addToCart(partialProduct); // Pass authUser and updateSingleUserItem
 //     }
 //   };
 
@@ -437,7 +463,7 @@ export default ProductDetailsPageVThree;
 //   const [selectedSize, setSelectedSize] = useState<string | null>(null);
 //   const { addToCart } = useCart();
 //   const { selectedProduct } = useClientProduct();
-//   const { authState, updateUserProfile } = useAuth(); // Access authState and updateUserProfile
+//   const { authState, updateSingleUserItem } = useAuth(); // Access authState and updateSingleUserItem
 
 //   const handlePress = () => {
 //     if (selectedProduct) {
@@ -450,7 +476,7 @@ export default ProductDetailsPageVThree;
 //         color: selectedColor ?? 'default', // Add color if necessary
 //         size: selectedSize ?? 'default', // Add size if necessary
 //       };
-//       addToCart(partialProduct, authState.user, updateUserProfile); // Pass authUser and updateUserProfile
+//       addToCart(partialProduct); // Pass authUser and updateSingleUserItem
 //     }
 //   };
 

@@ -5,9 +5,9 @@ import { useColorScheme } from 'react-native';
 import CoreLayout from './CoreLayout';
 import { CartProvider } from '@/contexts/CartContext';
 import { ClientStoreProvider } from '@/contexts/ClientStoreContext';
-import { ClientCollectionProvider } from '@/contexts/CollectionContext';
+import { ClientCollectionProvider } from '@/contexts/ClientCollectionContext';
 import { ClientProductProvider } from '@/contexts/ClientProductContext';
-import { OrderProvider } from '@/contexts/OrderContext';
+import { ClientOrderProvider } from '@/contexts/ClientOrderContext';
 
  const AppProviders = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -16,9 +16,9 @@ import { OrderProvider } from '@/contexts/OrderContext';
         <ClientStoreProvider>
           <ClientCollectionProvider>
             <ClientProductProvider>
-              <OrderProvider>
+              <ClientOrderProvider>
                 {children}
-              </OrderProvider>
+              </ClientOrderProvider>
             </ClientProductProvider>
           </ClientCollectionProvider>
         </ClientStoreProvider>

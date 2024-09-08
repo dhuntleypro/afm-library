@@ -53,7 +53,7 @@ const UserRegisterTextFields = () => {
           console.error("Navigation error:", navError);
         }
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error("(7) Login error:", error.message);
       showAlert("Login failed. Please try again.");
     }
@@ -116,11 +116,11 @@ const UserRegisterTextFields = () => {
 
     try {
       const result = await onRegister(store?.id ?? "", user);
-      if (result.error) {
+      if (result.error ) {
         showAlert(result.error);
-        console.error("(3) Registration error:", error.response);
-        console.error("(3) Registration error:", error.message);
-        console.error("(3) Registration error:", error);
+        // console.error("(3) Registration error:", error.response);
+        // console.error("(3) Registration error:", error.message);
+        // console.error("(3) Registration error:", error);
 
         return;
       } else {

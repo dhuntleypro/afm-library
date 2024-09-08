@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity, SafeAreaView } from 'react-native';
 import { FontAwesome, MaterialIcons } from '@expo/vector-icons';
-import { useClientCollection } from '@/contexts/CollectionContext';
+import { useClientCollection } from '@/contexts/ClientCollectionContext';
 import { CollectionModelProps } from '@/models/CollectionModelProps'; // Adjust the import path as necessary
 
 const CollectionPageVOne: React.FC = () => {

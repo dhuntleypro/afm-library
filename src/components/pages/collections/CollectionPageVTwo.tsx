@@ -1,6 +1,6 @@
 import { useClientProduct } from '@/contexts/ClientProductContext';
 import { useClientStore } from '@/contexts/ClientStoreContext';
-import { useClientCollection } from '@/contexts/CollectionContext';
+import { useClientCollection } from '@/contexts/ClientCollectionContext';
 import convertToCurrency from '@/hooks/convertToCurrency';
 import { ProductModelProps } from '@/models/ProductModelProps';
 import { AWS_HOLDER_IMAGE } from '@/utils/api';
@@ -241,7 +241,7 @@ export default CollectionPageVTwo;
 // All not included
 // import { useClientProduct } from '@/contexts/ClientProductContext';
 // import { useClientStore } from '@/contexts/ClientStoreContext';
-// import { useClientCollection } from '@/contexts/CollectionContext';
+// import { useClientCollection } from '@/contexts/ClientCollectionContext';
 // import convertToCurrency from '@/hooks/convertToCurrency';
 // import { ProductModelProps } from '@/models/ProductModelProps';
 // import { AWS_HOLDER_IMAGE } from '@/utils/api';

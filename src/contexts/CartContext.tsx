@@ -5,15 +5,15 @@ import { ProductModelProps } from "@/models/ProductModelProps";
 // Define the context type
 interface CartContextType {
   carts: Partial<ProductModelProps>[];
-  addToCart: (item: Partial<ProductModelProps>, authUser: any, updateUserProfile: any) => Promise<void>;
-  decreaseFromCart: (item: Partial<ProductModelProps>, authUser: any, updateUserProfile: any) => void;
-  deleteItemFromCart: (item: Partial<ProductModelProps>, authUser: any, updateUserProfile: any) => void;
+  addToCart: (item: Partial<ProductModelProps>) => Promise<void>;
+  decreaseFromCart: (item: Partial<ProductModelProps>) => void;
+  deleteItemFromCart: (item: Partial<ProductModelProps>) => void;
   totalSum: number;
   totalTax: number;
   totalShipping: number;
   grandTotal: number;
   quantity: number;
-  clearData: (authUser: any, updateUserProfile: any) => void;
+  clearData: (authUser: any) => void;
 }
 
 export const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -43,7 +43,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     }, [carts]) // Runs when the cart is updated
   );
 
-  const addToCart = async (item: Partial<ProductModelProps>, authUser: any, updateUserProfile: any) => {
+  const addToCart = async (item: Partial<ProductModelProps>) => {
     try {
       let updatedCarts = [...carts];
       const itemExistIndex = updatedCarts.findIndex((cart) => cart.id === item.id);
@@ -59,7 +59,12 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       setQuantity((prev) => prev + 1);
 
       // Ensure to await the user profile update
-      await updateUserProfile({ cart: updatedCarts, user: authUser });
+      //  error adding item -- needed editing 
+      // await updateSingleUserItem({ cart: updatedCarts, user: authUser });
+
+
+
+
 
     } catch (error) {
       console.error("Error adding item to cart:", error);
@@ -67,7 +72,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  const decreaseFromCart = (item: Partial<ProductModelProps>, authUser: any, updateUserProfile: any) => {
+  const decreaseFromCart = (item: Partial<ProductModelProps>) => {
     const itemExistIndex = carts.findIndex((cart) => cart.id === item.id);
     if (itemExistIndex !== -1) {
       const updatedCarts = [...carts];
@@ -80,23 +85,22 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       setCarts(updatedCarts);
       calculateTotalSum(updatedCarts);
       setQuantity((prev) => prev - 1);
-      updateUserProfile({ cart: updatedCarts, user: authUser }); // Update user profile cart
+      // updateSingleUserItem({ cart: updatedCarts, user: authUser }); // Update user profile cart
     }
   };
 
-  const deleteItemFromCart = (item: Partial<ProductModelProps>, authUser: any, updateUserProfile: any) => {
+  const deleteItemFromCart = (item: Partial<ProductModelProps>) => {
     const updatedCarts = carts.filter((cart) => cart.id !== item.id);
     setCarts(updatedCarts);
     calculateTotalSum(updatedCarts);
     setQuantity((prev) => prev - (item.quantity || 0));
-    updateUserProfile({ cart: updatedCarts, user: authUser }); // Update user profile cart
   };
 
-  const clearData = (authUser: any, updateUserProfile: any) => {
+  const clearData = (authUser: any) => {
     setCarts([]);
     setTotalSum(0);
     setQuantity(0);
-    updateUserProfile({ cart: [], user: authUser }); // Clear cart in user profile
+    // updateSingleUserItem({ cart: [], user: authUser }); // Clear cart in user profile
   };
 
   // Calculate total sum
@@ -142,15 +146,15 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
 // // Define the context type
 // interface CartContextType {
 //   carts: Partial<ProductModelProps>[];
-//   addToCart: (item: Partial<ProductModelProps>, authUser: any, updateUserProfile: any) => void;
-//   decreaseFromCart: (item: Partial<ProductModelProps>, authUser: any, updateUserProfile: any) => void;
-//   deleteItemFromCart: (item: Partial<ProductModelProps>, authUser: any, updateUserProfile: any) => void;
+//   addToCart: (item: Partial<ProductModelProps>, authUser: any, updateSingleUserItem: any) => void;
+//   decreaseFromCart: (item: Partial<ProductModelProps>, authUser: any, updateSingleUserItem: any) => void;
+//   deleteItemFromCart: (item: Partial<ProductModelProps>, authUser: any, updateSingleUserItem: any) => void;
 //   totalSum: number;
 //   totalTax: number;
 //   totalShipping: number;
 //   grandTotal: number;
 //   quantity: number;
-//   clearData: (authUser: any, updateUserProfile: any) => void;
+//   clearData: (authUser: any, updateSingleUserItem: any) => void;
 // }
 
 // export const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -181,7 +185,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
 //     }, [carts]) // Runs when the cart is updated
 //   );
 
-//   const addToCart = (item: Partial<ProductModelProps>, authUser: any, updateUserProfile: any) => {
+//   const addToCart = (item: Partial<ProductModelProps>, authUser: any, updateSingleUserItem: any) => {
 //     let updatedCarts = [...carts];
 //     const itemExistIndex = updatedCarts.findIndex((cart) => cart.id === item.id);
 
@@ -194,10 +198,10 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
 //     setCarts(updatedCarts);
 //     calculateTotalSum(updatedCarts);
 //     setQuantity((prev) => prev + 1);
-//     updateUserProfile({ cart: updatedCarts, user: authUser }); // Update user profile with cart changes
+//     updateSingleUserItem({ cart: updatedCarts, user: authUser }); // Update user profile with cart changes
 //   };
 
-//   const decreaseFromCart = (item: Partial<ProductModelProps>, authUser: any, updateUserProfile: any) => {
+//   const decreaseFromCart = (item: Partial<ProductModelProps>, authUser: any, updateSingleUserItem: any) => {
 //     const itemExistIndex = carts.findIndex((cart) => cart.id === item.id);
 //     if (itemExistIndex !== -1) {
 //       const updatedCarts = [...carts];
@@ -210,23 +214,23 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
 //       setCarts(updatedCarts);
 //       calculateTotalSum(updatedCarts);
 //       setQuantity((prev) => prev - 1);
-//       updateUserProfile({ cart: updatedCarts, user: authUser }); // Update user profile cart
+//       updateSingleUserItem({ cart: updatedCarts, user: authUser }); // Update user profile cart
 //     }
 //   };
 
-//   const deleteItemFromCart = (item: Partial<ProductModelProps>, authUser: any, updateUserProfile: any) => {
+//   const deleteItemFromCart = (item: Partial<ProductModelProps>, authUser: any, updateSingleUserItem: any) => {
 //     const updatedCarts = carts.filter((cart) => cart.id !== item.id);
 //     setCarts(updatedCarts);
 //     calculateTotalSum(updatedCarts);
 //     setQuantity((prev) => prev - (item.quantity || 0));
-//     updateUserProfile({ cart: updatedCarts, user: authUser }); // Update user profile cart
+//     updateSingleUserItem({ cart: updatedCarts, user: authUser }); // Update user profile cart
 //   };
 
-//   const clearData = (authUser: any, updateUserProfile: any) => {
+//   const clearData = (authUser: any, updateSingleUserItem: any) => {
 //     setCarts([]);
 //     setTotalSum(0);
 //     setQuantity(0);
-//     updateUserProfile({ cart: [], user: authUser }); // Clear cart in user profile
+//     updateSingleUserItem({ cart: [], user: authUser }); // Clear cart in user profile
 //   };
 
 //   // Calculate total sum

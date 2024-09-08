@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, ActivityIndicator, StyleSheet } from 'react-native';
 import { useClientStore } from '@/contexts/ClientStoreContext';
-import { useClientCollection } from '@/contexts/CollectionContext';
+import { useClientCollection } from '@/contexts/ClientCollectionContext';
 import { useClientProduct } from '@/contexts/ClientProductContext';
 
 export function LoadingScreen({ onLoaded }: { onLoaded: () => void }) {
