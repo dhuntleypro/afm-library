@@ -12,7 +12,7 @@ import { ClientOrderProvider } from '@/contexts/ClientOrderContext';
  const AppProviders = ({ children }: { children: React.ReactNode }) => {
   return (
     <AuthProvider>
-      <CartProvider>
+      <CartProvider storageKey={''}>
         <ClientStoreProvider>
           <ClientCollectionProvider>
             <ClientProductProvider>

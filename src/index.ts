@@ -9,7 +9,9 @@ export { BannerVOne } from './components/banner/BannerVOne';
 export { MyButton } from './components/buttons/MyButton';
 
 // Cards
-// export { default as OrderCrudCard } from './components/card/order/OrderCrudCard';
+export { default as OrderCrudCard } from './components/card/order/OrderCrudCard';
+export { default as ClientOrderCard } from './components/pages/client-order/ClientOrderCard';
+
 // export { ProductCardV2 } from './components/card/product/ProductCardV2';
 // export { default as ProductCardView } from './components/card/product/ProductCardView';
 // export { ProductCrudCard } from './components/card/product/ProductCrudCard';
@@ -24,7 +26,6 @@ export { default as TextFieldVOne } from './components/textfield/TextFieldVOne';
 
 // Pages
 export { default as CartPageVOne } from './components/pages/cart/CartPageVOne';
-export { default as ClientOrderCard } from './components/pages/client-order/ClientOrderCard';
 export { default as CollectionPageVTwo } from './components/pages/collections/CollectionPageVTwo';
 export { default as FavoritesPageVOne } from './components/pages/favorites/FavoritesPageVOne';
 export { default as LoginComponentTwo } from './components/pages/login/LoginComponentTwo';
