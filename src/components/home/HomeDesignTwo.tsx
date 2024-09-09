@@ -19,22 +19,36 @@ import { AWS_HOLDER_IMAGE } from "@/utils/api";
 import { router } from "expo-router";
 import { ROUTES } from "@/utils/Routes";
 import ProductRow from "../card/product/ProductRow";
+import { useTheme } from "@/contexts/ThemeContext";
+import { useClientProduct } from "@/contexts/ClientProductContext";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const { width } = Dimensions.get("window");
 
 const HomeDesignTwo = () => {
   const { store } = useClientStore();
+  const { colors } = useTheme();
+  const {products} = useClientProduct()
 
+  if (products.length < 4 ){
+    return(
+      <SafeAreaView>
+      <Text>
+        Need More products to use
+      </Text>
+      </SafeAreaView>
+    )
+  }
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
       style={{
-        backgroundColor: "white",
+        backgroundColor: colors.background,
         paddingTop: 30,
         paddingBottom: 200,
       }}
     >
-      <TopHomeSeaction product_1_Id={"98yhjhkj"} product_2_Id={"2340398"} product_3_Id={"fewrfgg5"} product_4_Id={"XimUY5KD"} product_1_Name={"Sea Moss Powder"} product_2_Name={"Sea Moss Gel"} product_3_Name={"Sea Moss Capsules"} product_4_Name={"Sea Moss Juice"} />
+      <TopHomeSeaction product_1_Id={products[0].id} product_2_Id={products[1].id} product_3_Id={products[2].id} product_4_Id={products[3].id} product_1_Name={products[0].name} product_2_Name={products[1].name} product_3_Name={products[2].name} product_4_Name={products[3].name} />
       <SectionHeader />
       <ProductRow client={true} />
       <View style={styles.card}>
