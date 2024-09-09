@@ -8,6 +8,7 @@ import { COLORS } from '@/utils/theme';
 import { router } from 'expo-router';
 import React, { useEffect } from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity, FlatList, Dimensions } from 'react-native';
+import { useTheme } from '@react-navigation/native';
 
 const { width } = Dimensions.get('window');
 
@@ -15,6 +16,115 @@ const CollectionPageVTwo = () => {
   const { collections, selectedCollection, selectCollection } = useClientCollection();
   const { products, selectProduct } = useClientProduct();
   const { store } = useClientStore();
+  const { colors } = useTheme();
+
+// Styles
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: colors.background,
+    // paddingHorizontal: 10,
+  },
+  categoryList: {
+    maxHeight: 50,
+  },
+  categoryContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  categoryButton: {
+    marginRight: 8,
+    paddingVertical: 5,
+    paddingHorizontal: 12,
+    borderWidth: 1,
+    borderColor: '#000000',
+    borderRadius: 15,
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 30,
+  },
+  selectedCollectionButton: {
+    backgroundColor: '#000',
+  },
+  categoryText: {
+    fontSize: 13,
+    fontWeight: 'bold',
+    color: '#000000',
+  },
+  selectedCollectionText: {
+    color: '#FFFFFF',
+  },
+  promoContainer: {
+    marginVertical: 10,
+    borderRadius: 10,
+    overflow: 'hidden',
+    backgroundColor: '#F5F5F5',
+  },
+  promoImage: {
+    width: '100%',
+    height: 150,
+    resizeMode: 'cover',
+  },
+  promoTextContainer: {
+    position: 'absolute',
+    top: 15,
+    left: 20,
+  },
+  promoTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: COLORS.white,
+  },
+  promoSubtitle: {
+    fontSize: 14,
+    color: COLORS.gray3,
+    marginTop: 5,
+  },
+  promoDiscount: {
+    fontSize: 16,
+    color: '#FF6347',
+    marginTop: 5,
+  },
+  productListContainer: {
+    flex: 1,
+  },
+  productContainer: {
+    paddingBottom: 20,
+  },
+  productCard: {
+    flex: 1,
+    margin: 10,
+    borderRadius: 10,
+    backgroundColor: '#FFFFFF',
+    padding: 10,
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#E0E0E0',
+  },
+  productImage: {
+    width: width / 2 - 40,
+    height: 120,
+    resizeMode: 'cover',
+    borderRadius: 10,
+    marginBottom: 10,
+  },
+  productPrice: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#000000',
+  },
+  productName: {
+    fontSize: 14,
+    color: '#333333',
+    marginTop: 5,
+  },
+  emptyMessage: {
+    textAlign: 'center',
+    fontSize: 16,
+    color: '#777777',
+    marginTop: 20,
+  },
+});
 
   // Define the "All" collection with default values
   const allCollection = {
@@ -126,114 +236,6 @@ const CollectionPageVTwo = () => {
     </View>
   );
 };
-
-// Styles
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#FFFFFF',
-    paddingHorizontal: 10,
-  },
-  categoryList: {
-    maxHeight: 50,
-  },
-  categoryContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  categoryButton: {
-    marginRight: 8,
-    paddingVertical: 5,
-    paddingHorizontal: 12,
-    borderWidth: 1,
-    borderColor: '#000000',
-    borderRadius: 15,
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: 30,
-  },
-  selectedCollectionButton: {
-    backgroundColor: '#000',
-  },
-  categoryText: {
-    fontSize: 13,
-    fontWeight: 'bold',
-    color: '#000000',
-  },
-  selectedCollectionText: {
-    color: '#FFFFFF',
-  },
-  promoContainer: {
-    marginVertical: 10,
-    borderRadius: 10,
-    overflow: 'hidden',
-    backgroundColor: '#F5F5F5',
-  },
-  promoImage: {
-    width: '100%',
-    height: 150,
-    resizeMode: 'cover',
-  },
-  promoTextContainer: {
-    position: 'absolute',
-    top: 15,
-    left: 20,
-  },
-  promoTitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: COLORS.white,
-  },
-  promoSubtitle: {
-    fontSize: 14,
-    color: COLORS.gray3,
-    marginTop: 5,
-  },
-  promoDiscount: {
-    fontSize: 16,
-    color: '#FF6347',
-    marginTop: 5,
-  },
-  productListContainer: {
-    flex: 1,
-  },
-  productContainer: {
-    paddingBottom: 20,
-  },
-  productCard: {
-    flex: 1,
-    margin: 10,
-    borderRadius: 10,
-    backgroundColor: '#FFFFFF',
-    padding: 10,
-    alignItems: 'center',
-    borderWidth: 1,
-    borderColor: '#E0E0E0',
-  },
-  productImage: {
-    width: width / 2 - 40,
-    height: 120,
-    resizeMode: 'cover',
-    borderRadius: 10,
-    marginBottom: 10,
-  },
-  productPrice: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#000000',
-  },
-  productName: {
-    fontSize: 14,
-    color: '#333333',
-    marginTop: 5,
-  },
-  emptyMessage: {
-    textAlign: 'center',
-    fontSize: 16,
-    color: '#777777',
-    marginTop: 20,
-  },
-});
 
 export default CollectionPageVTwo;
 

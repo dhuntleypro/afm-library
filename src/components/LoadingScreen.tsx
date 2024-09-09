@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, ActivityIndicator, StyleSheet } from 'react-native';
-import { useClientStore } from '@/contexts/ClientStoreContext';
-import { useClientCollection } from '@/contexts/ClientCollectionContext';
-import { useClientProduct } from '@/contexts/ClientProductContext';
+import React, { useEffect, useState } from "react";
+import { View, Text, ActivityIndicator, StyleSheet } from "react-native";
+import { useClientStore } from "@/contexts/ClientStoreContext";
+import { useClientCollection } from "@/contexts/ClientCollectionContext";
+import { useClientProduct } from "@/contexts/ClientProductContext";
+import { useTheme } from "@react-navigation/native";
 
 export function LoadingScreen({ onLoaded }: { onLoaded: () => void }) {
   const { getClientStore } = useClientStore(); // Assumes fetchStoreData is a method that fetches the store data
@@ -10,10 +11,24 @@ export function LoadingScreen({ onLoaded }: { onLoaded: () => void }) {
   const { getClientProducts } = useClientProduct(); // Assumes fetchStoreData is a method that fetches the store data
   const [loading, setLoading] = useState(true);
 
+  const { colors } = useTheme();
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      justifyContent: "center",
+      alignItems: "center",
+      backgroundColor: colors.background,
+    },
+    text: {
+      marginTop: 20,
+      fontSize: 16,
+      color: "#000",
+    },
+  });
+
   useEffect(() => {
     const loadData = async () => {
       try {
-
         // Get Store
         // await getClientStore();
 
@@ -21,9 +36,8 @@ export function LoadingScreen({ onLoaded }: { onLoaded: () => void }) {
         // await getClientCollections()
 
         // Get Store Products
-      /// - in context  await getClientProducts()
+        /// - in context  await getClientProducts()
 
-        
         setLoading(false);
         onLoaded();
       } catch (error) {
@@ -47,17 +61,3 @@ export function LoadingScreen({ onLoaded }: { onLoaded: () => void }) {
 
   return null;
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#fff',
-  },
-  text: {
-    marginTop: 20,
-    fontSize: 16,
-    color: '#000',
-  },
-});

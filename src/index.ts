@@ -60,7 +60,7 @@ export { ClientStoreProvider, useClientStore } from './contexts/ClientStoreConte
 export { FavoriteProvider, useFavorite } from './contexts/FavoriteContext';
 export { MankindProductProvider, useMankindProduct } from './contexts/MankindProductContext';
 export { MankindStoreProvider, useMankindStore } from './contexts/MankindStoreContext';
-export { ThemeProvider, useTheme } from './contexts/ThemeContext';
+export { ThemeProvider, useTheme , StoreTheme} from './contexts/ThemeContext';
 
 
 
