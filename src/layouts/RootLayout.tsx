@@ -1,48 +1,58 @@
-import React, { useEffect } from 'react';
-import { AuthProvider, useAuth } from '../contexts/AuthContext';
-import { ThemeProvider, DefaultTheme, DarkTheme } from '@react-navigation/native';
-import { useColorScheme } from 'react-native';
-import CoreLayout from './CoreLayout';
-import { CartProvider } from '@/contexts/CartContext';
-import { ClientStoreProvider } from '@/contexts/ClientStoreContext';
-import { ClientCollectionProvider } from '@/contexts/ClientCollectionContext';
-import { ClientProductProvider } from '@/contexts/ClientProductContext';
-import { ClientOrderProvider } from '@/contexts/ClientOrderContext';
+// import React, { useEffect } from 'react';
+// import { AuthProvider, useAuth } from '../contexts/AuthContext';
+// import { ThemeProvider, DefaultTheme, DarkTheme } from '@react-navigation/native';
+// import { useColorScheme } from 'react-native';
+// import CoreLayout from './CoreLayout';
+// import { CartProvider } from '@/contexts/CartContext';
+// import { ClientStoreProvider } from '@/contexts/ClientStoreContext';
+// import { ClientCollectionProvider } from '@/contexts/ClientCollectionContext';
+// import { ClientProductProvider } from '@/contexts/ClientProductContext';
+// import { ClientOrderProvider } from '@/contexts/ClientOrderContext';
 
- const AppProviders = ({ children }: { children: React.ReactNode }) => {
-  return (
-    <AuthProvider>
-      <CartProvider storageKey={''}>
-        <ClientStoreProvider>
-          <ClientCollectionProvider>
-            <ClientProductProvider>
-              <ClientOrderProvider>
-                {children}
-              </ClientOrderProvider>
-            </ClientProductProvider>
-          </ClientCollectionProvider>
-        </ClientStoreProvider>
-      </CartProvider>
-    </AuthProvider>
-  );
-};
-
-
-export const RootLayout = () => {
-  // const { authState } = useAuth(); // DO NOT ADD HERE
-
-  const colorScheme = useColorScheme();
-  const theme = colorScheme === 'dark' ? DarkTheme : DefaultTheme;
-
-
-  return (
-    <AppProviders>
-      <ThemeProvider value={theme}>
-        <CoreLayout />
-      </ThemeProvider>
-    </AppProviders>
-  );
-}
+//  const AppProviders = ({ children }: { children: React.ReactNode }) => {
+//   return (
+//     <AuthProvider>
+//       <CartProvider storageKey={''} children={undefined} storage={{
+//         getItem: function (key: string): Promise<string | null> {
+//           throw new Error('Function not implemented.');
+//         },
+//         setItem: function (key: string, value: string): Promise<void> {
+//           throw new Error('Function not implemented.');
+//         },
+//         removeItem: function (key: string): Promise<void> {
+//           throw new Error('Function not implemented.');
+//         }
+//       }}>
+//         <ClientStoreProvider>
+//           <ClientCollectionProvider>
+//             <ClientProductProvider>
+//               <ClientOrderProvider>
+//                 {children}
+//               </ClientOrderProvider>
+//             </ClientProductProvider>
+//           </ClientCollectionProvider>
+//         </ClientStoreProvider>
+//       </CartProvider>
+//     </AuthProvider>
+//   );
+// };
 
 
-export default RootLayout;
+// export const RootLayout = () => {
+//   // const { authState } = useAuth(); // DO NOT ADD HERE
+
+//   const colorScheme = useColorScheme();
+//   const theme = colorScheme === 'dark' ? DarkTheme : DefaultTheme;
+
+
+//   return (
+//     <AppProviders>
+//       <ThemeProvider value={theme}>
+//         <CoreLayout />
+//       </ThemeProvider>
+//     </AppProviders>
+//   );
+// }
+
+
+// export default RootLayout;

@@ -1,8 +1,7 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import { Ionicons, MaterialIcons, FontAwesome5 } from '@expo/vector-icons';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Link, router, Stack } from 'expo-router';
+import { Link} from 'expo-router';
 import BannerVOne from '@/components/banner/BannerVOne';
 import { useAuth } from '@/contexts/AuthContext';
 import MyButton from '@/components/buttons/MyButton';
@@ -10,21 +9,21 @@ import MyButton from '@/components/buttons/MyButton';
 // import MyButton from '@/components/buttons/WhiteButton';
 
 const SettingsPage = () => {
-  const insets = useSafeAreaInsets();
+  // const insets = useSafeAreaInsets();
 
-  const { authState , onLogout } = useAuth()
+  // const { authState , onLogout } = useAuth()
 
   const handleLogOut = async () => {
-    if (onLogout) {
-      try {
-        await onLogout();
-        router.replace('/welcome' as never); // Navigate to the welcome screen after logout
-      } catch (error) {
-        console.error('Logout failed:', error);
-      }
-    } else {
-      console.error('Logout function is not defined');
-    }
+    // if (onLogout) {
+    //   try {
+    //     await onLogout();
+    //     router.replace('/welcome' as never); // Navigate to the welcome screen after logout
+    //   } catch (error) {
+    //     console.error('Logout failed:', error);
+    //   }
+    // } else {
+    //   console.error('Logout function is not defined');
+    // }
   };
 
   return (
@@ -65,7 +64,7 @@ const SettingsPage = () => {
             <Text style={styles.optionText}>Appearance</Text>
             <Ionicons name="chevron-forward" size={20} color="black" />
           </TouchableOpacity>
-          </Link>
+          </Link> 
 
           <Link href={'/favorites' as never} asChild>
           <TouchableOpacity style={styles.option}>

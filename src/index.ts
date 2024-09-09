@@ -11,10 +11,9 @@ export { MyButton } from './components/buttons/MyButton';
 // Cards
 export { default as OrderCrudCard } from './components/card/order/OrderCrudCard';
 export { default as ClientOrderCard } from './components/pages/client-order/ClientOrderCard';
-
-// export { ProductCardV2 } from './components/card/product/ProductCardV2';
-// export { default as ProductCardView } from './components/card/product/ProductCardView';
-// export { ProductCrudCard } from './components/card/product/ProductCrudCard';
+export { ProductCardV2 } from './components/card/product/ProductCardV2';
+export { default as ProductCardView } from './components/card/product/ProductCardView';
+export { default as ProductCrudCard } from './components/card/product/ProductCrudCard';
 // export { FavoritrCard } from './components/card/fovorite/FavoritrCard'
 
 // Miscellaneous Components
