@@ -30,12 +30,9 @@ export default {
 
 
 
-<<<<<<< Updated upstream
 
 
 
-=======
->>>>>>> Stashed changes
 // export default {
 //   presets: [
 //     '@babel/preset-env',
