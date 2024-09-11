@@ -5,10 +5,24 @@ import { createFetchClient } from "../utils/createFetchClient";
 import { getAuthToken } from '@/utils/getAuthToken';
 
 // Create a fetch client instance
+// export const authApi = createFetchClient(
+//   BASE_URL,
+//   {},{}
+// );
+
+// Create a fetch client instance
 export const authApi = createFetchClient(
   BASE_URL,
-  {},{}
+  {
+    tableName: 'prof-website-user-table',
+    showFilteredItems: 'true',
+  },
+  {
+    'Content-Type': 'application/json',
+  }
 );
+
+
 
 // API Calls
 

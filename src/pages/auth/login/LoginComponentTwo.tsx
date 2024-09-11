@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { FC, useState } from "react";
 import {
   View,
   Text,
@@ -20,7 +20,10 @@ import { useClientStore } from "@/contexts/ClientStoreContext";
 
 const { width , height } = Dimensions.get("window");
 
-const LoginComponentTwo = () => {
+interface AuthProp {
+  showLogin: boolean
+}
+const LoginComponentTwo: FC<AuthProp> = (props) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

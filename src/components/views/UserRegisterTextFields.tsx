@@ -18,7 +18,7 @@ import { COLORS } from "@/utils/theme";
 import { useClientStore } from "@/contexts/ClientStoreContext";
 
 
-const { width } = Dimensions.get("window");
+const { width, height } = Dimensions.get("window");
 const UserRegisterTextFields = () => {
 
     const {store} = useClientStore()
@@ -135,7 +135,7 @@ const UserRegisterTextFields = () => {
   };
 
   return (
-    <View>
+    <View style={{height: height}}>
           <View style={styles.inputContainer}>
             <Ionicons name="person-outline" size={20} color={COLORS.darkGray} />
             <TextInput

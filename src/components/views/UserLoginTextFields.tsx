@@ -14,7 +14,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { router } from "expo-router";
 import { useClientStore } from "@/contexts/ClientStoreContext";
 
-const { width } = Dimensions.get("window");
+const { width , height} = Dimensions.get("window");
 
 
 const UserLoginTextFields = () => {
@@ -54,7 +54,7 @@ const UserLoginTextFields = () => {
   };
     
   return (
-    <View>
+    <View style={{height: height}}>
           <View style={styles.inputContainer}>
             <Ionicons name="mail-outline" size={20} color={COLORS.darkGray} />
             <TextInput

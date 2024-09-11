@@ -10,7 +10,7 @@ export { MyButton } from './components/buttons/MyButton';
 
 // Cards
 export { default as OrderCrudCard } from './components/card/order/OrderCrudCard';
-export { default as ClientOrderCard } from './components/pages/client-order/ClientOrderCard';
+export { default as ClientOrderCard } from './pages/tabs/client-order/ClientOrderCard';
 export { ProductCardV2 } from './components/card/product/ProductCardV2';
 export { default as ProductCardView } from './components/card/product/ProductCardView';
 export { default as ProductCrudCard } from './components/card/product/ProductCrudCard';
@@ -23,16 +23,28 @@ export { default as EditScreenInfo } from './components/EditScreenInfo';
 export { default as ProductListItem } from './components/products/ProductListItem';
 export { default as TextFieldVOne } from './components/textfield/TextFieldVOne';
 
+
+
+
+
 // Pages
-export { default as CartPageVOne } from './components/pages/cart/CartPageVOne';
-export { default as CollectionPageVTwo } from './components/pages/collections/CollectionPageVTwo';
-export { default as FavoritesPageVOne } from './components/pages/favorites/FavoritesPageVOne';
-export { default as LoginComponentTwo } from './components/pages/login/LoginComponentTwo';
-export { default as ProductDetailsPageVThree } from './components/pages/product-details/ProductDetailsPageVThree';
-export { default as ProductDetailsPageVFour } from './components/pages/product-details/ProductDetailsPageVFour';
-export { default as RegisterComponentTwo } from './components/pages/register/RegisterComponentTwo';
-export { default as SettingsPage } from './components/pages/settings/SettingsPage';
-export { default as WelcomePageTwo } from './components/pages/welcome/WelcomePageTwo';
+export { default as CartPageVOne } from './pages/tabs/cart/CartPageVOne';
+export { default as CollectionPageVTwo } from './pages/tabs/collections/CollectionPageVTwo';
+export { default as FavoritesPageVOne } from './pages/(settings)/favorites/FavoritesPageVOne';
+export { default as LoginComponentTwo } from './pages/auth/login/LoginComponentTwo';
+export { default as ProductDetailsPageVThree } from './pages/tabs/product-details/ProductDetailsPageVThree';
+export { default as ProductDetailsPageVFour } from './pages/tabs/product-details/ProductDetailsPageVFour';
+export { default as RegisterComponentTwo } from './pages/auth/register/RegisterComponentTwo';
+export { default as SettingsPage } from './pages/(settings)/settings/SettingsPage';
+export { default as WelcomePageTwo } from './pages/auth/welcome/WelcomePageTwo';
+export { default as TermsOfUsePage } from './pages/aux/terms-of-use/TermsOfUsePage'
+export { default as PrivacyPolicyPage } from './pages/aux/privacy-policy/PrivacyPolicyPage'
+export { default as CookiesPage } from './pages/aux/cookies/CookiesPage'
+export { default as AppearanceSelection } from './pages/(settings)/appearance/AppearanceSelection'
+
+
+
+
 
 // Product Search
 export { default as CollectionProductSearchScreen } from './components/products/CollectionProductSearchScreen';
@@ -61,6 +73,11 @@ export { FavoriteProvider, useFavorite } from './contexts/FavoriteContext';
 export { MankindProductProvider, useMankindProduct } from './contexts/MankindProductContext';
 export { MankindStoreProvider, useMankindStore } from './contexts/MankindStoreContext';
 export { ThemeProvider, useTheme , StoreTheme} from './contexts/ThemeContext';
+
+
+
+
+
 
 
 
