@@ -1,6 +1,6 @@
 // 'use client'
 
-// import { login } from '@/api/authorization';
+// import { login } from '@/api/Authentication';
 // import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 // import React, { useState } from 'react'

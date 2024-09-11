@@ -15,8 +15,9 @@ const clientCollectionApi = createFetchClient(
 // Collections
 const clientCollectionsApi = createFetchClientForItems(
   BASE_URL,
-  { showFilteredItems: 'false' }, // Default as string
-  { 'Content-Type': 'application/json' }
+  {},{}
+  // { showFilteredItems: 'false' }, // Default as string
+  // { 'Content-Type': 'application/json' }
 );
 
 // GET ALL PRODUCTS
@@ -57,7 +58,7 @@ export const postClientCollectionApi = async (collection: CollectionModelProps, 
         email: email,
       },
       headers: {
-        Authorization: token,
+        Authentication: token,
         'Content-Type': 'application/json',
       },
     });

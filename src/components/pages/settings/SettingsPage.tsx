@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import { Ionicons, MaterialIcons, FontAwesome5 } from '@expo/vector-icons';
-import { Link } from 'expo-router';
+import { Link, router } from 'expo-router';
 import BannerVOne from '@/components/banner/BannerVOne';
 import { useAuth } from '@/contexts/AuthContext';
 import MyButton from '@/components/buttons/MyButton';
@@ -9,10 +9,21 @@ import { useTheme } from '@/contexts/ThemeContext';
 
 const SettingsPage = () => {
   const { colors } = useTheme(); // Directly access colors from the theme
+   const { authState , onLogout } = useAuth()
 
   const handleLogOut = async () => {
-    // Handle logout logic here
+    if (onLogout) {
+      try {
+        await onLogout();
+        router.replace('/welcome' as never); // Navigate to the welcome screen after logout
+      } catch (error) {
+        console.error('Logout failed:', error);
+      }
+    } else {
+      console.error('Logout function is not defined');
+    }
   };
+
 
   const styles = createStyles(colors); // Create styles using dynamic colors from the theme
 
@@ -29,25 +40,25 @@ const SettingsPage = () => {
           
           <Link href={'/profile' as never} asChild>
             <TouchableOpacity style={styles.option}>
-              <FontAwesome5 name="user" size={20} color={colors.text} />
+              <FontAwesome5 name="user" size={20} color={colors.title} />
               <Text style={styles.optionText}>Profile information</Text>
-              <Ionicons name="chevron-forward" size={20} color={colors.text} />
+              <Ionicons name="chevron-forward" size={20} color={colors.title} />
             </TouchableOpacity>
           </Link>
 
           <Link href={'/appearance' as never} asChild>
             <TouchableOpacity style={styles.option}>
-              <Ionicons name="color-palette-outline" size={20} color={colors.text} />
+              <Ionicons name="color-palette-outline" size={20} color={colors.title} />
               <Text style={styles.optionText}>Appearance</Text>
-              <Ionicons name="chevron-forward" size={20} color={colors.text} />
+              <Ionicons name="chevron-forward" size={20} color={colors.title} />
             </TouchableOpacity>
           </Link>
 
           <Link href={'/favorites' as never} asChild>
             <TouchableOpacity style={styles.option}>
-              <Ionicons name="heart-outline" size={20} color={colors.text} />
+              <Ionicons name="heart-outline" size={20} color={colors.title} />
               <Text style={styles.optionText}>Favorites</Text>
-              <Ionicons name="chevron-forward" size={20} color={colors.text} />
+              <Ionicons name="chevron-forward" size={20} color={colors.title} />
             </TouchableOpacity>
           </Link>
         </View>
@@ -57,17 +68,17 @@ const SettingsPage = () => {
           
           <Link href={'/privacy-policy' as never} asChild>
             <TouchableOpacity style={styles.option}>
-              <Ionicons name="alert-circle-outline" size={20} color={colors.text} />
+              <Ionicons name="alert-circle-outline" size={20} color={colors.title} />
               <Text style={styles.optionText}>Privacy Policy</Text>
-              <Ionicons name="chevron-forward" size={20} color={colors.text} />
+              <Ionicons name="chevron-forward" size={20} color={colors.title} />
             </TouchableOpacity>
           </Link>
 
           <Link href={'/terms-of-use' as never} asChild>
             <TouchableOpacity style={styles.option}>
-              <Ionicons name="help-circle-outline" size={20} color={colors.text} />
+              <Ionicons name="help-circle-outline" size={20} color={colors.title} />
               <Text style={styles.optionText}>Terms of Use</Text>
-              <Ionicons name="chevron-forward" size={20} color={colors.text} />
+              <Ionicons name="chevron-forward" size={20} color={colors.title} />
             </TouchableOpacity>
           </Link>
         </View>
@@ -93,7 +104,7 @@ const createStyles = (colors: any) => {
     title: {
       fontSize: 32,
       fontWeight: 'bold',
-      color: colors.text, // Dynamic text color
+      color: colors.title, // Dynamic text color
       textAlign: 'left',
       marginVertical: 20,
       marginLeft: 16,
@@ -115,7 +126,7 @@ const createStyles = (colors: any) => {
     sectionTitle: {
       fontSize: 18,
       fontWeight: '600',
-      color: colors.text, // Dynamic text color
+      color: colors.title, // Dynamic text color
       marginBottom: 10,
     },
     option: {
@@ -128,7 +139,7 @@ const createStyles = (colors: any) => {
     optionText: {
       flex: 1,
       fontSize: 16,
-      color: colors.text, // Dynamic text color
+      color: colors.title, // Dynamic text color
       marginLeft: 10,
     },
     logoutButton: {
@@ -137,11 +148,11 @@ const createStyles = (colors: any) => {
       borderRadius: 10,
       alignItems: 'center',
       borderWidth: 1,
-      borderColor: colors.text, // Dynamic border color
+      borderColor: colors.title, // Dynamic border color
       marginTop: 20,
     },
     logoutText: {
-      color: colors.text, // Dynamic text color
+      color: colors.title, // Dynamic text color
       fontSize: 16,
     },
   });

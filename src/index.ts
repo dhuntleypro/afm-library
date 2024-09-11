@@ -71,7 +71,7 @@ export { ThemeProvider, useTheme , StoreTheme} from './contexts/ThemeContext';
 // 3. APIs
 // ----------------------------------
 
-export * from './api/authorization';
+export * from './api/authentication';
 export * from './api/collectionApi';
 export * from './api/couponApi';
 export * from './api/inboxApi';

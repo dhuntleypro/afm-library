@@ -9,6 +9,7 @@ import { useClientProduct } from "@/contexts/ClientProductContext";
 import { ProductModelProps } from "@/models/ProductModelProps";
 import SearchBarVOneButton from "../search/SearchBarVOneButton";
 import { ROUTES } from "@/utils/Routes";
+import { useTheme } from "@/contexts/ThemeContext"
 
 const { width } = Dimensions.get("window");
 
@@ -25,6 +26,7 @@ interface TopHomeSeactionProps {
 
 const TopHomeSeaction: FC<TopHomeSeactionProps> = (props) => {
   const { store } = useClientStore();
+  const { colors } = useTheme();
   const { selectProduct, products } = useClientProduct(); // Get `selectProduct` from context
 
   const [isMenuVisible, setIsMenuVisible] = useState(true);
@@ -33,6 +35,8 @@ const TopHomeSeaction: FC<TopHomeSeactionProps> = (props) => {
   const handleMenuPress = () => {
     setIsMenuVisible((prev) => !prev);
   };
+
+
 
 // Handle selecting a product and navigate
 const handleProductSelect = (productId: string) => {
@@ -43,6 +47,87 @@ const handleProductSelect = (productId: string) => {
     router.push(`/products/${productId}` as never); // Navigate to product details
   }
 };
+
+
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: colors.cardBackground,
+    padding: 20,
+  },
+  header: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  headerText: {
+    fontSize: 14,
+    color: colors.cardText,
+  },
+  menuIcon: {
+    paddingVertical: 10,
+  },
+  titleContainer: {
+    marginTop: 20,
+  },
+  mainTitle: {
+    fontSize: 48,
+    fontWeight: "bold",
+    color: colors.cardText,
+    lineHeight: 50,
+  },
+  subTitle: {
+    fontSize: 48,
+    fontWeight: "300",
+    color: colors.cardText,
+    lineHeight: 50,
+  },
+  productList: {
+    position: "absolute",
+    top: 60,
+    right: 20,
+    alignItems: "flex-end",
+  },
+  productItem: {
+    fontSize: 16,
+    color: colors.cardText,
+    marginBottom: 5,
+  },
+  image: {
+    width: width - 40,
+    height: 300,
+    borderRadius: 10,
+    marginTop: 20,
+  },
+  description: {
+    fontSize: 16,
+    color: colors.cardText,
+    textAlign: "left",
+    marginTop: 20,
+  },
+  shopNowButton: {
+    paddingVertical: 15,
+    paddingHorizontal: 30,
+    backgroundColor: colors.buttonBackground,
+    borderRadius: 25,
+    shadowColor: colors.buttonShadow,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 5,
+    elevation: 8,
+    alignItems: "center",
+    justifyContent: "center",
+    width: "40%",
+  },
+  shopNowButtonText: {
+    color: colors.buttonText, // "white", // text
+    fontWeight: "bold",
+    fontSize: 18,
+    letterSpacing: 1,
+    textTransform: "uppercase",
+  },
+});
 
   return (
     <View style={styles.container}>
@@ -61,7 +146,7 @@ const handleProductSelect = (productId: string) => {
           transition={{ type: "timing", duration: 600, delay: 1300 }}
         >
           <TouchableOpacity style={styles.menuIcon} onPress={handleMenuPress}>
-            <Ionicons name="menu-outline" size={24} color="black" />
+            <Ionicons name="menu-outline" size={24} color={colors.tint}/>
           </TouchableOpacity>
         </MotiView>
       </View>
@@ -178,85 +263,6 @@ const handleProductSelect = (productId: string) => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "white",
-    padding: 20,
-  },
-  header: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-  headerText: {
-    fontSize: 14,
-    color: "black",
-  },
-  menuIcon: {
-    paddingVertical: 10,
-  },
-  titleContainer: {
-    marginTop: 20,
-  },
-  mainTitle: {
-    fontSize: 48,
-    fontWeight: "bold",
-    color: "black",
-    lineHeight: 50,
-  },
-  subTitle: {
-    fontSize: 48,
-    fontWeight: "300",
-    color: "black",
-    lineHeight: 50,
-  },
-  productList: {
-    position: "absolute",
-    top: 60,
-    right: 20,
-    alignItems: "flex-end",
-  },
-  productItem: {
-    fontSize: 16,
-    color: "black",
-    marginBottom: 5,
-  },
-  image: {
-    width: width - 40,
-    height: 300,
-    borderRadius: 10,
-    marginTop: 20,
-  },
-  description: {
-    fontSize: 16,
-    color: "black",
-    textAlign: "left",
-    marginTop: 20,
-  },
-  shopNowButton: {
-    paddingVertical: 15,
-    paddingHorizontal: 30,
-    backgroundColor: COLORS.primary,
-    borderRadius: 25,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 5,
-    elevation: 8,
-    alignItems: "center",
-    justifyContent: "center",
-    width: "40%",
-  },
-  shopNowButtonText: {
-    color: "white",
-    fontWeight: "bold",
-    fontSize: 18,
-    letterSpacing: 1,
-    textTransform: "uppercase",
-  },
-});
 
 export default TopHomeSeaction;
 

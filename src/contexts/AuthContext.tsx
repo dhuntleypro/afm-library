@@ -8,7 +8,7 @@ import React, {
 import * as SecureStore from "expo-secure-store";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { UserProps } from "../models/UserProps";
-import { authApi } from "@/api/authorization";
+import { authApi } from "@/api/authentication";
 import { getAuthToken } from "@/utils/getAuthToken";
 
 // Define the AuthState and Context types
@@ -150,76 +150,37 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
   }, []);
 
-  // Update user items function (multiple updates)
-  // const updateUserItems = useCallback(
-  //   async (updates: Partial<UserProps>) => {
-  //     if (!authState.user) throw new Error("No user to update");
+  
 
-  //     try {
-  //       const body = {
-  //         email: authState.user.email,
-  //         tableName: "prof-website-user-table",
-  //         ...updates, // Spread the updates object to include all updated fields
-  //       };
-
-  //       const token = await getAuthToken();
-
-  //       const result = await authApi.put(`/user?id=${authState.user.id}`, body, {
-  //         headers: {
-  //           Authorization: `${token}`,
-  //         },
-  //       });
-
-  //       // Merge the updated fields into the existing user data
-  //       const updatedUserData = { ...authState.user, ...updates };
-
-  //       // Store the updated user data in SecureStore
-  //       await SecureStore.setItemAsync(USER_KEY, JSON.stringify(updatedUserData));
-
-  //       // Update the auth state with the new user data
-  //       setAuthState({ ...authState, user: updatedUserData });
-
-  //       console.log("User profile updated successfully:", updatedUserData);
-  //     } catch (error: any) {
-  //       console.error("Failed to update user profile:", error);
-  //       throw new Error(error.response?.data?.msg || "Failed to update user profile.");
-  //     }
-  //   },
-  //   [authState.user]
-  // );
-
-  // const updateUserItems = useCallback(
-  //   async (updateKey: keyof UserProps, updateValue: any) => {
-
-  //   console.log("Not working");
-  //   }
-
-  // )
-  // Update single user profile field
   const updateSingleUserItem = useCallback(
     async (updateKey: keyof UserProps, updateValue: any) => {
       if (!authState.user) throw new Error("No user to update");
-
+    
       try {
         const body = {
-          email: authState.user.email,
+          email: authState?.user.email ?? "",
           tableName: "prof-website-user-table",
           updateKey: updateKey as string,
           updateValue: updateValue,
         };
-
+  
         const token = await getAuthToken();
-
-        const result = await authApi.put(`/user`, body, {
+        console.log(`token: ${token}`);
+        
+        const result = await authApi.patch(`/user`, body, {
           headers: {
-            Authorization: `${token}`,
+            Authorization: `Bearer ${token}`,
           },
         });
-
+    
         console.log("User profile updated successfully:", body);
-
-        // Update the local state and SecureStore with the new user data
-        const updatedUser = { ...authState.user, [updateKey]: updateValue };
+    
+        // Dynamically update the key in authState.user
+        const updatedUser = {
+          ...authState.user,
+          [updateKey]: updateValue, // Dynamic key update
+        };
+    
         await SecureStore.setItemAsync(USER_KEY, JSON.stringify(updatedUser));
         setAuthState((prevState) => ({ ...prevState, user: updatedUser }));
       } catch (error: any) {
@@ -231,6 +192,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     },
     [authState.user]
   );
+  
 
   // Add item to favorites
   const addToFavorites = useCallback(
@@ -329,7 +291,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 // import * as SecureStore from 'expo-secure-store';
 // import AsyncStorage from "@react-native-async-storage/async-storage";
 // import { UserProps } from "../models/UserProps";
-// import { authApi } from "@/api/authorization";
+// import { authApi } from "@/api/Authentication";
 // import { getAuthToken } from "@/utils/getAuthToken";
 
 // // Define the AuthState and Context types
@@ -468,7 +430,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
 //   //       const result = await authApi.put(`/user?id=${authState.user.id}`, body, {
 //   //         headers: {
-//   //           Authorization: `${token}`,
+//   //           Authentication: `${token}`,
 //   //         },
 //   //       });
 
@@ -503,7 +465,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
 //       const result = await authApi.put(`/user?id=${authState.user.id}`, body, {
 //         headers: {
-//           Authorization: `${token}`,
+//           Authentication: `${token}`,
 //         },
 //       });
 
@@ -591,7 +553,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 // import { CONSTANTS } from "../utils/constants";
 // import { UserProps } from "../models/UserProps";
 // import { createFetchClient } from "@/utils/createFetchClient";
-// import { authApi } from "@/api/authorization";
+// import { authApi } from "@/api/Authentication";
 
 // // Define the AuthState and Context types
 // interface AuthState {

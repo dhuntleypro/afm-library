@@ -1,26 +1,65 @@
-import React, { useContext, useState } from 'react';
-import { Image, StyleSheet, FlatList, Text, TouchableOpacity, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import {  useCart } from '@/contexts/CartContext';
-import CartHeader from '@/components/other/headers/CartHeader';
-import { generalStyles } from '@/components/other/general/Styles';
+import React, { useContext, useState } from "react";
+import {
+  Image,
+  StyleSheet,
+  FlatList,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { useCart } from "@/contexts/CartContext";
+import CartHeader from "@/components/other/headers/CartHeader";
+import { generalStyles } from "@/components/other/general/Styles";
 // import CartCard from '@/components/cart/CartCard';
-import convertToCurrency from '@/hooks/convertToCurrency';
-import { CONSTANTS } from '@/utils/constants';
-import PaymentPayScreen from './PaymentPayScreen';
-import CartCard from '@/components/card/cart/CartCard';
+import convertToCurrency from "@/hooks/convertToCurrency";
+import { CONSTANTS } from "@/utils/constants";
+import PaymentPayScreen from "./PaymentPayScreen";
+import CartCard from "@/components/card/cart/CartCard";
+import { useTheme } from "@/contexts/ThemeContext";
 
 // Define the CartPageVOne component
 const CartPageVOne: React.FC = () => {
   const {
-      carts,
+    carts,
     totalSum,
     totalShipping,
     totalTax,
     grandTotal,
     deleteItemFromCart,
-  } = useCart()
+  } = useCart();
   const [triggerValueChange, setTriggerValueChange] = useState(false);
+
+  const { colors } = useTheme();
+  // Stylesheet for the component
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      padding: 15,
+      color: colors.title
+    },
+    priceContainer: {
+      marginTop: 40,
+    },
+    priceAndTitle: {
+      flexDirection: "row",
+      justifyContent: "space-between",
+      marginHorizontal: 20,
+      marginVertical: 10,
+      color: colors.title, // '#757575',
+
+    },
+    text: {
+      color: colors.title, // '#757575',
+      fontSize: 14,
+    },
+    divider: {
+      borderWidth: 1,
+      borderColor: colors.cardBorder, // '#C0C0C0',
+      borderRadius: 15,
+      marginVertical: 10,
+    },
+  });
 
   return (
     <View style={styles.container}>
@@ -30,20 +69,19 @@ const CartPageVOne: React.FC = () => {
         </View>
       ) : (
         <>
-       <FlatList
-  data={carts}
-  showsVerticalScrollIndicator={false}
-  keyExtractor={(item) => String(item.id)} // Convert item.id to string to ensure it's a valid key
-  contentContainerStyle={{ paddingBottom: 100 }}
-  renderItem={({ item }) => (
-    <CartCard
-      item={item}
-      deleteItemFromCart={deleteItemFromCart}
-      triggerValueChange={triggerValueChange}
-    />
-  )}
-/>
-
+          <FlatList
+            data={carts}
+            showsVerticalScrollIndicator={false}
+            keyExtractor={(item) => String(item.id)} // Convert item.id to string to ensure it's a valid key
+            contentContainerStyle={{ paddingBottom: 100 }}
+            renderItem={({ item }) => (
+              <CartCard
+                item={item}
+                deleteItemFromCart={deleteItemFromCart}
+                triggerValueChange={triggerValueChange}
+              />
+            )}
+          />
 
           <View>
             <View style={styles.priceContainer}>
@@ -54,7 +92,9 @@ const CartPageVOne: React.FC = () => {
 
               <View style={styles.priceAndTitle}>
                 <Text style={styles.text}>Shipping:</Text>
-                <Text style={styles.text}>{convertToCurrency(totalShipping)}</Text>
+                <Text style={styles.text}>
+                  {convertToCurrency(totalShipping)}
+                </Text>
               </View>
 
               <View style={styles.priceAndTitle}>
@@ -67,7 +107,10 @@ const CartPageVOne: React.FC = () => {
 
             <View style={styles.priceAndTitle}>
               <Text style={styles.text}>Grand Total:</Text>
-              <Text style={[styles.text, { color: 'black', fontWeight: '700' }]}>
+              <Text
+                // style={[styles.text, { color: "black", fontWeight: "700" }]}
+                style={[styles.text, {  fontWeight: "700" }]}
+                >
                 {convertToCurrency(grandTotal)}
               </Text>
             </View>
@@ -81,7 +124,7 @@ const CartPageVOne: React.FC = () => {
             />
           </View>
 
-          <View style={{ paddingBottom: 50 }} />
+          <View style={{ paddingBottom: 10 }} />
         </>
       )}
     </View>
@@ -89,37 +132,6 @@ const CartPageVOne: React.FC = () => {
 };
 
 export default CartPageVOne;
-
-// Stylesheet for the component
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 15,
-  },
-  priceContainer: {
-    marginTop: 40,
-  },
-  priceAndTitle: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginHorizontal: 20,
-    marginVertical: 10,
-  },
-  text: {
-    color: '#757575',
-    fontSize: 14,
-  },
-  divider: {
-    borderWidth: 1,
-    borderColor: '#C0C0C0',
-    borderRadius: 15,
-    marginVertical: 10,
-  },
-});
-
-
-
-
 
 
 
@@ -162,20 +174,18 @@ const styles = StyleSheet.create({
 // // import { generalStyles } from '../components/general/Styles'
 // // import { useFocusEffect } from '@react-navigation/native'
 
-
 // // export interface CartProps {
 // //   carts: []
 // // }
 
 // const CartPageVOne = () => {
-  
+
 //   const { carts, totalSum, totalShipping, totalTax, grandTotal, quantity, deleteItemFromCart, clearData, decreaseFromCart} = useContext(CartContext)
-  
+
 //   const [triggerValueChange, setTriggerValueChange] = useState(false)
 //   // useFocusEffect(
 //   //   React.useCallback(() => {
 //   //     // Run this function every time the screen comes into focus
-     
 
 //   //     if (quantity <= 0    ){ // || carts.length <= 0
 //   //       setQuantity(0)
@@ -183,9 +193,6 @@ const styles = StyleSheet.create({
 //   //   }, [])
 //   // );
 
-
-  
-  
 //   return (
 //     <View style={styles.container}>
 //       {/* <CartHeader/> */}
@@ -220,16 +227,15 @@ const styles = StyleSheet.create({
 //         }
 //     />
 
-
 // <View>
 // <>
 //           <View style={styles.priceContainer}>
-          
+
 //           <View  style={styles.priceAndTitle}>
 //             <Text style={styles.text}>Total:</Text>
 //             <Text style={styles.text}>{convertToCurrency(totalSum)}</Text>
 //           </View>
-          
+
 //           <View  style={styles.priceAndTitle}>
 //             <Text style={styles.text}>Shipping:</Text>
 //             <Text style={styles.text}>{convertToCurrency(totalShipping)}</Text>
@@ -242,37 +248,32 @@ const styles = StyleSheet.create({
 //             <Text style={styles.text}>Shipping:</Text>
 //             <Text style={styles.text}>$0.0</Text>
 //           </View> */}
-        
+
 //         </View>
 
 //         <View style={styles.divider}/>
-      
+
 //           <View  style={styles.priceAndTitle}>
 //             <Text style={styles.text}>Grand Total:</Text>
 //             <Text style={[styles.text , {color: "black", fontWeight: "700"} ]}>{convertToCurrency(grandTotal)}</Text>
 //           </View>
-        
+
 //         </>
 //       </View>
 //       <View style={{paddingTop: 30}}>
-//         <PaymentPayScreen 
+//         <PaymentPayScreen
 //            publishableKey={CONSTANTS.publishableKeyTest}
 //           // publishableKey={CONSTANTS.publishableKeyLive}
 //           amount={totalSum}
-//           shippingAmount={totalShipping} 
+//           shippingAmount={totalShipping}
 //         />
 //     </View>
 
-      
 //       <View style={{paddingBottom: 50}}></View>
-
 
 // </>
 //       )}
-   
-     
- 
-  
+
 //     </View>
 
 //   )
@@ -320,7 +321,6 @@ const styles = StyleSheet.create({
 //     textAlign: "center",
 //     padding: 10,
 //     fontWeight: "700"
-
 
 //   }
 

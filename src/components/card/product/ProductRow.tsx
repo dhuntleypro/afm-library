@@ -14,6 +14,7 @@ import { ProductModelProps } from "@/models/ProductModelProps";
 // import { useClientProduct } from "@/contexts/ClientProductContext";
 import { CONSTANTS } from "@/utils/constants";
 import { useClientProduct } from "@/contexts/ClientProductContext";
+import { useTheme } from "@/contexts/ThemeContext";
 
 export interface ClientStateProps {
   client: boolean;
@@ -22,6 +23,7 @@ export interface ClientStateProps {
 
 const ProductRow: React.FC<ClientStateProps> = (props) => {
   const { authState } = useAuth();
+  const { colors } = useTheme();
   //const storeID = props.storeID // client ? authState?.user?.store_owner_id || '' : CONSTANTS.store_id;
   const email = authState?.user?.email || '';
   const { products, selectedProduct, selectProduct, isLoading, error } = useClientProduct();
@@ -29,6 +31,8 @@ const ProductRow: React.FC<ClientStateProps> = (props) => {
   const handleProductSelect = (product: ProductModelProps) => {
     selectProduct(product);
   };
+
+  const styles = createStyles(colors); // Dynamically generate styles based on theme colors
 
   return (
     <View style={styles.container}>
@@ -44,9 +48,9 @@ const ProductRow: React.FC<ClientStateProps> = (props) => {
             keyExtractor={(item: ProductModelProps) => item.id}
             data={products}
             renderItem={({ item }) => (
-              <TouchableOpacity onPress={() => handleProductSelect(item)}>
+              // <TouchableOpacity onPress={() => handleProductSelect(item)}>
                 <ProductCardView product={item} />
-              </TouchableOpacity>
+              // </TouchableOpacity>
             )}
             horizontal
             contentContainerStyle={{ columnGap: SIZES.medium }}
@@ -66,7 +70,7 @@ const ProductRow: React.FC<ClientStateProps> = (props) => {
 
 export default ProductRow;
 
-const styles = StyleSheet.create({
+const createStyles = (colors: any) => StyleSheet.create({
   container: {
     marginTop: SIZES.medium,
     marginLeft: 12,

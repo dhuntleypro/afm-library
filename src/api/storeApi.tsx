@@ -22,7 +22,7 @@ export async function getClientStoresApi(storeID: string, email: string) {
         email: email,
       },
       headers: {
-        Authorization: TOKEN_KEY,
+        Authentication: TOKEN_KEY,
         'Content-Type': 'application/json',
       },
     });
@@ -58,7 +58,7 @@ export const postClientStoreApi = async (store: StoreModelProps, storeID: string
         email: email,
       },
       headers: {
-        Authorization: token,
+        Authentication: token,
         'Content-Type': 'application/json',
       },
     });

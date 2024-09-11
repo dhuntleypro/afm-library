@@ -73,6 +73,7 @@ const ProductSearchScreen = () => {
         columnWrapperStyle={styles.row}
         contentContainerStyle={{ paddingHorizontal: 12 }}
       />
+
     </SafeAreaView>
   );
 };

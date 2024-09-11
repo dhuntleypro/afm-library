@@ -22,7 +22,7 @@ const paymentApi = createFetchClient(
     showFilteredItems: 'true',
   },
   {
-    Authorization: "token", // Replace with actual token logic if needed
+    Authentication: "token", // Replace with actual token logic if needed
     'Content-Type': 'application/json',
   }
 );
@@ -84,7 +84,7 @@ export default paymentApi;
 //   const paymentApi = axios.create({
 //     baseURL: BASE_URL,
 //     headers: {
-//         Authorization: "token",
+//         Authentication: "token",
 //         'Content-Type': 'application/json',
 //     },
 //     params: {

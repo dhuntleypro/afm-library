@@ -9,6 +9,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useCart } from '@/contexts/CartContext';
 import convertToCurrency from '@/hooks/convertToCurrency';
 import { useFavorite } from '@/contexts/FavoriteContext';
+import { useTheme } from "@/contexts/ThemeContext"
 
 const { width, height } = Dimensions.get('window');
 
@@ -22,6 +23,7 @@ const ProductDetailsPageVThree: FC<ProductDetailsPageVThreeProps> = (props) => {
   const { selectedProduct } = useClientProduct();
   const { authState, updateSingleUserItem} = useAuth(); // Access authState and updateSingleUserItem
   const { addToCart } = useCart();
+  const { colors } = useTheme();
   const { addToFavorite, favorites } = useFavorite();
 
   const sizes = [6, 6.5, 7, 7.5, 8]; // Example sizes
@@ -68,6 +70,114 @@ const toggleFavorite = async () => {
     addToFavorite(selectedProduct);
   }
 };
+
+
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: colors.background
+  },
+  scrollContainer: {
+    paddingBottom: 120, // Space for the fixed Add to Cart button
+  },
+  heartIconWrapper: {
+    position: 'absolute',
+    top: 16,
+    right: 16,
+    zIndex: 10, // Keep it on top
+  },
+  imageCarousel: {
+    height: width,
+  },
+  productImage: {
+    width: width,
+    height: width,
+    resizeMode: 'cover',
+  },
+  productInfo: {
+    padding: 16,
+  },
+  productName: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: colors.pageText
+  },
+  productColor: {
+    fontSize: 14,
+    color: '#666',
+    marginTop: 4,
+  },
+  priceDescription: {
+    padding: 16,
+  },
+  price: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    color: colors.pageText
+  },
+  description: {
+    fontSize: 14,
+    color: colors.pageText, //'#555',
+    marginTop: 8,
+  },
+  sizeLabel: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: colors.pageText, // '#000',
+    paddingHorizontal: 16,
+    paddingTop: 16,
+  },
+  sizeSelector: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    paddingHorizontal: 16,
+    marginTop: 8,
+  },
+  sizeOption: {
+    borderRadius: 50,
+    borderWidth: 1,
+    borderColor: colors.border, // '#ddd',
+    padding: 12,
+    width: 50,
+    height: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  selectedSizeOption: {
+    backgroundColor: '#000',
+    borderColor: '#000',
+  },
+  sizeText: {
+    fontSize: 16,
+    color: '#000',
+  },
+  selectedSizeText: {
+    color: '#fff',
+  },
+  fixedBottomButtonContainer: {
+    position: 'absolute',
+    bottom: 0,
+    width: '100%',
+    paddingHorizontal: 16,
+    paddingVertical: 16,
+    // backgroundColor: 'transpart',
+  },
+  addToCartButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: colors.buttonBackground, //'#000',
+    paddingVertical: 16,
+    borderRadius: 50,
+  },
+  addToCartButtonText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: colors.buttonText,// '#fff',
+    marginRight: 10,
+  },
+});
 
   return (
     <View style={styles.container}>
@@ -133,118 +243,13 @@ const toggleFavorite = async () => {
       <View style={styles.fixedBottomButtonContainer}>
         <TouchableOpacity style={styles.addToCartButton} onPress={handlePress}>
           <Text style={styles.addToCartButtonText}>Add to Cart</Text>
-          <Ionicons name="cart-outline" size={24} color="white" />
+          <Ionicons name="cart-outline" size={24} color={colors.primary} />
         </TouchableOpacity>
       </View>
     </View>
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#F5F5F5',
-  },
-  scrollContainer: {
-    paddingBottom: 120, // Space for the fixed Add to Cart button
-  },
-  heartIconWrapper: {
-    position: 'absolute',
-    top: 16,
-    right: 16,
-    zIndex: 10, // Keep it on top
-  },
-  imageCarousel: {
-    height: width,
-  },
-  productImage: {
-    width: width,
-    height: width,
-    resizeMode: 'cover',
-  },
-  productInfo: {
-    padding: 16,
-  },
-  productName: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#000',
-  },
-  productColor: {
-    fontSize: 14,
-    color: '#666',
-    marginTop: 4,
-  },
-  priceDescription: {
-    padding: 16,
-  },
-  price: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    color: '#000',
-  },
-  description: {
-    fontSize: 14,
-    color: '#555',
-    marginTop: 8,
-  },
-  sizeLabel: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#000',
-    paddingHorizontal: 16,
-    paddingTop: 16,
-  },
-  sizeSelector: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    paddingHorizontal: 16,
-    marginTop: 8,
-  },
-  sizeOption: {
-    borderRadius: 50,
-    borderWidth: 1,
-    borderColor: '#ddd',
-    padding: 12,
-    width: 50,
-    height: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  selectedSizeOption: {
-    backgroundColor: '#000',
-    borderColor: '#000',
-  },
-  sizeText: {
-    fontSize: 16,
-    color: '#000',
-  },
-  selectedSizeText: {
-    color: '#fff',
-  },
-  fixedBottomButtonContainer: {
-    position: 'absolute',
-    bottom: 0,
-    width: '100%',
-    paddingHorizontal: 16,
-    paddingVertical: 16,
-    // backgroundColor: 'transpart',
-  },
-  addToCartButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#000',
-    paddingVertical: 16,
-    borderRadius: 50,
-  },
-  addToCartButtonText: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#fff',
-    marginRight: 10,
-  },
-});
 
 export default ProductDetailsPageVThree;
 

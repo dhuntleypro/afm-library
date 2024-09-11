@@ -11,6 +11,7 @@ import { Ionicons , SimpleLineIcons} from "@expo/vector-icons"
 import { CONSTANTS } from '@/utils/constants'
 import { useAuth } from '@/contexts/AuthContext';
 import { useCart } from '@/contexts/CartContext';
+import { useTheme } from "@/contexts/ThemeContext"
 
 const CartCard = ({ item }: any) => {
     const { deleteItemFromCart, addToCart , decreaseFromCart, totalSum} = useCart()
@@ -18,6 +19,7 @@ const CartCard = ({ item }: any) => {
     const {authState, onLogout} = useAuth()
     const [paymentStatus, setPaymentStatus] = useState('ijiij');
 
+    const { colors } = useTheme()
     // Plus
     const increment = () => {
         // handlePayment(totalSum, 10)
@@ -68,55 +70,8 @@ const CartCard = ({ item }: any) => {
     //   }
     // };
   
-           
-  return (
-   
-      <View style={styles.container}>
-     
-        <Image style={styles.img} source={{uri: item.image  ? item.image : CONSTANTS.holderImage}}/>
-        <View style={styles.cardContent}>
-            <Text style={styles.title}>{item.name}</Text>
-            <Text style={styles.price}>{convertToCurrency(item.price)} x {item.quantity}</Text>
-            {/* <Text style={styles.price}>{convertToCurrency(item.price * item.quantity) }</Text> */}
-            
-            {/* <View style={styles.circleSizeContainer}>
-                <View style={styles.circle} />
-            </View>  */}
-                
-<View style={styles.rating}>
-        <TouchableOpacity onPress={()=>increment()}>
-          <SimpleLineIcons name='plus' size={20} />
-        </TouchableOpacity>
-
-        <Text style={styles.ratingText}>{item.quantity}</Text>
-
-        <TouchableOpacity  onPress={()=> decrement()}>
-          <SimpleLineIcons style={{color: item.quantity === 1 ? 'gray': 'black'}} name='minus' size={20} />
-        </TouchableOpacity>
- 
-
-                {/* <View style={styles.sizeCircle}> */}
-                    {/* <Text style={styles.sizeText}>L</Text>
-                </View>    */}
-
-              
-            </View>
-
-        </View>
-        <TouchableOpacity onPress={() => deleteItemFromCart(item)}>
-            <Ionicons name='trash-outline' size={SIZES.xLarge} color={COLORS.black}/>
-        </TouchableOpacity>    
-
-        <View>
-
-        </View>
-      </View>
-  
-  )
-}
-
-export default CartCard
-
+        
+    
 const styles = StyleSheet.create({
     container: {
      marginVertical: 10,
@@ -133,7 +88,7 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 15,
-        color: "#444444"
+        color: colors.title // "#444444"
     },
     price: {
         color: "#797979",
@@ -179,3 +134,51 @@ const styles = StyleSheet.create({
       },
     
   })
+
+  return (
+   
+      <View style={styles.container}>
+     
+        <Image style={styles.img} source={{uri: item.image  ? item.image : CONSTANTS.holderImage}}/>
+        <View style={styles.cardContent}>
+            <Text style={styles.title}>{item.name}</Text>
+            <Text style={styles.price}>{convertToCurrency(item.price)} x {item.quantity}</Text>
+            {/* <Text style={styles.price}>{convertToCurrency(item.price * item.quantity) }</Text> */}
+            
+            {/* <View style={styles.circleSizeContainer}>
+                <View style={styles.circle} />
+            </View>  */}
+                
+<View style={styles.rating}>
+        <TouchableOpacity onPress={()=>increment()}>
+          <SimpleLineIcons  style={{color: item.quantity === 1 ? colors.title : colors.title }}  name='plus' size={20} />
+        </TouchableOpacity>
+
+        <Text style={styles.ratingText}>{item.quantity}</Text>
+
+        <TouchableOpacity  onPress={()=> decrement()}>
+          <SimpleLineIcons style={{color: item.quantity === 1 ? 'gray': colors.title}} name='minus' size={20} />
+        </TouchableOpacity>
+ 
+
+                {/* <View style={styles.sizeCircle}> */}
+                    {/* <Text style={styles.sizeText}>L</Text>
+                </View>    */}
+
+              
+            </View>
+
+        </View>
+        <TouchableOpacity onPress={() => deleteItemFromCart(item)}>
+            <Ionicons name='trash-outline' size={SIZES.xLarge} color={colors.title}/>
+        </TouchableOpacity>    
+
+        <View>
+
+        </View>
+      </View>
+  
+  )
+}
+
+export default CartCard

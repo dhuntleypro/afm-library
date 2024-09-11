@@ -15,6 +15,7 @@ import { generalStyles } from "@/components/other/general/Styles";
 import convertToCurrency from "@/hooks/convertToCurrency";
 import { CONSTANTS } from "@/utils/constants";
 import FavoriteCard from "@/components/card/fovorite/FavoritrCard";
+import { useTheme } from "@/contexts/ThemeContext";
 // import PaymentPayScreen from './PaymentPayScreen';
 
 // Define the FavoritePageVOne component
@@ -29,6 +30,36 @@ const FavoritesPageVOne: React.FC = () => {
   } = useFavorite();
   const [triggerValueChange, setTriggerValueChange] = useState(false);
 
+  const { colors } = useTheme();
+  // Stylesheet for the component
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      padding: 15,
+      color: colors.title
+    },
+    priceContainer: {
+      marginTop: 40,
+    },
+    priceAndTitle: {
+      flexDirection: "row",
+      justifyContent: "space-between",
+      marginHorizontal: 20,
+      marginVertical: 10,
+      color: colors.title, // '#757575',
+
+    },
+    text: {
+      color: colors.title, // '#757575',
+      fontSize: 14,
+    },
+    divider: {
+      borderWidth: 1,
+      borderColor: colors.cardBorder, // '#C0C0C0',
+      borderRadius: 15,
+      marginVertical: 10,
+    },
+  });
   return (
     <View style={styles.container}>
       {favorites.length <= 0 ? (
@@ -58,30 +89,3 @@ const FavoritesPageVOne: React.FC = () => {
 };
 
 export default FavoritesPageVOne;
-
-// Stylesheet for the component
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 15,
-  },
-  priceContainer: {
-    marginTop: 40,
-  },
-  priceAndTitle: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginHorizontal: 20,
-    marginVertical: 10,
-  },
-  text: {
-    color: "#757575",
-    fontSize: 14,
-  },
-  divider: {
-    borderWidth: 1,
-    borderColor: "#C0C0C0",
-    borderRadius: 15,
-    marginVertical: 10,
-  },
-});

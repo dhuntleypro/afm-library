@@ -57,7 +57,7 @@ export const postClientProductApi = async (product: ProductModelProps, productID
         email: email,
       },
       headers: {
-        Authorization: token,
+        Authentication: token,
         'Content-Type': 'application/json',
       },
     });
@@ -169,7 +169,7 @@ export const deleteClientProductApi = async (id: string) => {
 //         email: email,
 //       },
 //       headers: {
-//         Authorization: token,
+//         Authentication: token,
 //         'Content-Type': 'application/json',
 //       },
 //     });

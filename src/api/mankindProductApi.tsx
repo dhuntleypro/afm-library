@@ -26,7 +26,7 @@ export async function getMankindProductsApi(storeID: string, email: string) {
         email: email,
       },
       headers: {
-        Authorization: TOKEN_KEY,
+        Authentication: TOKEN_KEY,
         'Content-Type': 'application/json',
       },
     });
@@ -60,7 +60,7 @@ export const postMankindProductApi = async (product: ProductModelProps, storeID:
       email: email,
     },
     headers: { 
-      Authorization: token,
+      Authentication: token,
       'Content-Type': 'application/json',
     },
   });
@@ -102,7 +102,7 @@ export const deleteMankindProductApi = async (id: any) => {
 //   const mankindMankindProductsApi = axios.create({
 //     baseURL: BASE_URL,
 //     headers: {
-//         Authorization: TOKEN_KEY,
+//         Authentication: TOKEN_KEY,
 //         'Content-Type': 'application/json',
 //     },
 //     params: {
@@ -121,7 +121,7 @@ export const deleteMankindProductApi = async (id: any) => {
 //         store_id: storeID, // CONSTANTS.store_id,// storeID,
 //         email: email,
 //       },
-//       headers: { Authorization: TOKEN_KEY },
+//       headers: { Authentication: TOKEN_KEY },
 //     });
    
 //   };

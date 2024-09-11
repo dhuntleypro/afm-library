@@ -46,17 +46,17 @@ const createStyles = (colors: any) => {
     bannerTitle: {
       fontSize: 18,
       fontWeight: 'bold',
-      color: colors.text,
+      color: colors.title,
       marginBottom: 10,
     },
     bannerSubtitle: {
       fontSize: 14,
-      color: colors.subtitle || colors.text, // Use subtitle if available, otherwise fallback to text color
+      color: colors.subtitle || colors.title, // Use subtitle if available, otherwise fallback to text color
       marginBottom: 20,
     },
     editPreferences: {
       fontSize: 14,
-      color: colors.text,
+      color: colors.title,
       fontWeight: 'bold',
     },
     arrow: {

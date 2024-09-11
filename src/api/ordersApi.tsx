@@ -22,7 +22,7 @@ export async function getClientOrdersApi(orderID: string, email: string) {
         email: email,
       },
       headers: {
-        Authorization: TOKEN_KEY,
+        Authentication: TOKEN_KEY,
         'Content-Type': 'application/json',
       },
     });
@@ -58,7 +58,7 @@ export const postClientOrderApi = async (order: OrderModelProps, orderID: string
         email: email,
       },
       headers: {
-        Authorization: token,
+        Authentication: token,
         'Content-Type': 'application/json',
       },
     });
@@ -133,7 +133,7 @@ export const deleteClientOrderApi = async (id: string) => {
 //         email: email,
 //       },
 //       headers: {
-//         Authorization: TOKEN_KEY,
+//         Authentication: TOKEN_KEY,
 //         'Content-Type': 'application/json',
 //       },
 //     });
@@ -167,7 +167,7 @@ export const deleteClientOrderApi = async (id: string) => {
 //       email: email,
 //     },
 //     headers: { 
-//       Authorization: token,
+//       Authentication: token,
 //       'Content-Type': 'application/json',
 //     },
 //   });
@@ -210,7 +210,7 @@ export const deleteClientOrderApi = async (id: string) => {
 // //   const ordersApi = axios.create({
 // //     baseURL: BASE_URL,
 // //     // headers: {
-// //     //    // Authorization: TOKEN_KEY,
+// //     //    // Authentication: TOKEN_KEY,
 // //     //     'Content-Type': 'application/json',
 // //     // },
 // //     params: {
@@ -230,7 +230,7 @@ export const deleteClientOrderApi = async (id: string) => {
 // //         email: email,
 // //       },
 // //       headers: { 
-// //         Authorization: TOKEN_KEY ,
+// //         Authentication: TOKEN_KEY ,
 // //         'Content-Type': 'application/json',
 
       
@@ -278,7 +278,7 @@ export const deleteClientOrderApi = async (id: string) => {
 // //       email: email,      // The email as a query parameter
 // //     },
 // //     headers: { 
-// //       Authorization: token ,
+// //       Authentication: token ,
 // //       'Content-Type': 'application/json',
 
     

@@ -21,7 +21,8 @@ export interface StoreTheme {
     cardPrice: string;
     cardBorder: string;
     background: string;
-    text: string;
+    title: string;
+    subtitle: string; 
     border: string;
     card: string;
     primary: string;
@@ -42,7 +43,8 @@ export interface StoreTheme {
     cardPrice: string;
     cardBorder: string;
     background: string;
-    text: string;
+    title: string;
+    subtitle: string
     border: string;
     card: string;
     primary: string;

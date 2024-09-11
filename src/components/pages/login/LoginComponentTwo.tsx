@@ -18,7 +18,7 @@ import UserLoginTextFields from "@/components/views/UserLoginTextFields";
 import UserRegisterTextFields from "@/components/views/UserRegisterTextFields";
 import { useClientStore } from "@/contexts/ClientStoreContext";
 
-const { width } = Dimensions.get("window");
+const { width , height } = Dimensions.get("window");
 
 const LoginComponentTwo = () => {
   const [name, setName] = useState("");
@@ -184,6 +184,7 @@ const styles = StyleSheet.create({
     paddingTop: 20,
     backgroundColor: COLORS.white,
     alignItems: "center",
+    height: height
   },
   logo: {
     width: 80,

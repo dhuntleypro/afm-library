@@ -22,7 +22,7 @@ export async function getClientCouponsApi(couponID: string, email: string) {
         email: email,
       },
       headers: {
-        Authorization: TOKEN_KEY,
+        Authentication: TOKEN_KEY,
         'Content-Type': 'application/json',
       },
     });
@@ -58,7 +58,7 @@ export const postClientCouponApi = async (coupon: CouponModelProps, couponID: st
         email: email,
       },
       headers: {
-        Authorization: token,
+        Authentication: token,
         'Content-Type': 'application/json',
       },
     });

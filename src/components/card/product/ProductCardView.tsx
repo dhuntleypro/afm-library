@@ -2,7 +2,7 @@ import React, { FC, useContext } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Image, Dimensions } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
-import { COLORS, SIZES } from '@/utils/theme';
+import { SIZES } from '@/utils/theme';
 import { CONSTANTS } from '@/utils/constants';
 import { Link } from 'expo-router';
 import convertToCurrency from '@/hooks/convertToCurrency';
@@ -10,6 +10,7 @@ import { ProductModelProps } from '@/models/ProductModelProps';
 import { useClientProduct } from '@/contexts/ClientProductContext';
 import { useCart } from '@/contexts/CartContext';
 import { useAuth } from '@/contexts/AuthContext';
+import { StoreTheme, useTheme } from '@/contexts/ThemeContext';
 // import { useClientProduct } from '@/contexts/ClientProductContext';
 
 const { width } = Dimensions.get('window');
@@ -20,9 +21,68 @@ export const ProductCardView: FC<{ product: ProductModelProps }> = ({ product })
   const { selectProduct } = useClientProduct();
   const { authState,  updateSingleUserItem} = useAuth()
 
+  const { colors } = useTheme(); // Pulling colors from the custom theme
+
   const handleProductPress = () => {
     selectProduct(product);
   };
+
+
+const styles = StyleSheet.create({
+  container: {
+    width: 162,
+    height: 240,
+    marginEnd: 22,
+    borderRadius: SIZES.medium,
+    backgroundColor:  colors.cardBackground, // COLORS.secondary,
+    borderWidth: 2,
+    borderColor: colors.border,
+  },
+  imageContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: SIZES.medium,
+    overflow: "hidden",
+    marginTop: SIZES.small / 2,
+  },
+  image: {
+    width: 142,
+    height: 142,
+    borderRadius: SIZES.small,
+    resizeMode: 'cover',
+    shadowOpacity: 400,
+    shadowColor: 'black',
+  },
+  details: {
+    padding: SIZES.small,
+    color: colors.title
+  },
+  title: {
+    fontFamily: "bold",
+    fontSize: SIZES.small,
+    marginBottom: 2,
+    height: 35,
+    color: colors.title
+
+  },
+  supplier: {
+    fontFamily: "regular",
+    fontSize: SIZES.small,
+    color: colors.title
+  },
+  price: {
+    fontFamily: "bold",
+    fontSize: SIZES.medium,
+    color: colors.title
+
+  },
+  addBtn: {
+    position: "absolute",
+    bottom: SIZES.xSmall,
+    right: SIZES.xSmall,
+  }
+});
 
   return (
     <View>
@@ -55,7 +115,7 @@ export const ProductCardView: FC<{ product: ProductModelProps }> = ({ product })
               <Ionicons 
                 name={product.item_type === "subscription" ? "arrow-forward-circle-outline" : 'add-circle'} 
                 size={35} 
-                color={COLORS.primary} 
+                color={colors.cardText} 
               />
             </TouchableOpacity>
           </View>
@@ -66,54 +126,3 @@ export const ProductCardView: FC<{ product: ProductModelProps }> = ({ product })
 };
 
 export default ProductCardView;
-
-const styles = StyleSheet.create({
-  container: {
-    width: 162,
-    height: 240,
-    marginEnd: 22,
-    borderRadius: SIZES.medium,
-    backgroundColor: COLORS.secondary,
-    borderWidth: 2,
-    borderColor: 'black',
-  },
-  imageContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: SIZES.medium,
-    overflow: "hidden",
-    marginTop: SIZES.small / 2,
-  },
-  image: {
-    width: 142,
-    height: 142,
-    borderRadius: SIZES.small,
-    resizeMode: 'cover',
-    shadowOpacity: 400,
-    shadowColor: 'black',
-  },
-  details: {
-    padding: SIZES.small,
-  },
-  title: {
-    fontFamily: "bold",
-    fontSize: SIZES.small,
-    marginBottom: 2,
-    height: 35,
-  },
-  supplier: {
-    fontFamily: "regular",
-    fontSize: SIZES.small,
-    color: COLORS.gray,
-  },
-  price: {
-    fontFamily: "bold",
-    fontSize: SIZES.medium,
-  },
-  addBtn: {
-    position: "absolute",
-    bottom: SIZES.xSmall,
-    right: SIZES.xSmall,
-  }
-});

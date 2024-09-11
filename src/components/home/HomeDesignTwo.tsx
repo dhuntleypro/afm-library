@@ -39,6 +39,67 @@ const HomeDesignTwo = () => {
       </SafeAreaView>
     )
   }
+
+
+// card
+const styles = StyleSheet.create({
+  card: {
+    // width: width * 0.9,
+    backgroundColor: 'transparent',
+    borderRadius: 10,
+    padding: 20,
+    alignItems: 'center',
+    shadowColor: '#000',
+    elevation: 3,
+    marginVertical: 10,
+  },
+  profileImage: {
+    width: width - 40,
+    height: 500,
+    borderRadius: 10,
+    marginBottom: 20,
+
+  },
+  healthTip: {
+    marginTop: 10,
+    fontSize: 14,
+    color: 'green',
+    fontStyle: 'italic',
+  },  
+  name: {
+    fontSize: 24,
+    fontWeight: '900',
+    textAlign: 'center',
+    marginBottom: 10,
+    color: colors.cardText
+  },
+  title: {
+    fontSize: 16,
+    color: '#6e6e6e',
+    textAlign: 'center',
+    marginBottom: 20,
+  },
+  button: {
+    // fontWeight: '900',
+    backgroundColor: '#000',
+    paddingVertical: 15,
+    paddingHorizontal: 30,
+    borderRadius: 15,
+    marginBottom: 20,
+  },
+  buttonText: {
+    color: '#fff',
+    fontWeight: 'bold',
+    fontSize: 16,
+  },
+  description: {
+    fontSize: 14,
+    color: '#6e6e6e',
+    textAlign: 'center',
+  },
+});
+
+
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
@@ -85,60 +146,3 @@ const HomeDesignTwo = () => {
 };
 
 export default HomeDesignTwo;
-
-// card
-const styles = StyleSheet.create({
-  card: {
-    // width: width * 0.9,
-    backgroundColor: '#fff',
-    borderRadius: 10,
-    padding: 20,
-    alignItems: 'center',
-    shadowColor: '#000',
-    elevation: 3,
-    marginVertical: 10,
-  },
-  profileImage: {
-    width: width - 40,
-    height: 500,
-    borderRadius: 10,
-    marginBottom: 20,
-
-  },
-  healthTip: {
-    marginTop: 10,
-    fontSize: 14,
-    color: 'green',
-    fontStyle: 'italic',
-  },  
-  name: {
-    fontSize: 24,
-    fontWeight: '900',
-    textAlign: 'center',
-    marginBottom: 10,
-  },
-  title: {
-    fontSize: 16,
-    color: '#6e6e6e',
-    textAlign: 'center',
-    marginBottom: 20,
-  },
-  button: {
-    // fontWeight: '900',
-    backgroundColor: '#000',
-    paddingVertical: 15,
-    paddingHorizontal: 30,
-    borderRadius: 15,
-    marginBottom: 20,
-  },
-  buttonText: {
-    color: '#fff',
-    fontWeight: 'bold',
-    fontSize: 16,
-  },
-  description: {
-    fontSize: 14,
-    color: '#6e6e6e',
-    textAlign: 'center',
-  },
-});
