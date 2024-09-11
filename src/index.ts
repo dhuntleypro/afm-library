@@ -1,4 +1,17 @@
 // ----------------------------------
+// 1. Layouts
+// ----------------------------------
+
+export  { default as HomeLayoutContent}  from './layouts/HomeLayoutContent'
+export  { default as AuthLayoutContent}  from './layouts/AuthLayoutContent'
+export  { default as TabLayoutContent}  from './layouts/TabLayoutContent'
+
+
+
+
+
+
+// ----------------------------------
 // 1. Components
 // ----------------------------------
 
@@ -30,9 +43,9 @@ export { default as TextFieldVOne } from './components/textfield/TextFieldVOne';
 // Pages
 export { default as CartPageVOne } from './pages/tabs/cart/CartPageVOne';
 export { default as CollectionPageVTwo } from './pages/tabs/collections/CollectionPageVTwo';
-export { default as FavoritesPageVOne } from './pages/(settings)/favorites/FavoritesPageVOne';
 export { default as LoginComponentTwo } from './pages/auth/login/LoginComponentTwo';
-export { default as ProductDetailsPageVThree } from './pages/tabs/product-details/ProductDetailsPageVThree';
+export { default as ProductDetailsPageVThree  } from './pages/tabs/product-details/ProductDetailsPageVThree';
+export type { ProductDetailsPageVThreeProps } from './pages/tabs/product-details/ProductDetailsPageVThree';
 export { default as ProductDetailsPageVFour } from './pages/tabs/product-details/ProductDetailsPageVFour';
 export { default as RegisterComponentTwo } from './pages/auth/register/RegisterComponentTwo';
 export { default as SettingsPage } from './pages/(settings)/settings/SettingsPage';
@@ -41,6 +54,9 @@ export { default as TermsOfUsePage } from './pages/aux/terms-of-use/TermsOfUsePa
 export { default as PrivacyPolicyPage } from './pages/aux/privacy-policy/PrivacyPolicyPage'
 export { default as CookiesPage } from './pages/aux/cookies/CookiesPage'
 export { default as AppearanceSelection } from './pages/(settings)/appearance/AppearanceSelection'
+export { default as FAQPage } from './pages/(settings)/faq/FAQPage'
+export { default as FavoritesPageVOne } from './pages/(settings)/favorites/FavoritesPageVOne'
+export { default as ProfilePage } from './pages/(settings)/favorites/FavoritesPageVOne'
 
 
 

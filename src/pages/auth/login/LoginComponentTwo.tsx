@@ -20,10 +20,8 @@ import { useClientStore } from "@/contexts/ClientStoreContext";
 
 const { width , height } = Dimensions.get("window");
 
-interface AuthProp {
-  showLogin: boolean
-}
-const LoginComponentTwo: FC<AuthProp> = (props) => {
+
+const LoginComponentTwo = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

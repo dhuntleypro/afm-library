@@ -11,8 +11,10 @@ import { Ionicons, SimpleLineIcons } from "@expo/vector-icons";
 import { CONSTANTS } from "@/utils/constants";
 import { useAuth } from "@/contexts/AuthContext";
 import { useFavorite } from "@/contexts/FavoriteContext";
+import { useTheme } from "@react-navigation/native";
 
 const FavoriteCard = ({ item }: any) => {
+  const {colors} = useTheme()
   const {
     deleteItemFromFavorite,
     addToFavorite,
@@ -23,39 +25,7 @@ const FavoriteCard = ({ item }: any) => {
   const { authState, onLogout } = useAuth();
   const [paymentStatus, setPaymentStatus] = useState("ijiij");
 
-  return (
-    <View style={styles.container}>
-      <Image
-        style={styles.img}
-        source={{ uri: item.image ? item.image : CONSTANTS.holderImage }}
-      />
-      <View style={styles.cardContent}>
-        <Text style={styles.title}>{item.name}</Text>
-        <Text style={styles.price}>
-          {convertToCurrency(item.price)} 
-        </Text>
-        {/* <Text style={styles.price}>{convertToCurrency(item.price * item.quantity) }</Text> */}
 
-        {/* <View style={styles.circleSizeContainer}>
-                <View style={styles.circle} />
-            </View>  */}
-
-        <View style={styles.rating}></View>
-      </View>
-      <TouchableOpacity onPress={() => deleteItemFromFavorite(item)}>
-        <Ionicons
-          name="trash-outline"
-          size={SIZES.xLarge}
-          color={COLORS.black}
-        />
-      </TouchableOpacity>
-
-      <View></View>
-    </View>
-  );
-};
-
-export default FavoriteCard;
 
 const styles = StyleSheet.create({
   container: {
@@ -73,7 +43,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 15,
-    color: "#444444",
+    color: colors.text,
   },
   price: {
     color: "#797979",
@@ -114,6 +84,41 @@ const styles = StyleSheet.create({
     paddingHorizontal: SIZES.xSmall,
   },
 });
+
+  return (
+    <View style={styles.container}>
+      <Image
+        style={styles.img}
+        source={{ uri: item.image ? item.image : CONSTANTS.holderImage }}
+      />
+      <View style={styles.cardContent}>
+        <Text style={styles.title}>{item.name}</Text>
+        <Text style={styles.price}>
+          {convertToCurrency(item.price)} 
+        </Text>
+        {/* <Text style={styles.price}>{convertToCurrency(item.price * item.quantity) }</Text> */}
+
+        {/* <View style={styles.circleSizeContainer}>
+                <View style={styles.circle} />
+            </View>  */}
+
+        <View style={styles.rating}></View>
+      </View>
+      <TouchableOpacity onPress={() => deleteItemFromFavorite(item)}>
+        <Ionicons
+          name="trash-outline"
+          size={SIZES.xLarge}
+          color={colors.text}
+        />
+      </TouchableOpacity>
+
+      <View></View>
+    </View>
+  );
+};
+
+export default FavoriteCard;
+
 
 // import React from 'react';
 // import { TouchableOpacity, View, Text, Image } from 'react-native';

@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
    
       <View style={styles.container}>
      
-        <Image style={styles.img} source={{uri: item.image  ? item.image : CONSTANTS.holderImage}}/>
+        <Image style={styles.img} source={{uri: item.images[0]  ? item.images[0] : CONSTANTS.holderImage}}/>
         <View style={styles.cardContent}>
             <Text style={styles.title}>{item.name}</Text>
             <Text style={styles.price}>{convertToCurrency(item.price)} x {item.quantity}</Text>

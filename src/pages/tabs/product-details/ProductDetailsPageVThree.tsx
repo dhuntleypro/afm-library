@@ -13,7 +13,7 @@ import { useTheme } from "@/contexts/ThemeContext"
 
 const { width, height } = Dimensions.get('window');
 
-interface ProductDetailsPageVThreeProps {
+export interface ProductDetailsPageVThreeProps {
   showSize: boolean
 }
 
