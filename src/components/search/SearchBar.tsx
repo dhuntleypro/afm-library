@@ -22,7 +22,7 @@ const SearchBar = () => {
         <View style={styles.searchWrapper}>
             <Link href={"/search" as never} asChild>
                 <TouchableOpacity style={styles.searchInput}>
-                    <Text style={styles.searchInputText}>What are you looking for</Text>
+                    <Text style={styles.searchInputText}>What are you looking for 3</Text>
                 </TouchableOpacity>
             </Link>   
         </View>

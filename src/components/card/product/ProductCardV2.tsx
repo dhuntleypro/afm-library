@@ -344,7 +344,7 @@ const styles = StyleSheet.create({
 // };
 
 
-// // export default ProductCardView; 
+// // export default ProductGridCardVOne; 
 
 // const styles = StyleSheet.create({
 //     container: {

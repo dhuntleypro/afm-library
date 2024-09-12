@@ -49,7 +49,7 @@ const CollectionProductSearchScreen = () => {
             style={styles.searchInput} 
             value={searchTerm}
             onChangeText={handleSearch}
-            placeholder='What are you looking for'
+            placeholder='What are you looking for 1'
           />
         </View>
 

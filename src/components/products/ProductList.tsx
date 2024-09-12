@@ -11,7 +11,7 @@ import { COLORS, SIZES } from "@/utils/theme";
 // import { ProductModelProps } from "../../models/ProductModelProps";
 import { useNavigation } from "@react-navigation/native";
 // import useFetchObjects from "../../hook/useFetchObjects";
-import ProductCardView from "@/components/card/product/ProductCardView";
+import ProductGridCardVOne from "@/components/card/product/ProductGridCardVOne";
 import { useAuth } from "../../contexts/AuthContext";
 import { ClientStateProps } from "../card/product/ProductRow";
 import { CONSTANTS } from "@/utils/constants";
@@ -51,9 +51,9 @@ import { useClientProduct } from "@/contexts/ClientProductContext";
               keyExtractor={(item: ProductModelProps) => item.id} // Ensure id is a string or number
               data={products}
               renderItem={({ item }) => (
-                <ProductCardView product={item}  />)}
+                <ProductGridCardVOne product={item} viewTypeGrid={true}  />)}
               horizontal
-              contentContainerStyle={{ columnGap: SIZES.medium }}
+              contentContainerStyle={{ columnGap: SIZES.xSmall }}
               ItemSeparatorComponent={() => <View style={styles.separator} />}
             />
           </View>
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
   },
   container: {
     marginTop: SIZES.medium,
-    marginLeft: 12,
+    // marginLeft: 12,
   },
   separator: {
     height: 16,
@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
 // import { getProducts } from '../../api/productsApi'
 // import { COLORS, SIZES } from '@/utils/theme'
 // import { FlatList } from 'react-native-gesture-handler'
-// import ProductCardView from '../products/ProductCardView'
+// import ProductGridCardVOne from '../products/ProductGridCardVOne'
 // import { ProductModelProps } from '../../models/ProductModelProps'
 // import { SafeAreaView } from 'react-native-safe-area-context'
 
@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
 //         {/* <FlatList
 //           keyExtractor={(item: ProductModelProps) => item.id} // Assuming id is a string or number
 //           data={data}
-//           renderItem={({ item }) => <ProductCardView {...item}  />}
+//           renderItem={({ item }) => <ProductGridCardVOne {...item}  />}
 //           horizontal
 //           contentContainerStyle={styles.container}
 //         /> */}

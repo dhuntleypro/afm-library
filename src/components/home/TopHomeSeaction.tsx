@@ -249,7 +249,7 @@ const styles = StyleSheet.create({
         transition={{ type: "timing", duration: 600, delay: 1600 }}
       >
         <View style={{ paddingTop: 20 }}>
-          <TouchableOpacity style={styles.shopNowButton} onPress={() => router.push("/products" as never)}>
+          <TouchableOpacity style={styles.shopNowButton} onPress={() => router.push(ROUTES.products as never)}>
             <Text style={styles.shopNowButtonText}>Shop</Text>
           </TouchableOpacity>
         </View>

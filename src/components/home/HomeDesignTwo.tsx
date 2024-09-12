@@ -22,6 +22,8 @@ import ProductRow from "../card/product/ProductRow";
 import { useTheme } from "@/contexts/ThemeContext";
 import { useClientProduct } from "@/contexts/ClientProductContext";
 import { SafeAreaView } from "react-native-safe-area-context";
+import ProductGridCardVOneVTwo, { ProductHScrollCardVOne } from "../card/product/ProductHScrollCardVOne";
+// import ProductGridCardVOneVTwo from "../card/product/ProductGridCardVOneVTwo";
 
 const { width } = Dimensions.get("window");
 
@@ -111,7 +113,7 @@ const styles = StyleSheet.create({
     >
       <TopHomeSeaction product_1_Id={products[0].id} product_2_Id={products[1].id} product_3_Id={products[2].id} product_4_Id={products[3].id} product_1_Name={products[0].name} product_2_Name={products[1].name} product_3_Name={products[2].name} product_4_Name={products[3].name} />
       <SectionHeader />
-      <ProductRow client={true} />
+      <ProductRow client={true} card={ProductHScrollCardVOne} />
       <View style={styles.card}>
         <Image
           source={{ uri: store?.images.welcome_image ?? AWS_HOLDER_IMAGE }} 

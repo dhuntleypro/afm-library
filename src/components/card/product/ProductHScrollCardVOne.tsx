@@ -1,3 +1,4 @@
+
 import React, { FC, useContext } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Image, Dimensions } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
@@ -15,7 +16,7 @@ import { StoreTheme, useTheme } from '@/contexts/ThemeContext';
 
 const { width } = Dimensions.get('window');
 
-export const ProductCardView: FC<{ product: ProductModelProps }> = ({ product }) => {
+export const ProductHScrollCardVOne: FC<{ product: ProductModelProps }> = ({ product }) => {
   const navigation = useNavigation();
   const { addToCart } = useCart()
   const { selectProduct } = useClientProduct();
@@ -125,4 +126,4 @@ const styles = StyleSheet.create({
   );
 };
 
-export default ProductCardView;
+export default ProductHScrollCardVOne;

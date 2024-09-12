@@ -13,6 +13,8 @@ import SectionHeader from '@/pages/tabs/home/Headings';
 // import SearchBar from '../search/SearchBar';
 import SearchBarVOne from '../search/SearchBarVOne';
 import ProductRow from '../card/product/ProductRow';
+import ProductGridCardVOneVTwo, { ProductHScrollCardVOne } from '../card/product/ProductHScrollCardVOne';
+// import ProductGridCardVOneVTwo from '../card/product/ProductGridCardVOneVTwo';
 
 
 const HomeDesignOne = () => {
@@ -32,7 +34,7 @@ const HomeDesignOne = () => {
             <SearchBarVOne />
             <Carousel />
             <SectionHeader /> 
-           <ProductRow client={false} />
+           <ProductRow client={false} card={ProductHScrollCardVOne} />
            <View style={{paddingBottom: 200}}></View>
 
         </ScrollView>

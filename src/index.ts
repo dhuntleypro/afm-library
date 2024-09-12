@@ -4,7 +4,7 @@
 
 export  { default as HomeLayoutContent}  from './layouts/HomeLayoutContent'
 export  { default as AuthLayoutContent}  from './layouts/AuthLayoutContent'
-export  { default as TabLayoutContent}  from './layouts/TabLayoutContent'
+// export  { default as TabLayoutContent}  from './layouts/TabLayoutContent'
 
 
 
@@ -25,7 +25,9 @@ export { MyButton } from './components/buttons/MyButton';
 export { default as OrderCrudCard } from './components/card/order/OrderCrudCard';
 export { default as ClientOrderCard } from './pages/tabs/client-order/ClientOrderCard';
 export { ProductCardV2 } from './components/card/product/ProductCardV2';
-export { default as ProductCardView } from './components/card/product/ProductCardView';
+export { default as ProductGridCardVOne  } from './components/card/product/ProductGridCardVOne';
+export { ProductHScrollCardVOne } from './components/card/product/ProductHScrollCardVOne';
+export type { ProductCardProps } from './components/card/product/ProductGridCardVOne'
 export { default as ProductCrudCard } from './components/card/product/ProductCrudCard';
 // export { FavoritrCard } from './components/card/fovorite/FavoritrCard'
 
