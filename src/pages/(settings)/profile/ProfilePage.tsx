@@ -11,7 +11,7 @@ import { AWS_HOLDER_IMAGE } from '@/utils/api';
 const { width } = Dimensions.get('window');
 
 const ProfilePage: React.FC = () => {
-  const { authState, updateSingleUserItem } = useAuth();
+  const { authState, updateSingleUserItem , deleteUser , onLogout } = useAuth();
   const { colors } = useTheme();
   const styles = createStyles(colors)
 
@@ -31,11 +31,63 @@ const ProfilePage: React.FC = () => {
       aspect: [4, 4],
       quality: 1,
     });
-
     if (!result.canceled) {
       setProfileImage(result.assets[0].uri);
     }
   };
+
+  // const handleDelete = async () => {
+  //   if (authState.user) {
+  //     try {
+  //       await deleteUser(authState.user.email);  // Call deleteUser with the user's ID
+  //       console.log(`User account deleted : ${authState.user.email}`);
+
+  //       // 
+  //       // onLogout()
+  //     } catch (error) {
+  //       console.error('Error deleting account:', error);
+  //     }
+  //   } else {
+  //     console.log("No current user")
+  //   }
+  // };
+
+
+  const handleDelete = async () => {
+      const userEmail = authState.user?.email;
+      if (userEmail) {
+          // Show a confirmation alert before proceeding with the deletion
+          Alert.alert(
+              "Confirm Deletion",
+              "Are you sure you want to delete your account? This action cannot be undone.",
+              [
+                  {
+                      text: "Cancel",
+                      onPress: () => console.log("Deletion canceled"),
+                      style: "cancel"
+                  },
+                  { 
+                      text: "Delete", 
+                      onPress: async () => {
+                          try {
+                              await deleteUser(userEmail);  // Call deleteUser with the user's email
+                              console.log(`User account deleted : ${userEmail}`);
+                              // onLogout()
+                          } catch (error) {
+                              console.error('Error deleting account:', error);
+                          }
+                      },
+                      style: "destructive"
+                  }
+              ],
+              { cancelable: true }
+          );
+      } else {
+          console.log("No current user");
+      }
+  };
+  
+
 
   // Function to check if the current value is different from the original value
   const isDifferent = (currentValue: any, originalValue: any) => currentValue !== originalValue;
@@ -82,6 +134,11 @@ const ProfilePage: React.FC = () => {
             </TouchableOpacity>
             <Text style={styles.name}>{authState?.user?.name}</Text>
             <Text style={styles.title}>Edit your profile information</Text>
+            
+            <TouchableOpacity onPress={() => handleDelete()}>
+            <Text style={styles.delete}>Delete Account</Text>
+            </TouchableOpacity>
+
           </View>
         </View>
 
@@ -202,6 +259,13 @@ const createStyles = (colors: any) => StyleSheet.create({
     fontSize: 16,
     color: colors.subtitle,
     textAlign: 'center',
+    marginBottom: 10,
+  },
+  delete: {
+    fontSize: 16,
+    color: "red",
+    fontWeight: 'bold',
+    textAlign: 'center',
     marginBottom: 20,
   },
   inputContainer: {
@@ -225,10 +289,10 @@ const createStyles = (colors: any) => StyleSheet.create({
     paddingVertical: 15,
     borderRadius: 30,
     alignItems: 'center',
-    width: width - 40,
-    marginVertical: 20,
-  },
-  saveButtonText: {
+    width: width - 40,   
+    marginVertical: 20,  
+  },                     
+  saveButtonText: {      
     color: colors.buttonText,
     fontWeight: 'bold',
     fontSize: 16,

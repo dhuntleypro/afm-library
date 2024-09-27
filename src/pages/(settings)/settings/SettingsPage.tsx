@@ -81,6 +81,8 @@ const SettingsPage = () => {
               <Ionicons name="chevron-forward" size={20} color={colors.title} />
             </TouchableOpacity>
           </Link>
+
+      
         </View>
 
         <MyButton

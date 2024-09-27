@@ -39,8 +39,8 @@ export { default as ProductListItem } from './components/products/ProductListIte
 export { default as TextFieldVOne } from './components/textfield/TextFieldVOne';
 
 
-
-
+// ICONs
+export { default as CartIcon } from "./components/icons/cartIcon" 
 
 // Pages
 export { default as CartPageVOne } from './pages/tabs/cart/CartPageVOne';
@@ -58,7 +58,7 @@ export { default as CookiesPage } from './pages/aux/cookies/CookiesPage'
 export { default as AppearanceSelection } from './pages/(settings)/appearance/AppearanceSelection'
 export { default as FAQPage } from './pages/(settings)/faq/FAQPage'
 export { default as FavoritesPageVOne } from './pages/(settings)/favorites/FavoritesPageVOne'
-export { default as ProfilePage } from './pages/(settings)/favorites/FavoritesPageVOne'
+export { default as ProfilePage } from './pages/(settings)/profile/ProfilePage'
 
 
 

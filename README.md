@@ -28,6 +28,13 @@ chnage version
 npm publish
 
 
+# stand alonre 
+npm install -g eas-cli
+eas build -p ios
+
+npm eas build
+
+
 
 # Adding to a new project
 1. add .npmrc file to new project ( install will not work without it )

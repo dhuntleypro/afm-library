@@ -64,7 +64,7 @@ const FavoritesPageVOne: React.FC = () => {
     <View style={styles.container}>
       {favorites.length <= 0 ? (
         <View style={generalStyles.center}>
-          <Text>Please add items to the favorite</Text>
+          <Text style={{color: colors.title}}>Please add items to the favorite</Text>
         </View>
       ) : (
         <>

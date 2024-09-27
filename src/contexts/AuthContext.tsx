@@ -8,7 +8,7 @@ import React, {
 import * as SecureStore from "expo-secure-store";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { UserProps } from "../models/UserProps";
-import { authApi } from "@/api/authentication";
+import { authApi, deleteUserApi } from "@/api/authentication";
 import { getAuthToken } from "@/utils/getAuthToken";
 
 // Define the AuthState and Context types
@@ -31,6 +31,8 @@ interface AuthContextType {
   addToFavorites: (itemId: string) => Promise<void>;
   removeFromFavorites: (itemId: string) => Promise<void>;
   isFavorite: (itemId: string) => boolean;
+  deleteUser: (email: string) => Promise<void>;  // Add this line
+
 }
 
 // Define constants for SecureStore keys
@@ -263,6 +265,28 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     [authState.user]
   );
 
+  const deleteUser = useCallback(async (email: string) => {
+    if (!authState.user) console.log("No user to delete") //  throw new Error("No user to delete");
+  
+    try {
+      // 
+      await deleteUserApi({ email });
+      
+      // Remove the user from local state and storage
+      await SecureStore.deleteItemAsync(USER_KEY);
+      await SecureStore.deleteItemAsync(TOKEN_KEY);
+      await SecureStore.deleteItemAsync(AUTHENTICATED_KEY);
+      
+      setAuthState({ user: null, token: null, authenticated: false });
+      
+      console.log("User deleted successfully:", email);
+    } catch (error) {
+      console.error("Failed to delete user:", error);
+      throw new Error("Failed to delete user.");
+    }
+  }, [authState.user]);
+  
+
   if (loading) {
     return null; // Or show a loading spinner
   }
@@ -279,6 +303,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         addToFavorites,
         removeFromFavorites,
         isFavorite,
+        deleteUser,  // Add deleteUser to the context
+
       }}
     >
       {children}

@@ -9,24 +9,33 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useCart } from '@/contexts/CartContext';
 import convertToCurrency from '@/hooks/convertToCurrency';
 import { useFavorite } from '@/contexts/FavoriteContext';
-import { useTheme } from "@/contexts/ThemeContext"
+import { useTheme } from "@/contexts/ThemeContext";
 
-const { width, height } = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 
 export interface ProductDetailsPageVThreeProps {
-  showSize: boolean
+  showSize: boolean;
 }
 
 const ProductDetailsPageVThree: FC<ProductDetailsPageVThreeProps> = (props) => {
   const [selectedSize, setSelectedSize] = useState<number | null>(null);
   const [isFavorite, setIsFavorite] = useState<boolean>(false); // State for heart icon toggle
   const { selectedProduct } = useClientProduct();
-  const { authState, updateSingleUserItem} = useAuth(); // Access authState and updateSingleUserItem
+  const { authState } = useAuth(); // Access authState and updateSingleUserItem
   const { addToCart } = useCart();
   const { colors } = useTheme();
   const { addToFavorite, favorites } = useFavorite();
 
   const sizes = [6, 6.5, 7, 7.5, 8]; // Example sizes
+
+  // Sample benefits data
+  const benefits = [
+    { name: "Boosts Immunity", icon: "shield-checkmark-outline" },
+    { name: "Rich in Nutrients", icon: "nutrition-outline" },
+    { name: "Promotes Digestion", icon: "leaf-outline" },
+    { name: "Increases Energy", icon: "flash-outline" },
+    { name: "Supports Skin", icon: "water-outline" },
+  ];
 
   const handlePress = () => {
     if (selectedProduct) {
@@ -42,142 +51,178 @@ const ProductDetailsPageVThree: FC<ProductDetailsPageVThreeProps> = (props) => {
       addToCart(partialProduct); // Pass authUser and updateSingleUserItem
     }
   };
-// Check if product is already a favorite when favorites or selectedProduct changes
-useEffect(() => {
-  if (selectedProduct && favorites.some((fav) => fav.id === selectedProduct.id)) {
-    setIsFavorite(true);
-  } else {
-    setIsFavorite(false);
-  }
-}, [favorites, selectedProduct]); // Dependency array: Runs when favorites or selectedProduct changes
 
-const toggleFavorite = async () => {
-  console.log("Fav selected 3")
-  if (selectedProduct) {
-    const currentFavorites = authState?.user?.favoriteItems || [];
+  // Check if product is already a favorite when favorites or selectedProduct changes
+  useEffect(() => {
+    if (selectedProduct && favorites.some((fav) => fav.id === selectedProduct.id)) {
+      setIsFavorite(true);
+    } else {
+      setIsFavorite(false);
+    }
+  }, [favorites, selectedProduct]); // Dependency array: Runs when favorites or selectedProduct changes
 
-    // Check if the product is already a favorite
-    const updatedFavorites = currentFavorites.includes(selectedProduct.id)
-      ? currentFavorites.filter((itemId) => itemId !== selectedProduct.id) // Remove from favorites
-      : [...currentFavorites, selectedProduct.id]; // Add to favorites
+  const toggleFavorite = async () => {
+    if (selectedProduct) {
+      const currentFavorites = authState?.user?.favoriteItems || [];
 
-    setIsFavorite(!isFavorite); // Toggle UI state
+      // Check if the product is already a favorite
+      const updatedFavorites = currentFavorites.includes(selectedProduct.id)
+        ? currentFavorites.filter((itemId) => itemId !== selectedProduct.id) // Remove from favorites
+        : [...currentFavorites, selectedProduct.id]; // Add to favorites
 
-    // Call the `updateSingleUserItem` function with the updated favorites list
-    // await updateSingleUserItem('favoriteItems', updatedFavorites);
+      setIsFavorite(!isFavorite); // Toggle UI state
 
-    // Add the product to the favorites list in the context
-    addToFavorite(selectedProduct);
-  }
-};
+      // Add the product to the favorites list in the context
+      addToFavorite(selectedProduct);
+    }
+  };
 
-
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: colors.background
-  },
-  scrollContainer: {
-    paddingBottom: 120, // Space for the fixed Add to Cart button
-  },
-  heartIconWrapper: {
-    position: 'absolute',
-    top: 16,
-    right: 16,
-    zIndex: 10, // Keep it on top
-  },
-  imageCarousel: {
-    height: width,
-  },
-  productImage: {
-    width: width,
-    height: width,
-    resizeMode: 'cover',
-  },
-  productInfo: {
-    padding: 16,
-  },
-  productName: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: colors.pageText
-  },
-  productColor: {
-    fontSize: 14,
-    color: '#666',
-    marginTop: 4,
-  },
-  priceDescription: {
-    padding: 16,
-  },
-  price: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    color: colors.pageText
-  },
-  description: {
-    fontSize: 14,
-    color: colors.pageText, //'#555',
-    marginTop: 8,
-  },
-  sizeLabel: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: colors.pageText, // '#000',
-    paddingHorizontal: 16,
-    paddingTop: 16,
-  },
-  sizeSelector: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    paddingHorizontal: 16,
-    marginTop: 8,
-  },
-  sizeOption: {
-    borderRadius: 50,
-    borderWidth: 1,
-    borderColor: colors.border, // '#ddd',
-    padding: 12,
-    width: 50,
-    height: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  selectedSizeOption: {
-    backgroundColor: '#000',
-    borderColor: '#000',
-  },
-  sizeText: {
-    fontSize: 16,
-    color: '#000',
-  },
-  selectedSizeText: {
-    color: '#fff',
-  },
-  fixedBottomButtonContainer: {
-    position: 'absolute',
-    bottom: 0,
-    width: '100%',
-    paddingHorizontal: 16,
-    paddingVertical: 16,
-    // backgroundColor: 'transpart',
-  },
-  addToCartButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: colors.buttonBackground, //'#000',
-    paddingVertical: 16,
-    borderRadius: 50,
-  },
-  addToCartButtonText: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: colors.buttonText,// '#fff',
-    marginRight: 10,
-  },
-});
+  // Styles
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: colors.background
+    },
+    scrollContainer: {
+      paddingBottom: 120, // Space for the fixed Add to Cart button
+    },
+    heartIconWrapper: {
+      position: 'absolute',
+      top: 16,
+      right: 16,
+      zIndex: 10, // Keep it on top
+    },
+    imageCarousel: {
+      height: width,
+    },
+    productImage: {
+      width: width,
+      height: width,
+      resizeMode: 'cover',
+    },
+    productInfo: {
+      padding: 16,
+    },
+    productName: {
+      fontSize: 24,
+      fontWeight: 'bold',
+      color: colors.pageText
+    },
+    productColor: {
+      fontSize: 14,
+      color: '#666',
+      marginTop: 4,
+    },
+    priceDescription: {
+      padding: 16,
+    },
+    price: {
+      fontSize: 28,
+      fontWeight: 'bold',
+      color: colors.pageText
+    },
+    description: {
+      fontSize: 14,
+      color: colors.pageText,
+      marginTop: 8,
+    },
+    sectionContainer: {
+      paddingHorizontal: 16,
+      paddingVertical: 10,
+      backgroundColor: colors.background,
+      marginBottom: 10,
+      borderRadius: 8,
+    },
+    sectionTitle: {
+      fontSize: 18,
+      fontWeight: 'bold',
+      color: colors.pageText,
+    },
+    sectionContent: {
+      fontSize: 14,
+      color: colors.pageText,
+      marginTop: 4,
+    },
+    benefitItem: {
+      width: 100,
+      alignItems: 'center',
+      marginRight: 20,
+    },
+    benefitName: {
+      fontSize: 14,
+      color: colors.pageText,
+      marginTop: 5,
+      textAlign: 'center',
+    },
+    reviewContainer: {
+      marginVertical: 8,
+    },
+    reviewTitle: {
+      fontWeight: 'bold',
+      fontSize: 16,
+      color: colors.pageText,
+    },
+    reviewContent: {
+      fontSize: 14,
+      color: colors.pageText,
+      marginTop: 2,
+    },
+    sizeLabel: {
+      fontSize: 16,
+      fontWeight: 'bold',
+      color: colors.pageText,
+      paddingHorizontal: 16,
+      paddingTop: 16,
+    },
+    sizeSelector: {
+      flexDirection: 'row',
+      justifyContent: 'space-around',
+      paddingHorizontal: 16,
+      marginTop: 8,
+    },
+    sizeOption: {
+      borderRadius: 50,
+      borderWidth: 1,
+      borderColor: colors.border,
+      padding: 12,
+      width: 50,
+      height: 50,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    selectedSizeOption: {
+      backgroundColor: '#000',
+      borderColor: '#000',
+    },
+    sizeText: {
+      fontSize: 16,
+      color: '#000',
+    },
+    selectedSizeText: {
+      color: '#fff',
+    },
+    fixedBottomButtonContainer: {
+      position: 'absolute',
+      bottom: 0,
+      width: '100%',
+      paddingHorizontal: 16,
+      paddingVertical: 16,
+    },
+    addToCartButton: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor: colors.buttonBackground,
+      paddingVertical: 16,
+      borderRadius: 50,
+    },
+    addToCartButtonText: {
+      fontSize: 18,
+      fontWeight: 'bold',
+      color: colors.buttonText,
+      marginRight: 10,
+    },
+  });
 
   return (
     <View style={styles.container}>
@@ -209,49 +254,329 @@ const styles = StyleSheet.create({
 
         {/* Price and Description */}
         <View style={styles.priceDescription}>
-          <Text style={styles.price}>{convertToCurrency(selectedProduct?.price ?? 0) }</Text>
-          <Text style={styles.description}>
-            {selectedProduct?.description}
-          </Text>
+          <Text style={styles.price}>{convertToCurrency(selectedProduct?.price ?? 0)}</Text>
+          <Text style={styles.description}>{selectedProduct?.description}</Text>
         </View>
-{/* Size Selector */}
-{props.showSize ? (
-  <>
-    <Text style={styles.sizeLabel}>PICK YOUR SIZE</Text>
-    <View style={styles.sizeSelector}>
-      {sizes.map((size, index) => (
-        <TouchableOpacity
-          key={index}
-          style={[styles.sizeOption, selectedSize === size && styles.selectedSizeOption]}
-          onPress={() => setSelectedSize(size)}
-        >
-          <Text style={[styles.sizeText, selectedSize === size && styles.selectedSizeText]}>{size}</Text>
-        </TouchableOpacity>
-      ))}
-    </View>
-  </>
-) : (
-  <View />
-)}
 
-        
-       
+        {/* Benefits Horizontal Roller */}
+        <View style={styles.sectionContainer}>
+          <Text style={styles.sectionTitle}>Benefits</Text>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            {benefits.map((benefit, index) => (
+              <View key={index} style={styles.benefitItem}>
+                <Ionicons name={benefit.icon as keyof typeof Ionicons.glyphMap} size={36} color={colors.primary} />
+                <Text style={styles.benefitName}>{benefit.name}</Text>
+              </View>
+            ))}
+          </ScrollView>
+        </View>
+
+        {/* Ingredients Section */}
+        <View style={styles.sectionContainer}>
+          <Text style={styles.sectionTitle}>Ingredients</Text>
+          <Text style={styles.sectionContent}>- 100% Natural Sea Moss</Text>
+          <Text style={styles.sectionContent}>- Vegetable Cellulose (Capsule)</Text>
+        </View>
+
+        {/* Customer Reviews Section */}
+        <View style={styles.sectionContainer}>
+          <Text style={styles.sectionTitle}>Customer Reviews</Text>
+          {selectedProduct?.reviews?.map((review, index) => (
+            <View key={index} style={styles.reviewContainer}>
+              <Text style={styles.reviewTitle}>{review.userName}</Text>
+              <Text style={styles.reviewContent}>{review.comment}</Text>
+            </View>
+          ))}
+        </View>
+
+        {/* Size Selector */}
+        {props.showSize ? (
+          <>
+            <Text style={styles.sizeLabel}>PICK YOUR SIZE</Text>
+            <View style={styles.sizeSelector}>
+              {sizes.map((size, index) => (
+                <TouchableOpacity
+                  key={index}
+                  style={[styles.sizeOption, selectedSize === size && styles.selectedSizeOption]}
+                  onPress={() => setSelectedSize(size)}
+                >
+                  <Text style={[styles.sizeText, selectedSize === size && styles.selectedSizeText]}>{size}</Text>
+                </TouchableOpacity>
+              ))}
+            </View>
+          </>
+        ) : (
+          <View />
+        )}
       </ScrollView>
-  
 
       {/* Add to Cart Button - Fixed at the bottom */}
       <View style={styles.fixedBottomButtonContainer}>
         <TouchableOpacity style={styles.addToCartButton} onPress={handlePress}>
           <Text style={styles.addToCartButtonText}>Add to Cart</Text>
-          <Ionicons name="cart-outline" size={24} color={colors.primary} />
+          <Ionicons name="cart-outline" size={24} color={colors.buttonText} />
         </TouchableOpacity>
       </View>
     </View>
   );
 };
 
-
 export default ProductDetailsPageVThree;
+
+// import React, { FC, useEffect, useState } from 'react';
+// import { View, Text, Image, StyleSheet, TouchableOpacity, Dimensions, ScrollView } from 'react-native';
+// import { Ionicons } from '@expo/vector-icons';
+// import { COLORS } from '@/utils/theme'; // Assuming you have a COLORS file
+// import { AWS_HOLDER_IMAGE } from '@/utils/api';
+// import { useClientProduct } from '@/contexts/ClientProductContext';
+// import { ProductModelProps } from '@/models/ProductModelProps';
+// import { useAuth } from '@/contexts/AuthContext';
+// import { useCart } from '@/contexts/CartContext';
+// import convertToCurrency from '@/hooks/convertToCurrency';
+// import { useFavorite } from '@/contexts/FavoriteContext';
+// import { useTheme } from "@/contexts/ThemeContext"
+
+// const { width, height } = Dimensions.get('window');
+
+// export interface ProductDetailsPageVThreeProps {
+//   showSize: boolean
+// }
+
+// const ProductDetailsPageVThree: FC<ProductDetailsPageVThreeProps> = (props) => {
+//   const [selectedSize, setSelectedSize] = useState<number | null>(null);
+//   const [isFavorite, setIsFavorite] = useState<boolean>(false); // State for heart icon toggle
+//   const { selectedProduct } = useClientProduct();
+//   const { authState, updateSingleUserItem} = useAuth(); // Access authState and updateSingleUserItem
+//   const { addToCart } = useCart();
+//   const { colors } = useTheme();
+//   const { addToFavorite, favorites } = useFavorite();
+
+//   const sizes = [6, 6.5, 7, 7.5, 8]; // Example sizes
+
+//   const handlePress = () => {
+//     if (selectedProduct) {
+//       const partialProduct: Partial<ProductModelProps> = {
+//         id: selectedProduct.id,
+//         name: selectedProduct.name,
+//         price: selectedProduct.price,
+//         images: selectedProduct.images,
+//         quantity: 1, // Default quantity
+//         color: 'default', // Add color if necessary
+//         size: String(selectedSize) ?? 'default', // Add size if necessary
+//       };
+//       addToCart(partialProduct); // Pass authUser and updateSingleUserItem
+//     }
+//   };
+// // Check if product is already a favorite when favorites or selectedProduct changes
+// useEffect(() => {
+//   if (selectedProduct && favorites.some((fav) => fav.id === selectedProduct.id)) {
+//     setIsFavorite(true);
+//   } else {
+//     setIsFavorite(false);
+//   }
+// }, [favorites, selectedProduct]); // Dependency array: Runs when favorites or selectedProduct changes
+
+// const toggleFavorite = async () => {
+//   console.log("Fav selected 3")
+//   if (selectedProduct) {
+//     const currentFavorites = authState?.user?.favoriteItems || [];
+
+//     // Check if the product is already a favorite
+//     const updatedFavorites = currentFavorites.includes(selectedProduct.id)
+//       ? currentFavorites.filter((itemId) => itemId !== selectedProduct.id) // Remove from favorites
+//       : [...currentFavorites, selectedProduct.id]; // Add to favorites
+
+//     setIsFavorite(!isFavorite); // Toggle UI state
+
+//     // Call the `updateSingleUserItem` function with the updated favorites list
+//     // await updateSingleUserItem('favoriteItems', updatedFavorites);
+
+//     // Add the product to the favorites list in the context
+//     addToFavorite(selectedProduct);
+//   }
+// };
+
+
+
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     backgroundColor: colors.background
+//   },
+//   scrollContainer: {
+//     paddingBottom: 120, // Space for the fixed Add to Cart button
+//   },
+//   heartIconWrapper: {
+//     position: 'absolute',
+//     top: 16,
+//     right: 16,
+//     zIndex: 10, // Keep it on top
+//   },
+//   imageCarousel: {
+//     height: width,
+//   },
+//   productImage: {
+//     width: width,
+//     height: width,
+//     resizeMode: 'cover',
+//   },
+//   productInfo: {
+//     padding: 16,
+//   },
+//   productName: {
+//     fontSize: 24,
+//     fontWeight: 'bold',
+//     color: colors.pageText
+//   },
+//   productColor: {
+//     fontSize: 14,
+//     color: '#666',
+//     marginTop: 4,
+//   },
+//   priceDescription: {
+//     padding: 16,
+//   },
+//   price: {
+//     fontSize: 28,
+//     fontWeight: 'bold',
+//     color: colors.pageText
+//   },
+//   description: {
+//     fontSize: 14,
+//     color: colors.pageText, //'#555',
+//     marginTop: 8,
+//   },
+//   sizeLabel: {
+//     fontSize: 16,
+//     fontWeight: 'bold',
+//     color: colors.pageText, // '#000',
+//     paddingHorizontal: 16,
+//     paddingTop: 16,
+//   },
+//   sizeSelector: {
+//     flexDirection: 'row',
+//     justifyContent: 'space-around',
+//     paddingHorizontal: 16,
+//     marginTop: 8,
+//   },
+//   sizeOption: {
+//     borderRadius: 50,
+//     borderWidth: 1,
+//     borderColor: colors.border, // '#ddd',
+//     padding: 12,
+//     width: 50,
+//     height: 50,
+//     justifyContent: 'center',
+//     alignItems: 'center',
+//   },
+//   selectedSizeOption: {
+//     backgroundColor: '#000',
+//     borderColor: '#000',
+//   },
+//   sizeText: {
+//     fontSize: 16,
+//     color: '#000',
+//   },
+//   selectedSizeText: {
+//     color: '#fff',
+//   },
+//   fixedBottomButtonContainer: {
+//     position: 'absolute',
+//     bottom: 0,
+//     width: '100%',
+//     paddingHorizontal: 16,
+//     paddingVertical: 16,
+//     // backgroundColor: 'transpart',
+//   },
+//   addToCartButton: {
+//     flexDirection: 'row',
+//     alignItems: 'center',
+//     justifyContent: 'center',
+//     backgroundColor: colors.buttonBackground, //'#000',
+//     paddingVertical: 16,
+//     borderRadius: 50,
+//   },
+//   addToCartButtonText: {
+//     fontSize: 18,
+//     fontWeight: 'bold',
+//     color: colors.buttonText,// '#fff',
+//     marginRight: 10,
+//   },
+// });
+
+//   return (
+//     <View style={styles.container}>
+//       {/* Heart Icon (Favorite) */}
+//       <View style={styles.heartIconWrapper}>
+//         <TouchableOpacity onPress={toggleFavorite}>
+//           <Ionicons
+//             name={isFavorite ? "heart" : "heart-outline"} // Toggle between filled and outline
+//             size={24}
+//             color={isFavorite ? "black" : "black"} // Set black when active
+//           />
+//         </TouchableOpacity>
+//       </View>
+
+//       {/* Product Scrollable Content */}
+//       <ScrollView contentContainerStyle={styles.scrollContainer}>
+//         {/* Product Image Carousel */}
+//         <ScrollView horizontal pagingEnabled showsHorizontalScrollIndicator={false} style={styles.imageCarousel}>
+//           {selectedProduct?.images?.map((imageUri, index) => (
+//             <Image key={index} source={{ uri: imageUri || AWS_HOLDER_IMAGE }} style={styles.productImage} />
+//           ))}
+//         </ScrollView>
+
+//         {/* Product Info */}
+//         <View style={styles.productInfo}>
+//           <Text style={styles.productName}>{selectedProduct?.name}</Text>
+//           <Text style={styles.productColor}>Color: {selectedProduct?.color}</Text>
+//         </View>
+
+//         {/* Price and Description */}
+//         <View style={styles.priceDescription}>
+//           <Text style={styles.price}>{convertToCurrency(selectedProduct?.price ?? 0) }</Text>
+//           <Text style={styles.description}>
+//             {selectedProduct?.description}
+//           </Text>
+//         </View>
+// {/* Size Selector */}
+// {props.showSize ? (
+//   <>
+//     <Text style={styles.sizeLabel}>PICK YOUR SIZE</Text>
+//     <View style={styles.sizeSelector}>
+//       {sizes.map((size, index) => (
+//         <TouchableOpacity
+//           key={index}
+//           style={[styles.sizeOption, selectedSize === size && styles.selectedSizeOption]}
+//           onPress={() => setSelectedSize(size)}
+//         >
+//           <Text style={[styles.sizeText, selectedSize === size && styles.selectedSizeText]}>{size}</Text>
+//         </TouchableOpacity>
+//       ))}
+//     </View>
+//   </>
+// ) : (
+//   <View />
+// )}
+
+        
+       
+//       </ScrollView>
+  
+
+//       {/* Add to Cart Button - Fixed at the bottom */}
+//       <View style={styles.fixedBottomButtonContainer}>
+//         <TouchableOpacity style={styles.addToCartButton} onPress={handlePress}>
+//           <Text style={styles.addToCartButtonText}>Add to Cart</Text>
+//           <Ionicons name="cart-outline" size={24} color={colors.primary} />
+//         </TouchableOpacity>
+//       </View>
+//     </View>
+//   );
+// };
+
+
+// export default ProductDetailsPageVThree;
 
 
 

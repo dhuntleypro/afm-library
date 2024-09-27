@@ -65,7 +65,7 @@ const CartPageVOne: React.FC = () => {
     <View style={styles.container}>
       {carts.length <= 0 ? (
         <View style={generalStyles.center}>
-          <Text>Please add items to the cart</Text>
+          <Text style={{color: colors.title}}>Please add items to the cart</Text>
         </View>
       ) : (
         <>

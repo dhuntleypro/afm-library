@@ -4,6 +4,7 @@ import { router, Stack } from "expo-router";
 import { Fontisto, Feather, Ionicons } from "@expo/vector-icons";
 import { useCart } from "@/contexts/CartContext";
 import { useTheme } from "@/contexts/ThemeContext"
+import CartIcon from "@/components/icons/cartIcon";
 // import { COLORS } from "@/utils/theme";
 // import {COLORS, useCart } from "@dhuntleypro/afm-library"
 
@@ -76,17 +77,8 @@ const HomeLayoutContent = () => {
         name="products"
         options={{
           title: "Products",
-          headerRight: () => ( // Need
-            <TouchableOpacity
-              style={styles.cartButton}
-              onPress={() => router.push("/cart" as never)}
-              
-            >
-              <Fontisto name="shopping-bag" size={24} />
-              <View style={styles.cartCount}>
-                <Text style={styles.cartNumber}>{quantity}</Text>
-              </View>
-            </TouchableOpacity>
+          headerRight: () => ( 
+            <CartIcon />
           ),
         }}
       />

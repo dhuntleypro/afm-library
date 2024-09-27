@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
   shopNowButton: {
     paddingVertical: 15,
     paddingHorizontal: 30,
-    backgroundColor: colors.buttonBackground,
+    backgroundColor: colors.primary,
     borderRadius: 25,
     shadowColor: colors.buttonShadow,
     shadowOffset: { width: 0, height: 4 },
@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
     width: "40%",
   },
   shopNowButtonText: {
-    color: colors.buttonText, // "white", // text
+    color: "white", // text
     fontWeight: "bold",
     fontSize: 18,
     letterSpacing: 1,

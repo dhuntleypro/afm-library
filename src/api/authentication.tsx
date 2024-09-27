@@ -108,12 +108,15 @@ export const updateUserApi = async (
 };
 
 // Delete user API
-export const deleteUserApi = async ({ id }: { id: any }) => {
+export const deleteUserApi = async ({ email }: { email: string }) => {
   const token = await getAuthToken();
+
+  console.log(`token: ${token}`)
   return await authApi.delete(`/user`, {
-    params: { id },
+    params: { email },
     headers: {
-      Authorization: `Bearer ${token}`,
+     Authorization: `${token}`,
+    "Content-Type": "application/json",
     },
   });
 };
