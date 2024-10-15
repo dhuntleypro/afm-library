@@ -1,10 +1,16 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
+import convertToCurrency from '@/hooks/convertToCurrency'
+import { useClientStore } from '@/contexts/ClientStoreContext'
 
-const HomeDesignThree = () => {
+export const HomeDesignThree = () => {
+    const numb = 5
+    // const { store } = useClientStore();
+
   return (
     <View>
-      <Text>HomeDesignThree</Text>
+      <Text>HomeDesignThree  {convertToCurrency(numb)}</Text>
+     
     </View>
   )
 }

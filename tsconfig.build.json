@@ -1,0 +1,35 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "declarationDir": "dist",
+    "outDir": "dist",
+    "module": "ESNext",
+    "target": "ESNext"
+  }
+}
+
+
+
+
+
+// {
+//     "compilerOptions": {
+//       "declaration": true,
+//       "declarationDir": "dist",
+//       "outDir": "dist",
+//       "module": "ESNext",
+//       "target": "ESNext",
+//       "strict": true,
+//       "jsx": "react-jsx",
+//       "moduleResolution": "node",
+//       "esModuleInterop": true,
+//       "skipLibCheck": true,
+//       "baseUrl": "./src",
+//       "paths": {
+//         "@/*": ["*"]
+//       }
+//     },
+//     "include": ["src/**/*.ts", "src/**/*.tsx"],
+//     "exclude": ["node_modules", "dist", "src/app/**/*"]
+//   }
+  
