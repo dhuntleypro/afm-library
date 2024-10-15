@@ -36,7 +36,7 @@ const LoginComponentOne = () => {
           console.error("Navigation error:", navError);
         }
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error("(5) Login error:", error.message);
       showAlert("Login failed. Please try again.");
     }
@@ -107,7 +107,7 @@ const LoginComponentOne = () => {
         // Call the loginAction after successful registration
         loginAction();
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error("(1) Registration error:", error.message);
       showAlert("Registration failed. Please try again.");
     }
