@@ -11,6 +11,7 @@ export const AuthLayout = () => {
           headerShown: false, // Hide headers globally
         }}
       >
+        {/* Welcome secont  */}
         <Stack.Screen
           name="welcome"
           options={{
