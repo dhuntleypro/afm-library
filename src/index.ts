@@ -29,6 +29,9 @@ export {SAMPLE_PRODUCT} from "./model-sample-data/sample-product"
 
 
 export  {  default as TermsOfUsePage } from './pages/terms-of-use/TermsOfUsePage'
+export  {  default as PrivacyPolicyPage } from './pages/privacy-policy/PrivacyPolicyPage'
+export  {  default as CookiesPage } from './pages/cookies/CookiesPage'
+
 
 
 
