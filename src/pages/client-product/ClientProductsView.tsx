@@ -3,37 +3,37 @@ import { SafeAreaView, View, TextInput, TouchableOpacity, Text, FlatList, StyleS
 import { Feather, Ionicons } from '@expo/vector-icons';
 import { useAuth } from '@/contexts/AuthContext';
 import { COLORS, SIZES } from '@/utils/theme';
-import { useClientOrder } from '@/contexts/OrderContext';
-// import OrderCard from '@/components/OrderCard';  // Adjust the import path as necessary
+import { useClientProduct } from '@/contexts/ClientProductContext';
+// import ProductCard from '@/components/ProductCard';  // Adjust the import path as necessary
 import { Link, Stack } from 'expo-router';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 // import Colors from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
-import { OrderModelProps } from '@/models/OrderModelProps';
-import ClientOrderCard from '@/components/pages/client-order/ClientOrderCard';
+import { ProductModelProps } from '@/models/ProductModelProps';
+import ClientProductCard from '@/pages/client-product/ClientProductCard';
 
-const ClientOrdersView = () => {
+const ClientProductsView = () => {
   const { authState } = useAuth();
   const [searchTerm, setSearchTerm] = useState('');
-  const [searchResults, setSearchResults] = useState<OrderModelProps[]>([]);
+  const [searchResults, setSearchResults] = useState<ProductModelProps[]>([]);
 
-  const { orders, selectOrder } = useClientOrder();
+  const { products, selectProduct } = useClientProduct();
   
   const colorScheme = useColorScheme();
 
-  const handleOrderSelect = (order: OrderModelProps) => {
-    selectOrder(order);
+  const handleProductSelect = (product: ProductModelProps) => {
+    selectProduct(product);
   };
 
   const handleSearch = (text: string) => {
     try {
       setSearchTerm(text);
-      const results = orders.filter((order: OrderModelProps) =>
-        order.title.toLowerCase().includes(text.toLowerCase())
+      const results = products.filter((product: ProductModelProps) =>
+        product.name.toLowerCase().includes(text.toLowerCase())
       );
       setSearchResults(results);
     } catch (error) {
-      console.log("Failed to get orders", error);
+      console.log("Failed to get products", error);
     }
   };
 
@@ -42,7 +42,7 @@ const ClientOrdersView = () => {
       <Stack.Screen 
         options={{
           headerRight: () => (
-            <Link href={"(tabs)/client-orders/(create)/create-client-order" as never} asChild>
+            <Link href={"(tabs)/client-products/(create)/create-client-product" as never} asChild>
               <Pressable>
                 {({ pressed }) => (
                   <FontAwesome
@@ -86,13 +86,13 @@ const ClientOrdersView = () => {
       </View> */}
 
       <FlatList
-        keyExtractor={(item: OrderModelProps) => item.id}
-        // data={searchTerm === '' ? orders : searchResults.length === 0 ? orders : searchResults}
-        data={orders}
-        // renderItem={({ item }) => <ClientOrderCard order={item} onPress={() => console.log('Order selected', item)} />}
+        keyExtractor={(item: ProductModelProps) => item.id}
+        // data={searchTerm === '' ? products : searchResults.length === 0 ? products : searchResults}
+        data={products}
+        // renderItem={({ item }) => <ClientProductCard product={item} onPress={() => console.log('Product selected', item)} />}
         renderItem={({ item }) =>  (
-          <TouchableOpacity onPress={() => handleOrderSelect(item)}>
-            <ClientOrderCard order={item}/>
+          <TouchableOpacity onPress={() => handleProductSelect(item)}>
+            <ClientProductCard product={item}/>
           </TouchableOpacity>
         )}
         contentContainerStyle={styles.list}
@@ -101,7 +101,7 @@ const ClientOrdersView = () => {
   );
 };
 
-export default ClientOrdersView;
+export default ClientProductsView;
 
 const styles = StyleSheet.create({
   container: {

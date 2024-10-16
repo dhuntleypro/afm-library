@@ -7,9 +7,9 @@ import { StyleSheet } from "react-native";
 
 import ProductRow from '@/components/other/cards/other/ProductRow';
 import { COLORS, SIZES } from '@/utils/theme';
-import { TopSectionHeaderV1 } from '@/components/pages/home/TopSectionHeader';
-import Carousel from '@/components/pages/home/Carousel';
-import SectionHeader from '@/components/pages/home/Headings';
+import { TopSectionHeaderV1 } from '@/pages/home/TopSectionHeader';
+import Carousel from '@/pages/home/Carousel';
+import SectionHeader from '@/pages/home/Headings';
 // import { useClientStore } from '@/contexts/ClientStoreContext';
 // import SearchBar from '../search/SearchBar';
 import SearchBarVOne from '../search/SearchBarVOne';

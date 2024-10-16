@@ -23,7 +23,7 @@ export const CollectionProductCardV2: FC<{ product: ProductModelProps }> = ({ pr
   const handleProductPress = () => {
     selectProduct(product);
   };
-
+  
   return (
     <View>
     {/* <Link href={`/collections/${selectedCollection?.id}/products/${selectedProduct?.id}`} asChild> */}

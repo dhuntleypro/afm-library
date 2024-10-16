@@ -19,14 +19,16 @@ export { default as DeleteSectionView} from "./components/delete/DeleteSectionVi
 export { default as Divider} from "./components/divider/Divider"
 export { default as ProductListItem} from "./components/products/ProductListItem"
 
-export {default as RegisterComponentTwo} from "./components/pages/register/RegisterComponentTwo"
-export {default as LoginComponentTwo} from "./components/pages/login/LoginComponentTwo"
+export {default as RegisterComponentTwo} from "./pages/register/RegisterComponentTwo"
+export {default as LoginComponentTwo} from "./pages/login/LoginComponentTwo"
 
 // Demos
 export * from "./model-sample-data/sample-order"
 export {SAMPLE_PRODUCT} from "./model-sample-data/sample-product"
 
 
+
+export  {  default as TermsOfUsePage } from './pages/terms-of-use/TermsOfUsePage'
 
 
 
@@ -107,14 +109,14 @@ export { default as EditScreenInfo } from './components/EditScreenInfo';
 
 
 // Pages
-export { default as CollectionPageVTwo } from "./components/pages/collections/CollectionPageVTwo"
-export { default as SettingsPage } from "./components/pages/settings/SettingsPage"
-export { default as WelcomePageTwo } from "./components/pages/welcome/WelcomePageTwo"
-export { default as ClientOrderCard } from "./components/pages/client-order/ClientOrderCard"
-export { default as CartPageVOne } from "./components/pages/cart/CartPageVOne"
-export { default as ProductDetailsPageVThree } from "./components/pages/product-details/ProductDetailsPageVThree"
+export { default as CollectionPageVTwo } from "./pages/collections/CollectionPageVTwo"
+export { default as SettingsPage } from "./pages/settings/SettingsPage"
+export { default as WelcomePageTwo } from "./pages/welcome/WelcomePageTwo"
+export { default as ClientOrderCard } from "./pages/client-order/ClientOrderCard"
+export { default as CartPageVOne } from "./pages/cart/CartPageVOne"
+export { default as ProductDetailsPageVThree } from "./pages/product-details/ProductDetailsPageVThree"
 // export { default as ProductDetailsPageVFour } from "./components/pages/product-details/ProductDetailsPageVFour"
-export { default as ProductDetailsPageVFour } from "./components/pages/product-details/ProductDetailsPageVFour"
+export { default as ProductDetailsPageVFour } from "./pages/product-details/ProductDetailsPageVFour"
 
 
 

@@ -14,8 +14,8 @@ import {
 import { useClientStore } from "@/contexts/ClientStoreContext";
 import TopHomeSeaction from "./TopHomeSeaction";
 import ProductRow from "@/components/other/cards/other/ProductRow";
-import Carousel from "@/components/pages/home/Carousel";
-import SectionHeader from "@/components/pages/home/Headings";
+import Carousel from "@/pages/home/Carousel";
+import SectionHeader from "@/pages/home/Headings";
 import { AWS_HOLDER_IMAGE } from "@/utils/api";
 import { router } from "expo-router";
 import { ROUTES } from "@/utils/Routes";
